@@ -39,29 +39,36 @@ Additionally, without the frontend having to intervene, the browser URL is updat
 
 ### Actions
 
+Place where the functions and logic of the business logic are stored.
+
 ### Views
+
+Where to generate URLs for Server-Side Rendering (SSR). It uses the same logic, and therefore resulting HTML, as dynamic views.
 
 ### Consumers
 
+Controller between the frontend and the backend. It captures the frontend queries and their information, to execute the appropriate action. 
+
 ### Templates
+
+HTML templates that will use the `views.py` for SSR and the actions for rendering the different elements or responses.
 
 ## Run 🏃
 
 1. Up
 
 ```
-docker-compose up
+docker compose up
 ```
 
 2. Add data. 
 
-Run in Django container.
-
 ```
-./manage.py shell < make_fake_data.py
+docker compose exec -T django bash -c "python3 manage.py runscript make_fake_data"
 ```
 
 ## Thanks 😍
 
 - [Django](https://www.djangoproject.com/)
 - [Channels](https://channels.readthedocs.io/en/stable/)
+- [Stimulus](https://stimulus.hotwired.dev/)
