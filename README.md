@@ -4,16 +4,19 @@ This template has an example of the most common cases.
 
 - Navigation Real-time without loads similar to SPA.
 - Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
+- Multilanguage.
 - Switch to a static page (Home).
 - Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
 - Single page (Cat 🐈).
+- Add a new item in the database (👶🏻🐈).
 - Delete item from the database (🐈☠).
-- Update item from the database (🐈👉🐕)
-- Navigator whose active changes dynamically.
+- Update item from the database (🐈👉🐕).
+- Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
+- Navigator whose active buttun changes dynamically.
 - Contact form with validations.
+- URL dynamic update in Browser (Front-End).
+- Security: Cross-site request forgery protection over WebSockets.
 - RSS feed.
-- URL dynamic update.
-- Cross-site request forgery protection over WebSockets.
 
 ## Run 🏃
 
