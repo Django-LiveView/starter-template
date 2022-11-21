@@ -14,11 +14,28 @@ This template has an example of the most common cases.
 - Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
 - Navigator whose active button changes dynamically.
 - Contact form with validations.
-- Get information from an API and render it.
+- Collect file from a client (🐈🖼️).
+- Login.
+- Private Page (🐈‍⬛).
+- Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
 - URL dynamic update in Browser (Front-End).
 - Security: Cross-site request forgery protection over WebSockets.
 - RSS feed.
 - Sitemap.
+
+## URLs
+
+- `/` -> Home.
+- `/cats/` -> List of cats. 
+- `/cats/felix/` -> Single cat.
+- `/cats/felix/new/` -> Add new cat.
+- `/cats/felix/update/` -> Update cat.
+- `/contact/` -> Contact.
+- `/login/` -> Login.
+- `/profile/` -> Private page.
+- `/comments/` -> List API commets.
+- `/rss.xml` -> Feed cat.
+- `/sitemap.txt` -> Sitemap.
 
 ## How does the information move?
 
