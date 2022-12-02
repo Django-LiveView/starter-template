@@ -1,0 +1,22 @@
+* Tasks
+
+** TODO Navigation Real-time without loads similar to SPA.
+** TODO Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
+** TODO Multilanguage.
+** TODO Switch to a static page (Home).
+** TODO Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
+** TODO Single page (Cat 🐈).
+** TODO Add a new item in the database (👶🏻🐈).
+** TODO Delete item from the database (🐈☠).
+** TODO Update item from the database (🐈👉🐕).
+** TODO Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
+** TODO Navigator whose active button changes dynamically.
+** TODO Contact form with validations.
+** TODO Collect file from a client (🐈🖼️).
+** TODO Login.
+** TODO Private Page (🐈‍⬛).
+** TODO Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
+** TODO URL dynamic update in Browser (Front-End).
+** TODO Security: Cross-site request forgery protection over WebSockets.
+** TODO RSS feed.
+** TODO Sitemap.

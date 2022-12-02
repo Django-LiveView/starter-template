@@ -1,0 +1,42 @@
+.blog-post--header
+    position: relative
+    display: grid
+    row-gap: $space--xxxl
+    margin-top: $space--king-plus
+
+    &__img
+        width: 100%
+        height: auto
+        border-radius: $border-radius--m
+        box-shadow: $box-shadow--main
+
+    &__bg
+        @include bg("../img/blog/backgrounds/blog-post-header-bg.svg", contain, top left)
+        top: -2.5rem
+        left: -50%
+        height: 10rem
+        width: 100%
+
+.blog-post--body
+    position: relative
+    margin-top: $space--king
+
+    &__bg
+        @include bg("../img/blog/backgrounds/blog-post-body-bg.svg", contain, top left)
+        bottom: 100%
+        left: -10%
+        height: 25rem
+        width: 100%
+
+.blog-post--credits
+    margin:
+        top: $space--xxl
+        bottom: $space--king
+    text-align: right
+
+    &::before
+        content: ""
+        display: block
+        width: 100%
+        margin-bottom: $space--l
+        border-top: $border--main $color--black

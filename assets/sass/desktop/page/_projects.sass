@@ -1,0 +1,244 @@
+.projects-main--header
+    position: relative
+    display: grid
+    row-gap: $space--queen
+    margin-top: $space--king-plus
+
+    &__heading
+        display: block
+
+    &__categories
+        display: flex
+        column-gap: $space--xl
+        width: max-content
+        max-width: 100%
+        @include center-h
+
+        @media screen and (max-width: $breakpoint--m-plus)
+            grid-template-columns: repeat(auto-fit, $el--l)
+
+        &--link
+            display: grid
+            row-gap: $space--m
+            width: $el--xl
+
+            @media screen and (max-width: $breakpoint--m-plus)
+                width: $el--l
+
+            & > img
+                aspect-ratio: 4 / 3
+                object:
+                    fit: cover
+                    position: center
+                border-radius: $border-radius--s
+                box-shadow: $box-shadow--soft
+                transition: $transition--main
+
+            &:hover > img
+                transform: translateY(-$space--m)
+
+            & > p
+                position: relative
+
+                &::before
+                    content: ""
+                    position: absolute
+                    top: -$space--xxs
+                    left: 0
+                    display: block
+                    width: 0
+                    height: 2px
+                    background-color: $color--orange
+                    opacity: 0
+                    transition: $transition--main
+
+            &.active,
+            &:hover
+
+                & > p::before
+                    width: 100%
+                    opacity: 1
+
+    &__bg
+        @include bg("../img/projects/header-desktop-bg.svg", contain, top center)
+        top: calc(-#{$space--king-plus} * 2)
+        left: -50%
+        height: calc(100% + #{$space--king-plus} * 2)
+        width: $breakpoint--xxl
+
+.projects-main--content
+    display: grid
+    row-gap: $space--queen
+    margin:
+        top: $space--king-plus
+        bottom: $space--king-plus
+
+    &__projects
+        display: grid
+        grid-template-columns: 2fr 3fr 2fr
+        column-gap: $space--l
+
+    &__project
+        transition: $transition--main
+
+        & > button
+            aspect-ratio: 1
+            width: 100%
+
+        &:hover
+
+            &:not(&:nth-child(2))
+                transform: translateY(-$space--l)
+
+            &:nth-child(2)
+                transform: translateY($space--l)
+
+.projects-category--content
+    position: relative
+    display: grid
+    row-gap: $space--xxl
+    margin:
+        top: $space--king-plus
+        bottom: calc(#{$space--king-plus} - #{$space--xxl})
+
+    & > h2
+        text-align: center
+
+    &__projects
+        display: grid
+        row-gap: $space--xxxl
+
+    &__project--link
+
+        &__img
+            position: relative
+            aspect-ratio: 4 / 3
+            border-radius: $border-radius--s
+            box-shadow: $box-shadow--soft
+            overflow: hidden
+            transition: $transition--main
+
+            &::after
+                content: ""
+                position: absolute
+                inset: 0
+                display: block
+                height: 100%
+                width: 100%
+                border-radius: $border-radius--s
+                background-color: rgba($color--orange, .5)
+                opacity: 0
+                transition: opacity $transition--main
+
+            & > img
+                height: 100%
+                width: 100%
+                object:
+                    fit: cover
+                    position: center
+
+        &__heading
+            display: grid
+            row-gap: $space--s
+            height: max-content
+
+            & > .button
+                margin-top: $space--s
+
+        &__summary
+            position: relative
+
+            &::before
+                content: ""
+                position: absolute
+                left: 0
+                top: calc(-#{$space--s} / 2)
+                display: block
+                height: 2px
+                width: 0
+                background-color: $color--orange
+                opacity: 0
+                transition: $transition--main
+
+            & > p
+                font-size: 1.1rem
+                line-height: $line-height--main
+
+                &:not(&:first-child)
+                    margin-top: $space--xxs
+
+        &:hover &__img
+            transform: translateX(-$space--s)
+
+            &::after
+                opacity: 1
+
+        &:hover &__heading > .button
+            color: $color--light-grey
+            background-color: $color--orange
+
+        &:hover &__summary::before
+            opacity: 1
+            width: 100%
+
+    &__more
+        justify-self: center
+
+        & > .button
+            margin-top: $space--l
+
+.projects-main--reviews
+    box-sizing: border-box
+    display: grid
+    grid-auto-flow: column
+    width: fit-content
+    padding-bottom: $space--king-plus
+    overflow: auto
+    -ms-overflow-style: none
+    scrollbar-width: none
+    scroll-snap-type: x mandatory
+
+    &::-webkit-scrollbar
+        display: none
+
+    &__quote
+        position: relative
+        display: grid
+        grid-template-rows: 1fr auto
+        row-gap: $space--m
+        padding:
+            top: $space--m
+            bottom: $space--m
+            left: calc(#{$space--xxl} + #{$space--m})
+            right:$space--m
+        width: $el--xxl
+        scroll-snap-align: start
+
+        &::before
+            content: ""
+            display: block
+            position: absolute
+            top: 0
+            right: 0
+            height: 100%
+            width: calc(100% - #{$space--xxl})
+            background-color: $color--white
+            border-radius: $border-radius--s
+            box-shadow: $box-shadow--soft
+            z-index: -1
+
+        &--cite-quote
+            position: relative
+            display: inline-flex
+            justify-content: center
+            width: 3rem
+            color: red
+
+            &::before
+                content: "\201C"
+                position: absolute
+                bottom: -2rem
+                display: inline-block
+                font-size: 8rem
+                color: rgba($color--orange, .5)
+                z-index: -1

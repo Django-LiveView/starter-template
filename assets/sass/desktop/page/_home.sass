@@ -1,0 +1,259 @@
+.home--header
+    position: relative
+    margin-top: $space--king-plus
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-desktop-header-bg.svg", contain, top right)
+        bottom: $space--king
+        left: calc(50% - #{$breakpoint--xl} / 2)
+        height: calc(100% + #{$space--king-plus} * 2)
+        width: $breakpoint--xl
+
+.home--values
+    position: relative
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    grid-template-rows: repeat(3, auto)
+    row-gap: $space--xxl
+    column-gap: $space--l
+    margin-top: $space--king-plus
+
+    &__img
+        align-self: center
+        grid-column: 2 / 3
+        grid-row: 1 / 4
+
+    &__list
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: $space--m
+
+        @media screen and (max-width: $breakpoint--m-plus)
+            grid-template-columns: 1fr
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-values-bg.svg", contain, center left)
+        bottom: calc(100% - 9rem)
+        left: -15%
+        height: 20rem
+        width: 100%
+
+.home--dev-types
+    position: relative
+    display: grid
+    grid-template-areas: "header ." "nav nav"
+    grid-template-columns: repeat(2, 1fr)
+    grid-template-rows: repeat(2, auto)
+    column-gap: $space--l
+    row-gap: $space--xxl
+    margin-top: $space--king-plus
+
+    &__header
+        grid-area: header
+        color: $color--white
+
+    &__nav
+        grid-area: nav
+
+        & > ul
+            display: grid
+            grid-template-columns: repeat(3, 1fr)
+            grid-auto-flow: column
+            column-gap: $space--xl
+            width: max-content
+
+        &--button
+            position: relative
+            display: grid
+            grid-template-rows: auto 1fr
+            row-gap: $space--m
+            width: 100%
+            padding:
+                left: $space--m
+                right: $space--m
+                bottom: $space--m
+
+            &::before
+                content: ""
+                position: absolute
+                bottom: 0
+                left: 0
+                display: block
+                width: 100%
+                aspect-ratio: 1
+                background-color: $color--orange
+                border-radius: $border-radius--s
+                box-shadow: $box-shadow--main
+                transition: $transition--main
+                z-index: -1
+
+            &:hover::before
+                transform: rotate(7deg)
+
+            &__img
+                position: relative
+                aspect-ratio: 1
+                z-index: -1
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-dev-types-bg.svg", contain, center left)
+        bottom: $space--xl
+        left: calc(40% - (#{$breakpoint--xl} + #{$space--king-plus}) / 2)
+        height: calc(100% + #{$space--king-plus})
+        width: calc(#{$breakpoint--xl} + #{$space--king-plus})
+        z-index: -2
+
+.home--technology
+    position: relative
+    margin-top: $space--king-plus
+
+    &__title
+        display: inline-block
+        font-weight: $font-weight--light
+
+        & > strong
+            font-weight: $font-weight--bold
+
+    &__list
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        gap: $space--xxl
+        margin-top: $space--xxxl
+
+        &--img
+            height: $el--xs
+            width: auto
+            filter: grayscale(95%)
+
+            &:first-child
+                height: $el--s
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-technology-bg.svg", contain, top right)
+        top: -80%
+        right: -15rem
+        height: calc(100% + #{$space--king})
+        width: 100%
+
+.home--projects
+    margin-top: $space--king-plus
+
+    &__nav
+        display: grid
+        grid-template-areas: "first-card second-card hgroup hgroup" "third-card fourth-card fourth-card fifth-card" ". fourth-card fourth-card sixth-card" "more more more more"
+        grid-template-columns: repeat(4, 1fr)
+        grid-template-rows: repeat(4, auto)
+        gap: $space--m
+
+    &__h-group
+        grid-area: hgroup
+
+    &__card
+        $translate: 1rem
+        aspect-ratio: 1
+
+        &:first-of-type
+            grid-area: first-card
+            align-self: flex-end
+
+        &:nth-of-type(2)
+            grid-area: second-card
+            align-self: flex-end
+
+        &:nth-of-type(3)
+            grid-area: third-card
+
+        &:nth-of-type(4)
+            grid-area: fourth-card
+            aspect-ratio: 4 / 3
+
+        &:nth-of-type(5)
+            grid-area: fifth-card
+
+        &:nth-of-type(6)
+            grid-area: sixth-card
+
+        &:hover
+
+            &:first-of-type,
+            &:nth-of-type(3)
+                transform: translateX(-$translate)
+
+            &:nth-of-type(2)
+                transform: translateY(-$translate)
+
+            &:nth-of-type(4)
+                transform: translateY($translate)
+
+            &:nth-of-type(5),
+            &:nth-of-type(6)
+                transform: translateX($translate)
+
+    &__more
+        grid-area: more
+        justify-self: center
+        margin-top: $space--l
+
+.home--blog
+    position: relative
+    display: grid
+    row-gap: $space--xxl
+    margin:
+        top: $space--king-plus
+        bottom: $space--king-plus
+
+    & > h2
+        text-align: center
+
+    &__link
+
+        &--title
+            position: relative
+
+            &::after
+                content: ""
+                position: absolute
+                bottom: -$space--xxs
+                left: 0
+                display: block
+                width: 0
+                height: 2px
+                background-color: $color--orange
+                opacity: 0
+                z-index: -2
+                transition: $transition--main
+
+        &:hover &--title::after
+            width: 100%
+            opacity: 1
+
+        &--img
+            aspect-ratio: 4 / 3
+            border-radius: $border-radius--s
+            box-shadow: $box-shadow--soft
+            overflow: hidden
+            transition: $transition--main
+
+            & > img
+                height: 100%
+                object-fit: cover
+                object-position: center
+
+        &:hover &--img
+            transform: translateX(-1rem)
+
+        &:hover &--button
+            color: $color--light-grey
+            background-color: $color--orange
+
+    &__more
+        justify-self: center
+        margin-top: $space--l
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-desktop-blog-bg.svg", contain, top left)
+        top: -27rem
+        left: -25rem
+        height: 25rem
+        width: 100%

@@ -1,0 +1,13 @@
+{% load i18n static %}
+
+<article class="card--profile">
+    <figure class="card--profile__figure">
+        <img src="{% static img_src %}" alt="{{ name }}" class="card--profile__figure--img">
+        <figcaption class="card--profile__figure--caption">
+            <p class="text--xs">
+                <strong class="text--bold text--orange">{{ name }}</strong>
+            </p>
+            <p class="text--xs text--bold">{{ position }}</p>
+        </figcaption>
+    </figure>
+</article>

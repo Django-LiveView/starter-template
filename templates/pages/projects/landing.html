@@ -1,0 +1,30 @@
+{% load i18n custom_filters %}
+
+{% include "components/projects/_category_header.html" %}
+
+<section data-controller="project" class="projects-main--content container--narrow">
+    {% trans "Proyectos <strong class='text--bold'>destacados</strong>" as projects_main_content_title %}
+    {% include 'components/blocks/_heading_group.html' with align="center" title_extra_class="projects-main--header__heading" title=projects_main_content_title %}
+
+    <div class="projects-main--content__projects">
+        {% for project in projects %}
+            <article class="projects-main--content__project">
+                {% include "components/blocks/_card_project.html" with thumbor=THUMBOR_URL|set_size:"836x" img_src=project.cover title=project.name subtitle=project.category slug=project.slug page="project single" category=project.category_slug action="project#open" container_extra_class="projects-main--content__project--card" %}
+
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+{# uncomment when content of this part will be ready #}
+{% comment %}
+    <section class="container--wide projects-main--reviews">
+        <figure class="projects-main--reviews__quote">
+            <blockquote class="text--m projects-main--reviews__quotes--cite">
+                <span class="projects-main--reviews__quote--cite-quote"></span>
+                {% lorem 45 w random %}&rdquo;
+            </blockquote>
+            <figcaption class="text--s text--bold align--right">Nombre de Empresa</figcaption>
+        </figure>
+    </section>
+{% endcomment %}

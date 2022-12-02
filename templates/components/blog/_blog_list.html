@@ -1,0 +1,7 @@
+{% load custom_filters %}
+
+{% for post in posts %}
+    <article class="blog--content__entry">
+        {% include "components/blocks/_card_project.html" with thumbor=THUMBOR_URL|set_size:"550x" img_src=post.cover title=post.title subtitle=post.author_name|add:" - "|add:post.author_occupation slug=post.slug action="blog#open" container_extra_class="blog--content__entry--card" %}
+    </article>
+{% endfor %}

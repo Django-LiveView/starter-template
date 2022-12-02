@@ -1,0 +1,64 @@
+{% load i18n static %}
+
+<header class="contact--header container--narrow">
+    {% trans "Queremos que <strong class='text--bold'>tu experiencia sea la mejor</strong> y que tu proyecto <strong class='text--bold'>logre los resultados</strong> que esperas." as contact_header_title %}
+    {% trans "¡Conozcámonos! <strong class='text--bold'>Agenda una reunión</strong> y comencemos a desarrollar tu proyecto" as contact_header_subtitle %}
+    {% include 'components/blocks/_heading_group.html' with align="center" title_tag="h1" title_extra_class="contact--header__heading" title=contact_header_title subtitle=contact_header_subtitle %}
+</header>
+
+<section class="contact--calendly container--narrow" data-controller="contact">
+    {# calendly widget #}
+    <div
+        id="calendly"
+        class="contact--calendly__container calendly-inline-widget"
+        data-auto-load="false"
+    ></div>
+</section>
+
+<section data-controller="contact page" class="contact--form container--narrow">
+    <div class="contact--form__form-container">
+        <h2 class="text--xxl text--bold">{% trans "Escríbenos" %}</h2>
+        <form novalidate id="contact-inputs" class="contact--form__form">
+            {% include 'components/contact/form.html' with form=form %}
+        </form>
+    </div>
+    <div class="contact--form__address">
+        <hgroup>
+            <h2 class="text--xxl text--bold">{% trans "Contáctanos" %}</h2>
+            <p class="text--l">{% trans "Envianos todas tus preguntas sugerencias y consultas. Nosotros nos pondremos en contacto." %}</p>
+        </hgroup>
+        <address class="contact--form__address--details">
+            <a href="tel:+34911236105" class="contact--form__address--detail contact--form__address--phone">
+                <i class="icon-phone"></i>
+                <strong class="text--m text--bold">{% trans "Llámanos" %}</strong>
+                <span class="text--m">{% trans "(+34) 911 236 105" %}</span>
+            </a>
+            <p class="contact--form__address--detail">
+                <i class="icon-location"></i>
+                <strong class="text--m text--bold">{% trans "Estamos en" %}</strong>
+                <span class="text--m">{% trans "Valencia, España" %}</span>
+            </p>
+        </address>
+    </div>
+</section>
+
+{# calendly script #}
+{% block javascript %}
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
+    <script>
+        async function initCalendly() {
+            if (typeof Calendly !== "undefined") {
+                Calendly.initInlineWidget({
+                    url: "https://calendly.com/ccstech-io/ccstech-io-s-l?hide_gdpr_banner=1",
+                    parentElement: document.getElementById("calendly"),
+                });
+                return true;
+            } else {
+                await new Promise(r => setTimeout(r, 100));
+                return initCalendly();
+            }
+        }
+
+        initCalendly();
+    </script>
+{% endblock javascript %}

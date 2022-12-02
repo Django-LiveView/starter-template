@@ -1,0 +1,26 @@
+{% load i18n static custom_filters %}
+
+{% for project in projects %}
+    <article class="projects-category--content__project">
+        <button
+            data-category="{{ project.category_slug }}"
+            data-slug="{{ project.slug }}"
+            data-action="click->project#open"
+            class="projects-category--content__project--link layout-grid--main"
+        >
+            <figure class="projects-category--content__project--link__img">
+                <img src="{{ THUMBOR_URL|set_size:"836x" }}{% if project.cover %}{{ project.cover }}{% else %}{% static 'img/ccstech-io.png' %}{% endif %}" alt="{{ project.name }}">
+            </figure>
+            <hgroup class="align--left projects-category--content__project--link__heading">
+                <h3 class="title--xs text--bold">{{ project.name }}</h3>
+                <p class="projects-category--content__project--link__summary text--l">
+                    {{ project.description|safe }}
+                </p>
+                {% if project.client %}
+                    <p class="text--m">{% trans "Cliente" %}: <strong class="text--medium">{{ project.client }}</strong></p>
+                {% endif %}
+                <p class="button button--hover-orange">{% trans "Ver proyecto" %}</p>
+            </hgroup>
+        </button>
+    </article>
+{% endfor %}

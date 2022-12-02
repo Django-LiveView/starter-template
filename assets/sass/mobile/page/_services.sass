@@ -1,0 +1,150 @@
+.services--header
+    position: relative
+    margin-top: $space--king
+
+    &__subtitle > strong:last-child
+        display: block
+        margin-top: $space--xxs
+
+    &__img
+        grid-row: 1 / 2
+        max-width: 20rem
+        justify-self: right
+
+    &__bg
+        @include bg("../img/services/backgrounds/services-header-bg.svg", contain, top center)
+        top: -$space--king-plus
+        left: -75%
+        height: 100%
+        width: 250%
+
+.services--nav
+    $size: 8rem
+    display: grid
+    justify-content: center
+    margin-top: $space--xxxl
+
+    &__list
+        display: grid
+        grid-template-columns: repeat(4, $size)
+        column-gap: $space--xxl
+        width: max-content
+        max-width: 100%
+
+        @media screen and (max-width: $breakpoint--s-plus)
+            grid-template-columns: repeat(2, $size)
+            row-gap: $space--xxl
+
+        @media screen and (max-width: $breakpoint--xs-plus)
+            grid-template-columns: 1fr
+            row-gap: $space--xxl
+
+
+    &__link
+        display: grid
+        row-gap: $space--s
+        text-align: center
+        align-items: center
+
+        @media screen and (max-width: $breakpoint--xs-plus)
+            grid-template-columns: auto 1fr
+            column-gap: $space--m
+            text-align: left
+
+        &--img
+            position: relative
+            display: flex
+            justify-content: center
+            align-items: center
+            height: $size
+            width: $size
+            background-color: $color--white
+            border-radius: $border-radius--s
+            box-shadow: $box-shadow--soft
+            transition: $transition--main
+
+            @media screen and (max-width: $breakpoint--xs-plus)
+                $size-smaller: 6rem
+                height: $size-smaller
+                width: $size-smaller
+
+            & > img
+                object-fit: contain
+                object-position: center
+                transition: opacity $transition--main
+
+                &:first-child
+                    opacity: 1
+
+                &:last-child
+                    position: absolute
+                    opacity: 0
+                    transition: opacity $transition--main
+
+        &:hover &--img
+            transform: translateY(-1rem)
+
+            & > img
+
+                &:first-child
+                    opacity: 0
+
+                &:last-child
+                    opacity: 1
+
+        &--img-apps,
+        &--img-websites,
+        &--img-consulting
+            height: 70%
+            width: 70%
+
+        &--img-apps
+            margin-left: 1rem
+
+        &--img-apis
+            height: 75%
+            width: 75%
+
+.services--apps,
+.services--websites,
+.services--apis
+    position: relative
+    margin-top: $space--king
+
+    &__card
+        aspect-ratio: 16 / 9
+
+        &::before
+            opacity: 0
+
+        &::after
+            opacity: 1
+
+        &:hover
+            transform: translateY(-1rem)
+
+            &::before
+                opacity: 1
+
+            &::after
+                opacity: 0
+
+.services--websites
+    position: relative
+
+    &__bg
+        @include bg("../img/services/backgrounds/services-websites-bg.svg", contain, top right)
+        bottom: 20rem
+        right: -5rem
+        height: 25rem
+        width: 100%
+
+.services--apis
+    row-gap: $space--xl
+    margin-bottom: $space--king
+
+    &__header
+
+        &.align-center > .h-group__heading,
+        &.align-center > p
+            text-align: left

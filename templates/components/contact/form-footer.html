@@ -1,0 +1,12 @@
+{% load i18n %}
+{% if not hide_footer_contact %}
+<div class="footer--contact__form">
+    {% trans "Conoce qué necesitas para que tu proyecto sea digital" as footer_contact_title %}
+    {% trans "Déjanos tus datos y nos pondremos en contacto contigo para conocer más de tu proyecto" as footer_contact_subtitle %}
+    {% include 'components/blocks/_heading_group.html' with title_tag="h6" title_size_class="text--xxl" title_extra_class="text--bold text--white" title=footer_contact_title subtitle_size_class="text--m" subtitle_extra_class="text--white" subtitle=footer_contact_subtitle %}
+
+    <form novalidate id="contact-inputs" class="footer--contact__form--inputs">
+        {% include 'components/contact/form.html' with form=contact_form footer=True %}
+    </form>
+</div>
+{% endif %}

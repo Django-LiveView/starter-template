@@ -1,0 +1,12 @@
+{% load i18n static %}
+
+<header data-controller="parallax" class="container--narrow layout-grid--main legal--header">
+    {% trans "Política de privacidad de CCSTech.io" as privacypolicy__header__alt %}
+    <img
+        src="{% static 'img/legal/ccstech-legal.svg' %}"
+        alt="{{ privacypolicy__header__alt }}"
+        class="legal--header__img"
+    >
+    {% include 'components/blocks/_heading_group.html' with title_extra_class="legal--header__heading" title_size_class="title--xs" title_tag="h1" title=header_title %}
+    <span aria-label="hidden" class="legal--header__bg" id="legal-header-bg"></span>
+</header>

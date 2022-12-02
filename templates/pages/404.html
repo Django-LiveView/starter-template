@@ -1,0 +1,15 @@
+{% load i18n static %}
+
+<section data-controller="page" class="not-found container--wide">
+    <img src="{% static "img/not-found/robot-404.svg" %}" alt="{% trans "Robot perdido" %}" class="not-found__robot-img" />
+    <hgroup class="not-found__heading">
+        <h1 class="title--xs">{% trans "¡Oh no!"%} <strong class="text--bold">{% trans "Algo salió mal." %}</strong></h1>
+        <p class="text--l">{% trans "No podemos ayudarte con tu búsqueda." %}</p>
+        <button class="button button--hover-grey" data-page="home"
+        data-action="click->home#changePage">{% trans "Volver al inicio" %}</button>
+    </hgroup>
+    <img src="{% static "img/not-found/desktop-404.svg" %}" alt="404" class="not-found__oops-img desktop-view" />
+    <img src="{% static "img/not-found/mobile-404.svg" %}" alt="404" class="not-found__oops-img mobile-view" />
+    <span area-label="hidden" class="not-found__bg-gears desktop-view"></span>
+    <span area-label="hidden" class="not-found__bg-main"></span>
+</section>

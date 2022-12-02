@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 440 513" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="Trazado_952" transform="matrix(0.350507,0,0,0.350507,335.905,142.731)">
+        <path d="M-583.09,-407.213L300.408,-407.213C300.408,-407.213 285.775,-68.094 188.673,90.577C-12.871,419.915 -315.254,288.089 -386.665,521.726C-424.709,646.194 -333.033,680.528 -284.153,814.783C-238.054,941.399 -387.806,1063.26 -531.384,1055.58C-815.492,1040.39 -996.231,737.431 -946.966,173.748C-923.133,-98.938 -806.646,-339.408 -583.09,-407.213Z" style="fill:url(#_Linear1);fill-rule:nonzero;"/>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(4.87295,1641.59,-1641.59,4.87295,968.567,-242.692)"><stop offset="0" style="stop-color:rgb(253,116,0);stop-opacity:1"/><stop offset="0.31" style="stop-color:rgb(253,151,63);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(246,216,192);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(242,242,250);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>

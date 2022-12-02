@@ -1,0 +1,160 @@
+{% load i18n static %}
+
+<dl
+    class="block--info"
+    data-controller="growth"
+    data-team-index-value="0"
+>
+    <div
+        class="block--info__item"
+        data-growth-index-param="0"
+        data-growth-target="item"
+        data-action="mouseover->growth#openDescription mouseout->growth#closeDescription touchstart->growth#toggleDescription"
+    >
+        <dt itemprop="name" class="block--info__name">
+            <span class="block--info__icon">
+                <img
+                    src="{% static "img/about-us/growth/digitalisation-off.svg" %}"
+                    alt="{% trans "digitalización" %}"
+                    class="desktop-view"
+                >
+                <img src="{% static "img/about-us/growth/digitalisation-on.svg" %}" alt="{% trans "digitalización" %}">
+            </span>
+            <dfn class="text--l text--bold">{% trans "Digitalización" %}</dfn>
+        </dt>
+        <dd itemprop="description" class="block--info__description">
+            <span data-growth-target="description">{% trans "La transformación digital no solo es una actualización, desde hace más de una década es una necesidad en el mercado, contamos con la experiencia y equipo para que los proyectos continúen avanzando y evolucionando en los ecosistemas digitales." %}</span>
+            <div class="mobile-view block--info__nav">
+                <button
+                    class="block--info__nav--next"
+                    data-growth-next-param="1"
+                    data-action="click->growth#scrollNext"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+            </div>
+        </dd>
+    </div>
+    <div
+        class="block--info__item"
+        data-growth-index-param="1"
+        data-growth-target="item"
+        data-action="mouseover->growth#openDescription mouseout->growth#closeDescription touchstart->growth#toggleDescription"
+    >
+        <dt itemprop="name" class="block--info__name">
+            <span class="block--info__icon">
+                <img
+                    src="{% static "img/about-us/growth/productivity-off.svg" %}"
+                    alt="{% trans "productividad" %}"
+                    class="desktop-view"
+                >
+                <img src="{% static "img/about-us/growth/productivity-on.svg" %}" alt="{% trans "productividad" %}">
+            </span>
+            <dfn class="text--l text--bold">{% trans "Productividad" %}</dfn>
+        </dt>
+        <dd itemprop="description" class="block--info__description">
+            <span data-growth-target="description">{% trans "Mejorar la productividad empresarial a través de arquitecturas digitales ofrece un mayor valor a los clientes. Para incrementar tu competitividad ya no necesitas grandes inversiones para satisfacer esas necesidades de transformación en entornos Cloud y desarrollo de software." %}</span>
+            <div class="mobile-view block--info__nav">
+                <button
+                    class="block--info__nav--prev"
+                    data-growth-prev-param="0"
+                    data-action="click->growth#scrollPrev"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+                <button
+                    class="block--info__nav--next"
+                    data-growth-next-param="2"
+                    data-action="click->growth#scrollNext"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+            </div>
+        </dd>
+    </div>
+    <div
+        class="block--info__item"
+        data-growth-index-param="2"
+        data-growth-target="item"
+        data-action="mouseover->growth#openDescription mouseout->growth#closeDescription touchstart->growth#toggleDescription"
+    >
+        <dt itemprop="name" class="block--info__name">
+            <span class="block--info__icon">
+                <img
+                    src="{% static "img/about-us/growth/optimisation-off.svg" %}"
+                    alt="{% trans "digitalización" %}"
+                    class="desktop-view"
+                >
+                <img src="{% static "img/about-us/growth/optimisation-on.svg" %}" alt="{% trans "digitalización" %}">
+            </span>
+            <dfn class="text--l text--bold">{% trans "Optimización" %}</dfn>
+        </dt>
+        <dd itemprop="description" class="block--info__description">
+            <span data-growth-target="description">{% trans "Con soluciones que se adaptan a los cambios constantes de la tecnología, en la Nube tu proyecto puede evolucionar mucho más rápido agilizando procesos que te llevarán a una optimización de los recursos." %}</span>
+            <div class="mobile-view block--info__nav">
+                <button
+                    class="block--info__nav--prev"
+                    data-growth-prev-param="1"
+                    data-action="click->growth#scrollPrev"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+                <button
+                    class="block--info__nav--next"
+                    data-growth-next-param="3"
+                    data-action="click->growth#scrollNext"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+            </div>
+        </dd>
+    </div>
+    <div
+        class="block--info__item"
+        data-growth-index-param="3"
+        data-growth-target="item"
+        data-action="mouseover->growth#openDescription mouseout->growth#closeDescription touchstart->growth#toggleDescription"
+    >
+        <dt itemprop="name" class="block--info__name">
+            <span class="block--info__icon">
+                <img
+                    src="{% static "img/about-us/growth/compliance-off.svg" %}"
+                    alt="{% trans "cimplimiento" %}"
+                    class="desktop-view"
+                >
+                <img src="{% static "img/about-us/growth/compliance-on.svg" %}" alt="{% trans "cimplimiento" %}">
+            </span>
+            <dfn class="text--l text--bold">{% trans "Cumplimiento" %}</dfn>
+        </dt>
+        <dd itemprop="description" class="block--info__description">
+            <span data-growth-target="description">{% trans "Gracias a la implementación de soluciones tecnológicas e ideologías colaborativas adaptadas a cada necesidad logramos que cada proyecto alcance sus metas cumpliendo así con nuestros objetivos organizacionales y los objetivos de tu negocio." %}</span>
+            <div class="mobile-view block--info__nav">
+                <button
+                    class="block--info__nav--prev"
+                    data-growth-prev-param="2"
+                    data-action="click->growth#scrollPrev"
+                >
+                    <img
+                        src="{% static "img/about-us/arrow.svg" %}"
+                        alt="{% trans "flecha" %}"
+                    >
+                </button>
+            </div>
+        </dd>
+    </div>
+</dl>

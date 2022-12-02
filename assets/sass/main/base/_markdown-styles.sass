@@ -1,0 +1,55 @@
+.markdown-styles
+
+    h1, h2, h3
+        line-height: 150%
+
+    p
+        margin-top: $space--xxs
+
+    h1:not(h1:first-child), h2:not(h1:first-child)
+        margin-top: $space--xxl
+
+    h1, h2
+        margin-bottom: $space--l
+
+    h3
+        margin:
+            top: $space--l
+            bottom: $space--s
+
+    ul, ol
+        padding-left: $space--l
+        margin:
+            top: $space--xxs
+            bottom: $space--s
+
+    ul > li
+        position: relative
+
+        &::before
+            content: "\21C1"
+            position: absolute
+            top: 0
+            right: calc(100% + #{$space--xxs})
+            display: flex
+
+    em
+        font-style: italic
+
+    strong
+        font-weight: $font-weight--bold
+
+    hr
+        border:
+            top: $border--main $color--black
+            left: unset
+            right: unset
+            bottom: unset
+        margin:
+            top: $space--m
+            bottom: $space--m
+
+    code
+        font-family: "code"
+        border-radius: $border-radius--xxs
+        color: $color--orange

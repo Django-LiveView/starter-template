@@ -1,0 +1,29 @@
+{% load i18n static %}
+
+<header data-controller="parallax animations" class="blog--header container--narrow">
+    <h1 class="title--s align--center">{% blocktrans %}Conoce e <strong class="text--bold">infórmate</strong> sobre las últimas <strong class="text--bold">actualizaciones, notocias, eventos y más</strong> sobre el mundo de la tecnología.{% endblocktrans %}</h1>
+    <object
+        id="blog-she-robot"
+        data="{% static 'img/blog/animated-she-robot.svg' %}"
+        type="image/svg+xml"
+        class="blog--header__img"
+        title="{% trans "CSSTech.io robot ella" %}"
+    ></object>
+    <object
+        id="blog-he-robot"
+        data="{% static 'img/blog/animated-he-robot.svg' %}"
+        type="image/svg+xml"
+        class="blog--header__img"
+        title="{% trans "CSSTech.io robot él" %}"
+    ></object>
+    <span aria-label="hidden" class="blog--header__bg" id="blog-header-bg"></span>
+</header>
+
+<section data-controller="blog" class="blog--content container--narrow">
+    <div id="posts" class="blog--content__entries">
+        {% include "components/blog/_blog_list.html" with posts=posts.results %}
+    </div>
+    <p id="button-next-page" class="blog--content__more">
+        {% include "components/blog/_blog_button_next_page.html" with next_page=next_page %}
+    </p>
+</section>

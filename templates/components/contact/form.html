@@ -1,0 +1,115 @@
+{% load i18n %}
+
+{# Fix style footer or Contact Form #}
+<input type="hidden" data-contact-target="isFooter" value="{{ footer }}">
+
+{{ form.hcaptcha_key }}
+
+{# Name #}
+<div class="contact--form__form--name">
+    {% if form.name.errors %}
+        <ul class="input--errors">
+            {% for error in form.name.errors %}
+                <li class="text--xs">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <label class="input--main">
+        {{ form.name }}
+        <span class="input--main__placeholder">{% trans "Tu nombre y apellidos" %}</span>
+    </label>
+</div>
+
+{# Email #}
+<div class="contact--form__form--email">
+    {% if form.email.errors %}
+        <ul class="input--errors">
+            {% for error in form.email.errors %}
+                <li class="text--xs">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <label class="input--main">
+        {{ form.email }}
+        <span class="input--main__placeholder">{% trans "Tu correo electrónico" %}</span>
+    </label>
+</div>
+
+{# Phone (Optional) #}
+<div class="contact--form__form--phone">
+    {% if form.phone.errors %}
+        <ul class="input--errors">
+            {% for error in form.phone.errors %}
+                <li class="text--xs">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <label class="input--main">
+        {{ form.phone }}
+        <span class="input--main__placeholder">{% trans "Tu teléfono" %}</span>
+    </label>
+</div>
+
+{% if not footer %}
+    {# Message (Optional) #}
+    <div class="contact--form__form--message">
+        {% if form.message.errors %}
+            <ul class="input--errors">
+                {% for error in form.message.errors %}
+                    <li class="text--xs">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <label class="input--main">
+            {{ form.message }}
+            <span class="input--main__placeholder">{% trans "Tu mensaje" %}</span>
+        </label>
+    </div>
+{% endif %}
+
+<div class="contact--form__form--terms">
+    {% if form.is_accept_terms.errors %}
+        <ul class="input--errors">
+            {% for error in form.is_accept_terms.errors %}
+                <li class="text--xs">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <label class="input--checkbox">
+        {{ form.is_accept_terms }}
+        <span aria-label="hidden" class="input--checkbox__box"></span>
+        <span aria-label="hidden" class="input--checkbox__check"></span>
+    </label>
+    <p class="text--m">{% blocktrans %}
+        Acepto los <button
+            type="button"
+            class="link--hover-orange"
+            data-page="legal notice"
+            data-action="click->page#changePage"
+        >términos y condiciones</button>{% endblocktrans %}
+    </p>
+</div>
+
+{# Submit #}
+<input
+    class="h-captcha button {% if footer %}button--hover-grey{% else %}button--hover-orange{% endif %} contact--form__form--submit"
+    data-size="invisible"
+    type="submit"
+    data-action="click->contact#sendForm"
+    data-contact-target="submit"
+    {% trans "Enviar mensaje" as long_button_title %}
+    {% trans "Enviar" as short_button_title %}
+    value="{% if footer %}{{ short_button_title }}{% else %}{{ long_button_title }}{% endif %}"
+>
+
+{% if success %}
+    {% trans "¡Tu mensaje ha sido enviado con <strong class='text--bold text--orange'>éxito!</strong>" as contact_header_title %}
+    {% trans "Pronto nos pondremos en contacto contigo." as contact_header_subtitle %}
+    {% trans "Mensaje enviado" as img_alt %}
+    {% include 'components/modals/_modal.html' with controller="contact" data_action="click->contact#closeModal" title=contact_header_title subtitle=contact_header_subtitle img_src="img/contact/success-robot.svg" img_alt="img_alt" %}
+{% endif %}
+
+{# hCaptcha script #}
+{% block javascript %}
+    <script src="https://js.hcaptcha.com/1/api.js?&render=explicit" async defer></script>
+{% endblock javascript %}

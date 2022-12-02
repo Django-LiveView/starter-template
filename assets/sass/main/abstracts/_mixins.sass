@@ -1,0 +1,23 @@
+@mixin center-h
+    margin:
+        left: auto
+        right: auto
+
+@mixin bg($imgURL, $size, $position)
+    position: absolute
+    display: block
+    background:
+        image: url($imgURL)
+        repeat: no-repeat
+        size: $size
+        position: $position
+    z-index: -1
+
+@mixin ani($name, $duration, $iterationCount)
+    animation:
+        name: $name
+        duration: $duration
+        timing-function: ease-in-out
+        iteration-count: $iterationCount
+        direction: alternate-reverse
+        fill-mode: both

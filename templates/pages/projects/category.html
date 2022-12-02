@@ -1,0 +1,18 @@
+{% load i18n static %}
+
+{% include "components/projects/_category_header.html" %}
+
+<section data-controller="project" class="projects-category--content container--narrow">
+    <span id="category-filter" aria-label="hidden" class="scroll-top"></span>
+    <h2 class="title--m text--bold">
+        {{ name }}
+    </h2>
+
+    <div id="projects-list" class="projects-category--content__projects">
+        {% include "components/projects/_list.html" %}
+    </div>
+
+    <p id="projects-next-button" class="projects-category--content__more">
+        {% include "components/projects/_next_page_button.html" %}
+    </p>
+</section>

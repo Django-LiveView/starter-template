@@ -1,0 +1,44 @@
+.not-found
+    position: relative
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    column-gap: $space--xxxl
+    margin:
+        top: $space--king-plus
+        bottom: $space--king-plus
+
+    &__robot-img
+        align-self: center
+        justify-self: right
+        width: $el--l
+        max-width: 100%
+        margin-bottom: $space--xl
+
+    &__heading
+        display: grid
+        row-gap: $space--xxs
+        height: max-content
+        align-self: center
+
+        & > button
+            margin-top: $space--l
+
+    &__oops-img
+        align-self: flex-end
+
+    &__bg-main
+        @include bg("../img/not-found/backgrounds/not-found-desktop-bg.svg", contain, center right)
+        right: 66%
+        align-self: center
+        height: calc(100% + #{$space--king-plus} * 2)
+        width: 100%
+        margin-bottom: $el--m
+
+    &__bg-gears
+        $size: 20rem
+        @include bg("../img/not-found/backgrounds/gears-bg.svg", contain, center right)
+        height: $size
+        width: $size
+        margin-bottom: $size
+        left: 33%
+        align-self: center

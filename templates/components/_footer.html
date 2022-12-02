@@ -1,0 +1,213 @@
+{% load i18n static %}
+
+<section data-controller="contact page" id="footer-contact" class="footer--contact container--wide">
+    {% include "components/contact/form-footer.html" %}
+</section>
+
+<footer data-controller="page animations" class="container--wide footer">
+    <address class="footer__address">
+        <h6 class="text--m text--bolder">CCSTech.io S.L.</h6>
+        <p>{% trans "Calle Maldonado, 55" %}</p>
+        <p>{% trans "28006 Madrid, España" %}</p>
+    </address>
+    <nav class="footer__about">
+        <h6 class="text--m text--bolder text--orange">
+            <button
+                type="button"
+                class="link--hover-black"
+                data-page="about us"
+                data-action="click->page#changePage"
+            >{% trans "Nosotros" %}</button>
+        </h6>
+        <ul class="footer__nav-list">
+            <li>
+                <button
+                    type="button"
+                    data-page="about us"
+                    data-action="click->page#changePage"
+                    data-scroll="#mission"
+                    class="link--hover-orange"
+                >{% trans "Misión" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="about us"
+                    data-action="click->page#changePage"
+                    data-scroll="#values"
+                    class="link--hover-orange"
+                >{% trans "Valores" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="about us"
+                    data-action="click->page#changePage"
+                    data-scroll="#benefit"
+                    class="link--hover-orange"
+                >{% trans "Ventajas" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="about us"
+                    data-action="click->page#changePage"
+                    data-scroll="#partners"
+                    class="link--hover-orange"
+                >{% trans "Partners" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="about us"
+                    data-action="click->page#changePage"
+                    data-scroll="#team"
+                    class="link--hover-orange"
+                >{% trans "Team" %}</button>
+            </li>
+        </ul>
+    </nav>
+    <nav class="footer__services">
+        <h6 class="text--m text--bolder text--orange">
+            <button
+                type="button"
+                class="link--hover-black"
+                data-page="services"
+                data-action="click->page#changePage"
+            >{% trans "Servicios" %}</button>
+        </h6>
+        <ul class="footer__nav-list">
+            <li>
+                <button
+                    type="button"
+                    data-page="services"
+                    data-action="click->page#changePage"
+                    data-scroll="#apps"
+                    class="link--hover-orange"
+                >{% trans "Desarrollo App" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="services"
+                    data-action="click->page#changePage"
+                    data-scroll="#websites"
+                    class="link--hover-orange"
+                >{% trans "Desarrollo Web" %}</button>
+            </li>
+            <li>
+                <button
+                    type="button"
+                    data-page="services"
+                    data-action="click->page#changePage"
+                    data-scroll="#apis"
+                    class="link--hover-orange"
+                >APIs</button>
+            </li>
+            {% comment %}
+                <li>
+                    <button
+                        type="button"
+                        class="link--hover-orange"
+                        data-page="services"
+                        data-action="click->page#changePage"
+                    >{% trans "Proyectos" %}</button>
+                </li>
+            {% endcomment %}
+        </ul>
+    </nav>
+    <nav class="footer__legal">
+        <h6 class="text--m text--bolder text--orange">
+            <button
+                type="button"
+                class="link--hover-black"
+                data-page="privacy policy"
+                data-action="click->page#changePage"
+            >{% trans "Protección de datos" %}</button>
+        </h6>
+        <h6 class="text--m text--bolder text--orange">
+            <button
+                type="button"
+                class="link--hover-black"
+                data-page="legal notice"
+                data-action="click->page#changePage"
+            >{% trans "Aviso legal" %}</button>
+        </h6>
+    </nav>
+    <address class="footer__contact">
+        <h6 class="text--m text--bolder text--orange">
+            <button
+                type="button"
+                class="link--hover-black"
+                data-page="contact"
+                data-action="click->page#changePage"
+            >{% trans "Contacto" %}</button>
+        </h6>
+        <ul class="footer__nav-list">
+            <li>
+                <a href="tel:+34911236105" class="link--hover-orange">+34 911 236 105</a>
+            </li>
+            <li>
+                <a href="mailto:helloworld@ccstech.io" class="link--hover-orange">helloworld@ccstech.io</a>
+            </li>
+        </ul>
+    </address>
+    <nav class="footer__social">
+        <h6 class="text--m text--bolder"><strong class="text--orange">{% trans "Encuéntranos" %} </strong>{% trans "en las redes" %}</h6>
+        <ul class="footer__social--list">
+            <li>
+                <a
+                    href="https://www.linkedin.com/company/ccstech-io/"
+                    target="_blank"
+                    class="footer__social--list__link"
+                >
+                    <span><i class="icon-linkedin"></i></span>
+                    <span class="footer__social--list__bg"><i class="icon-circle"></i></span>
+                    <span class="footer__social--list__reader text--xs">LinkedIn</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://twitter.com/ccstech_io"
+                    target="_blank"
+                    class="footer__social--list__link"
+                >
+                    <span><i class="icon-twitter"></i></span>
+                    <span class="footer__social--list__bg"><i class="icon-circle"></i></span>
+                    <span class="footer__social--list__reader text--xs">Twitter</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://www.instagram.com/ccstech.io/"
+                    target="_blank"
+                    class="footer__social--list__link"
+                >
+                    <span><i class="icon-instagram"></i></span>
+                    <span class="footer__social--list__bg"><i class="icon-circle"></i></span>
+                    <span class="footer__social--list__reader text--xs">Instagram</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="https://www.facebook.com/ccstech.io"
+                    target="_blank"
+                    class="footer__social--list__link"
+                >
+                    <span><i class="icon-facebook"></i></span>
+                    <span class="footer__social--list__bg"><i class="icon-circle"></i></span>
+                    <span class="footer__social--list__reader text--xs">Facebook</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <p class="text--s footer__credits">{% trans "Desarrollado por CCSTech.io" %} <small class="text--s">- {% trans "Todos los derechos reservados" %}</small></p>
+    <object
+        id="greeting-robot"
+        data="{% static 'img/footer/animated-robot.svg' %}"
+        type="image/svg+xml"
+        class="desktop-view footer__robot"
+        title="{% trans 'CCSTech.io Robot' %}"
+    ></object>
+
+</footer>

@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% if is_more_pages %}
+    <button
+        data-slug="{{ active_category }}"
+        data-next-page="{{ next_page }}"
+        data-action="project#nextPage"
+        class="button button--hover-grey"
+    >
+        {% trans "Cargar más" %}
+    </button>
+{% endif %}

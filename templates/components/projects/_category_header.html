@@ -1,0 +1,24 @@
+{% load i18n static custom_filters %}
+
+<header data-controller="parallax" class="projects-main--header container--narrow">
+    {% trans "Nuestros <strong class='text--bold'>proyectos</strong>" as projects_main_header_title %}
+    {% include 'components/blocks/_heading_group.html' with align="center" title_extra_class="projects-main--header__heading" title_tag="h1" title=projects_main_header_title %}
+
+    <nav data-controller="project">
+        <ul class="projects-main--header__categories">
+            {% for category in categories %}
+                <li>
+                    <button
+                        data-slug="{{ category.slug }}"
+                        data-action="project#openCategory"
+                        data-scroll="#category-filter"
+                        class="projects-main--header__categories--link {% if active_category == category.slug %}active{% endif %}">
+                        <img src="{{ THUMBOR_URL|set_size:"608x" }}{% if category.cover %}{{ category.cover }}{% else %}{% static 'img/ccstech-io.png' %}{% endif %}" alt="{{ category.name }}">
+                        <p class="text--m text--bold">{{ category.name }}</p>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <span aria-label="hidden" class="projects-main--header__bg" id="projects-main-header-bg"></span>
+</header>

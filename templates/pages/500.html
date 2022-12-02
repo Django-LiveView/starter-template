@@ -1,0 +1,26 @@
+{% load i18n static %}
+
+<section class="server-error container--wide">
+    <img src="{% static "img/header/logo.svg" %}" alt="Error 500" class="server-error__logo" />
+    <img src="{% static "img/server-error/cpu.svg" %}" alt="Error 500" class="server-error__cpu-img" />
+    <div class="server-error__body">
+        <hgroup class="server-error__body--heading">
+            <h1 class="title--m text--bold">
+                {% trans "¡Ups!" %}
+                <strong class="text--bolder">500</strong>
+            </h1>
+            <p class="title--xs text--bold">
+                {% trans "Error Interno del Servidor" %}
+            </p>
+        </hgroup>
+        <address class="server-error__body--address">
+            <p class="text--bold">CCSTech.io S.L.</p>
+            <p><a href="tel:+34911236105" class="link--hover-orange">(+34) 911 236 105</a></p>
+            <p><a href="mailto:helloworld@ccstech.io" class="link--hover-orange">helloworld@ccstech.io</a></p>
+            <p>Calle Maldonado 55</br>28006 Madrid, {% trans "España" %}</p>
+        </address>
+    </div>
+    <img src="{% static "img/server-error/broken-server.svg" %}" alt="Error 500" class="server-error__server-img desktop-view" />
+    <span area-label="hidden" class="server-error__bg-gears"></span>
+    <span area-label="hidden" class="server-error__bg-main"></span>
+</section>

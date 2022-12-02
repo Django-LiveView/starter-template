@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+
+  django:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/django/Dockerfile
+    entrypoint: bash ./django-launcher.sh
+    volumes:
+      - .:/usr/src/app/
+    environment:
+      DEBUG: ${DEBUG}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      SECRET_KEY: ${SECRET_KEY}
+      DOMAIN: ${DOMAIN}
+      DOMAIN_URL: ${DOMAIN_URL}
+      API_DOMAIN: ${API_DOMAIN}
+      REDIS_URI: ${REDIS_URI}
+      REDIS_PORT: ${REDIS_PORT}
+      HCAPTCHA_KEY: ${HCAPTCHA_KEY}
+      GOOGLE_ANALYTICS: ${GOOGLE_ANALYTICS}
+      COOKIEBOT_KEY: ${COOKIEBOT_KEY}
+      THUMBOR_URL: ${THUMBOR_URL}
+      THUMBOR_ENABLED: ${THUMBOR_ENABLED}
+      JAEGER_AGENT_HOST: ${JAEGER_AGENT_HOST}
+      JAEGER_AGENT_PORT: ${JAEGER_AGENT_PORT}
+      JAEGER_SERVICE_NAME: ${JAEGER_SERVICE_NAME}
+    expose:
+      - 8000
+      - 6831
+    depends_on:
+      - redis
+      - jaeger
+
+  redis:
+    image: redis:alpine
+    expose:
+      - ${REDIS_PORT}
+
+  caddy:
+    image: caddy:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - .:/usr/src/app/
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy_data:/data
+    depends_on:
+      - django
+      - gulp
+      - prometheus
+
+  gulp:
+    build:
+      context: ./
+      dockerfile: ./dockerfiles/gulp/Dockerfile
+    command: bash gulp-launcher.sh
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 3000:3000
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.38
+    container_name: website-jaeger
+    ports:
+      - "6831:6831/udp"
+      - "16686:16686"
+    restart: "no"
+
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    container_name: website-prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: "no"

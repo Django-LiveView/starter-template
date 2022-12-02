@@ -1,0 +1,72 @@
+{% load i18n static custom_filters %}
+
+<header data-controller="parallax" class="project--header container--narrow">
+    <hgroup class="align--center project--header__heading">
+        <h1 class="title--s text--bold">{{ project.name }}</h1>
+        <p class="text--l text--bold text--orange">{{ project.category }}</p>
+    </hgroup>
+    <figure class="layout-grid--main project--header__summary markdown-styles">
+        <img src="{{ THUMBOR_URL|set_size:"836x" }}{% if project.cover %}{{ project.cover }}{% else %}{% static 'img/ccstech-io.png' %}{% endif %}" alt="{{ project.category }}">
+        <figcaption class="text--l">{{ project.description|safe }}</figcaption>
+    </figure>
+    <span aria-label="hidden" class="project--header__bg" id="project-header-bg"></span>
+</header>
+
+<span aria-label="hidden" class="project--separator container--narrow"></span>
+
+<section class="project--content container--narrow">
+    <aside class="project--content__details">
+        <ul>
+            <li>
+                <p class="text--bold">{% trans "Período" %}</p>
+                <p>{{ project.period }}</p>
+            </li>
+            <li>
+                <p class="text--bold">{% trans "Industria" %}</p>
+                <p>{{ project.industry }}</p>
+            </li>
+            <li>
+                <p class="text--bold">{% trans "Locación" %}</p>
+                <p>{{ project.location }}</p>
+            </li>
+        </ul>
+    </aside>
+    <div class="markdown-styles">
+        {{ project.long_description|safe }}
+    </div>
+
+    {% if project.desktop_images|length > 0 %}
+        <div class="project--content__desktop-img">
+            {% for image in project.desktop_images %}
+                <figure>
+                    <img src="{{ image.url }}" alt="{{ project.name }}">
+                </figure>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if project.mobile_images|length > 0 %}
+        <div class="project--content__mobile-img">
+            {% for image in project.mobile_images %}
+                <figure>
+                    <img src="{{ image.url }}" alt="{{ project.name }}">
+                </figure>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if project.tech_description %}
+        <div class="markdown-styles">
+            {{ project.tech_description|safe }}
+            {% if project.technology_images|length > 0 %}
+                <div class="project--content__technology-img">
+                    {% for image in project.technology_images %}
+                        <figure>
+                            <img src="{{ image.url }}" alt="{{ project.name }}">
+                        </figure>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>

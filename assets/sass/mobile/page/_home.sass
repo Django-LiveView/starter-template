@@ -1,0 +1,323 @@
+.home--header
+    position: relative
+    height: max-content
+    margin-top: $space--king
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-mobile-header-bg.svg", contain, top right)
+        position: absolute
+        bottom: $space--queen
+        left: -$space--king
+        height: calc(100% + #{$space--king-plus})
+        width: calc(100% + #{$space--l} * 2)
+
+        @media screen and (max-width: $breakpoint--s)
+            left: -$space--s
+            width: calc(100% + #{$space--s} * 2)
+
+    &__img
+        grid-row: 1 / 2
+        max-width: 33rem
+        justify-self: right
+
+.home--values
+    position: relative
+    display: grid
+    row-gap: $space--xxl
+    height: max-content
+    margin-top: $space--king-plus
+
+    &__list
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: $space--m
+
+        @media screen and (max-width: $breakpoint--xs-plus)
+            grid-template-columns: 1fr
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-values-bg.svg", contain, center left)
+        bottom: calc(100% - 8.5rem)
+        left: -7rem
+        height: 15rem
+        width: 100%
+
+.home--dev-types
+    position: relative
+    display: grid
+    row-gap: $space--xxl
+    margin-top: $space--king
+    padding:
+        left: unset
+        right: unset
+    width: 100%
+
+    &__header
+        padding:
+            left: $space--l
+            right: $space--l
+
+        @media screen and (max-width: $breakpoint--s)
+            padding:
+                left: $space--s
+                right: $space--s
+
+    &__nav
+        position: relative
+        width: 100%
+        overflow: auto
+
+        & > ul
+            display: grid
+            grid-template-columns: repeat(2, calc(#{$el--l} + #{$space--l})) calc(#{$el--l} + #{$space--l} * 2)
+            width: 100%
+            padding-bottom: $space--king
+            overflow: auto
+            -ms-overflow-style: none
+            scrollbar-width: none
+            scroll-snap-type: x mandatory
+
+            @media screen and (max-width: $breakpoint--s)
+                grid-template-columns: repeat(2, calc(#{$el--l} + #{$space--s})) calc(#{$el--l} + #{$space--s} * 2)
+
+            &::-webkit-scrollbar
+                display: none
+
+            & > li
+                scroll-snap-align: start
+                padding-left: $space--l
+
+                @media screen and (max-width: $breakpoint--s)
+                    padding-left: $space--s
+
+
+                &:last-child
+                    padding-right: $space--l
+
+                    @media screen and (max-width: $breakpoint--s)
+                        padding-right: $space--s
+
+        &--button
+            position: relative
+            display: grid
+            grid-template-rows: auto 1fr
+            row-gap: $space--m
+            width: 100%
+            padding:
+                left: $space--m
+                right: $space--m
+                bottom: $space--m
+
+            &::before
+                content: ""
+                position: absolute
+                bottom: 0
+                left: 0
+                display: block
+                width: 100%
+                aspect-ratio: 1
+                background-color: $color--orange
+                border-radius: $border-radius--s
+                box-shadow: $box-shadow--main
+                transition: $transition--main
+                z-index: -1
+
+            &:hover::before
+                transform: rotate(7deg)
+
+            &__img
+                position: relative
+                aspect-ratio: 1
+                z-index: -1
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-dev-types-bg.svg", contain, center right)
+        bottom: $space--xxxl
+        right: -5rem
+        height: calc(100% + #{$space--king})
+        width: calc(#{$breakpoint--m} * 1.5)
+        z-index: -2
+
+.home--technology
+    position: relative
+
+    &__title
+        display: inline-block
+        font-weight: $font-weight--light
+
+        & > strong
+            font-weight: $font-weight--bold
+
+    &__list
+        display: flex
+        flex-wrap: wrap
+        justify-content: center
+        gap: $space--xl
+        margin-top: $space--xxxl
+
+        &--img
+            height: $el--xs
+            width: auto
+            filter: grayscale(95%)
+
+            &:first-child
+                height: $el--s
+
+            @media screen and (max-width: $breakpoint--s)
+                height: $el--xxs
+
+                &:first-child
+                    height: $el--xs
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-technology-bg.svg", contain, top right)
+        top: -$space--king
+        right: -10rem
+        height: 25rem
+        width: 100%
+
+.home--projects
+    margin-top: $space--king
+
+    &__nav
+        display: grid
+        grid-template-areas: "first-card hgroup hgroup" "second-card second-card third-card" "second-card second-card fourth-card" ". fifth-card sixth-card" "more more more"
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: repeat(5, auto)
+        gap: $space--m
+
+        @media screen and (max-width: $breakpoint--s-plus)
+            grid-template-areas: "hgroup hgroup" "first-card second-card" "third-card fourth-card" "fifth-card sixth-card" "more more"
+            grid-template-columns: repeat(2, 1fr)
+            grid-template-rows: repeat(5, auto)
+
+        @media screen and (max-width: $breakpoint--xs-plus)
+            grid-template-areas: "hgroup" "first-card" "second-card" "third-card" "fourth-card" "fifth-card" "sixth-card" "more"
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(8, auto)
+
+
+    &__h-group
+        grid-area: hgroup
+        margin-bottom: $space--l
+
+    &__card
+        $translate: .75rem
+        aspect-ratio: 1
+
+        @media screen and (max-width: $breakpoint--xs-plus)
+            aspect-ratio: 4 / 3
+
+        &:first-of-type
+            grid-area: first-card
+            align-self: flex-end
+
+        &:nth-of-type(2)
+            grid-area: second-card
+            aspect-ratio: 1
+
+            @media screen and (max-width: $breakpoint--xs-plus)
+                aspect-ratio: 4 / 3
+
+        &:nth-of-type(3)
+            grid-area: third-card
+
+        &:nth-of-type(4)
+            grid-area: fourth-card
+
+        &:nth-of-type(5)
+            grid-area: fifth-card
+
+        &:nth-of-type(6)
+            grid-area: sixth-card
+
+        &:hover
+
+            &:first-of-type
+                transform: translateY(-$translate)
+
+            &:nth-of-type(2)
+                transform: translateX(-$translate)
+
+            &:nth-of-type(3),
+            &:nth-of-type(4),
+            &:nth-of-type(6)
+                transform: translateX($translate)
+
+            &:nth-of-type(5)
+                transform: translateY($translate)
+
+            @media screen and (max-width: $breakpoint--s)
+
+                &:nth-of-type(odd)
+                    transform: translateX(-$translate)
+
+                &:nth-of-type(even)
+                    transform: translateX($translate)
+
+    &__more
+        grid-area: more
+        margin-top: $space--l
+        justify-self: center
+
+.home--blog
+    position: relative
+    display: grid
+    row-gap: $space--xxl
+    margin:
+        top: $space--king
+        bottom: $space--king
+
+    &__link
+
+        &--title
+            position: relative
+
+            &::after
+                $size: 2px
+                content: ""
+                position: absolute
+                bottom: -$space--xxs
+                left: -$space--xxs
+                display: block
+                width: 0
+                height: $size
+                border-radius: calc(#{$size} / 2)
+                background-color: $color--orange
+                opacity: 0
+                z-index: -1
+                transition: $transition--main
+
+        &:hover &--title::after
+            width: calc(100% + #{$space--xxs} * 2)
+            opacity: 1
+
+        &--img
+            grid-row: 2 / 3
+            aspect-ratio: 16 / 9
+            border-radius: $border-radius--s
+            box-shadow: $box-shadow--soft
+            overflow: hidden
+            transition: $transition--main
+
+            & > img
+                height: 100%
+                object-fit: cover
+                object-position: center
+
+        &:hover &--img
+            transform: translateY(1rem)
+
+        &:hover &--button
+            background-color: $color--orange
+            color: $color--light-grey
+
+    &__more
+        justify-self: center
+
+    &__bg
+        @include bg("../img/home/backgrounds/home-mobile-blog-bg.svg", contain, top left)
+        top: -35rem
+        left: -17rem
+        height: 30rem
+        width: 100%

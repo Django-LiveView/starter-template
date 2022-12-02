@@ -1,0 +1,161 @@
+.header
+    box-sizing: border-box
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    display: grid
+    grid-template-columns: 1fr auto
+    column-gap: $space--m
+    height: $height--header
+    align-items: center
+    padding-top: $space--xs
+    z-index: 100
+
+    &::before
+        content: ""
+        position: absolute
+        display: block
+        top: 0
+        justify-self: center
+        height: 100%
+        width: 100vw
+        background-color: $color--light-blue
+        z-index: -1
+
+    &__logo
+        position: relative
+        height: 2.25rem
+        width: 100%
+
+        & > button
+            display: flex
+            height: 100%
+            width: 100%
+
+            & > img
+                width: auto
+                height: 100%
+
+            & > span
+                position: absolute
+                top: 0
+                left: 0
+                z-index: -2
+
+    &__menu
+        display: grid
+        grid-auto-flow: column
+        column-gap: $space--m
+
+        &--main,
+        &--lang
+            position: relative
+            display: flex
+            align-items: center
+
+        &--main
+
+            & > ul
+                display: grid
+                grid-auto-flow: column
+                column-gap: $space--m
+
+            &__link
+                $size: $space--m
+                position: relative
+                display: inline-flex
+                align-items: center
+
+                &::before
+                    content: ""
+                    position: absolute
+                    left: -$space--xxs
+                    display: block
+                    height: $size
+                    width: 0
+                    background-color: $color--orange
+                    border-radius: calc(#{$size} / 2)
+                    opacity: 0
+                    z-index: -1
+                    transition: $transition--main
+
+                &:hover::before
+                    opacity: 1
+                    width: calc(100% + #{$space--xxs} * 2)
+
+                &.active::before
+                    opacity: 1
+                    width: $size
+
+        &--lang
+            $flag-size: 1.75rem
+            $scale: 1.2
+
+            & > button
+                display: grid
+                grid-template-columns: repeat(2, auto)
+                column-gap: $space--xxs
+                transition: $transition--main
+
+                & > img
+                    width: $flag-size
+                    transition: $transition--main
+
+                &:hover > img
+                    transform: scale($scale)
+
+                & > .icon-expand-down
+                    font-size: .5rem
+                    align-self: center
+                    margin-top: 2px
+                    transition: $transition--main
+
+                & > span
+                    position: absolute
+                    top: 0
+                    left: 0
+                    z-index: -2
+
+            &.open > button > .icon-expand-down
+                transform: scaleY(-1)
+
+            & > ul
+                position: absolute
+                top: 100%
+                left: -$space--xxs
+                display: grid
+                row-gap: $space--xxs
+                background-color: $color--light-blue
+                border-radius: $border-radius--xxs
+                padding:
+                    left: $space--xxs
+                    right: $space--xxs
+                overflow: hidden
+                transition: height $transition--main
+
+                & > li
+
+                    &:first-child
+                        padding-top: $space--xxs
+
+                    &:last-child
+                        padding-bottom: $space--xxs
+
+            &__flag
+                position: relative
+                display: flex
+
+                & > img
+                    width: $flag-size
+                    transition: $transition--main
+
+                &:hover > img
+                    transform: scale($scale)
+
+                & > span
+                    position: absolute
+                    top: 0
+                    right: 0
+                    color: $color--light-blue
+                    z-index: -2

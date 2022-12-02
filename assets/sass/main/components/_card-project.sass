@@ -1,0 +1,62 @@
+.card-project
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: $border-radius--s
+    box-shadow: $box-shadow--soft
+    overflow: hidden
+    transition: $transition--main
+
+    &::before,
+    &::after
+        content: ""
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+        border-radius: inherit
+        transition: opacity $transition--main
+
+    &::before
+        background-color: $color--orange
+        filter: opacity(.75)
+        opacity: 1
+        z-index: 0
+
+    &::after
+        background-image: linear-gradient(0deg, rgba($color--black, .75), transparent)
+        opacity: 0
+        z-index: 1
+
+    &:hover
+
+        &::before
+            opacity: 0
+
+        &::after
+            opacity: 1
+
+    &__figure
+        width: 100%
+        height: 100%
+        border-radius: inherit
+        overflow: hidden
+
+        &--img
+            width: 100%
+            height: 100%
+            object-fit: cover
+            object-position: center
+
+        &--capture
+            position: absolute
+            bottom: $space--s
+            left: $space--s
+            display: grid
+            row-gap: $space--xxs
+            width: calc(100% - #{$space--s} * 2)
+            max-height: calc(100% - #{$space--s} * 2)
+            color: $color--white
+            text-align: left
+            z-index: 2

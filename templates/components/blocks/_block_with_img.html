@@ -1,0 +1,8 @@
+{% load static %}
+
+<{% if container_tag %}{{ container_tag }}{% else %}article{% endif %} class="layout-grid--one-row {% if container_extra_class %}{{ container_extra_class }}{% endif %} align-{% if align == 'right' %}right{% elif align == 'center' %}center{% else %}left{% endif %}">
+    <figure class="layout-grid--one-row__img {% if img_extra_class %}{{ img_extra_class }}{% endif %}">
+        <{% if not img_alt %}iframe type="image/svg+xml"{% else %}img alt="{{ img_alt }}"{% endif %} {% if embed_id %}id="{{ embed_id }}"{% endif %} src="{% static img_src %}">{% if not img_alt %}</iframe>{% endif %}
+    </figure>
+    <p class="layout-grid--one-row__text {% if text_extra_class %}{{ text_extra_class }}{% endif %} {% if text_size_class %}{{ text_size_class }}{% else %}text--m{% endif %}">{{ text }}</p>
+</{% if container_tag %}{{ container_tag }}{% else %}article{% endif %}>

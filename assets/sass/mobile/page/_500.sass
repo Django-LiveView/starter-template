@@ -1,0 +1,56 @@
+.server-error
+    $cpu-size: 10rem
+    box-sizing: border-box
+    position: relative
+    display: grid
+    min-height: 100vh
+    grid-template-rows: $height--header $cpu-size auto
+    gap: $space--l
+    padding-bottom: $space--xl
+
+    &__logo
+        height: calc(100% - #{$space--m})
+        width: auto
+        justify-self: center
+        align-self: center
+
+    &__cpu-img
+        height: $cpu-size
+
+    &__body
+        display: grid
+        row-gap: $space--xxxl
+        align-self: center
+        margin-top: $space--xxxl
+
+        &--heading
+            height: max-content
+            align-self: center
+            line-height: auto
+
+            & > h1
+                display: grid
+
+                & > strong
+                    font-size: 8.5rem
+                    font-weight: 800
+                    line-height: 100%
+        &--address
+            display: grid
+            row-gap: $space--xxs
+
+    &__bg-main
+        @include bg("../img/server-error/backgrounds/server-error-mobile-bg.svg", cover, bottom center )
+        height: calc(#{$cpu-size} + #{$space--queen})
+        top: $height--header
+        width: 30rem
+        justify-self: center
+
+    &__bg-gears
+        $size: 25rem
+        @include bg("../img/server-error/backgrounds/gears-bg.svg", contain, center right)
+        height: $size
+        width: 75%
+        max-width: $size
+        right: $space--m
+        bottom: 0

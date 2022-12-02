@@ -1,0 +1,28 @@
+{% load static %}
+
+<{% if container_tag %}{{ container_tag }}{% else %}hgroup{% endif %} class="h-group align-{% if align == 'right' %}right{% elif align == 'center' %}center{% else %}left{% endif %} {% if container_extra_class %}{{ container_extra_class }}{% endif %}">
+    {% if anchor_id %}
+        <span id="{{ anchor_id }}" aria-label="hidden" class="scroll-top"></span>
+    {% endif %}
+    {% if img_src %}
+        <object {% if embed_id %}id="{{ embed_id }}"{% endif %} data="{% static img_src %}" type="image/svg+xml" class="h-group__img"></object>
+    {% endif %}
+    {% if title %}
+        <{% if title_tag %}{{title_tag}}{% else %}h2{% endif %} class="{% if title_size_class %}{{ title_size_class }}{% elif title_highlight %}title--xs{% else %}title--s{% endif %} h-group__heading {% if title_extra_class %}{{ title_extra_class }}{% endif %}">
+        {{ title }}
+            {% if title_highlight %}
+                <strong class="title--m">{{ title_highlight }}</strong>
+            {% endif %}
+        </{% if title_tag %}{{title_tag}}{% else %}h2{% endif %}>
+    {% endif %}
+    {% if subtitle %}
+        <p class="{% if subtitle_size_class %}subtitle_size_class{% else %}text--l{% endif %} {% if subtitle_extra_class %}{{ subtitle_extra_class }}{% endif %}">
+            {{ subtitle }}
+        </p>
+    {% endif %}
+    {% if link_title %}
+        <p class="h-group__link">
+            <{% if link_page %}button type="button" data-page="{{ link_page }}" data-action="{{ link_action }}"{% else %}span{% endif %} class="button {% if link_style_class %}{{ link_style_class }}{% else %}button--hover-orange{% endif %} {% if link_extra_class %}{{ link_extra_class }}{% endif %}">{{ link_title }}</{% if link_page %}button{% else %}span{% endif %}>
+        </p>
+    {% endif %}
+</{% if container_tag %}{{ container_tag }}{% else %}hgroup{% endif %}>

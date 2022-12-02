@@ -1,0 +1,35 @@
+http://ccstech.localhost {
+
+    root * /usr/src/app/
+    encode gzip zstd
+
+    @notStatic {
+      not path /static/* /media/*
+    }
+
+    reverse_proxy @notStatic django:8000
+
+    file_server /static/*
+}
+
+http://gulp.ccstech.localhost {
+
+    root * /usr/src/app/
+    encode gzip zstd
+
+    @notStatic {
+      not path /static/* /media/*
+    }
+
+    reverse_proxy @notStatic gulp:3000
+
+    file_server /static/*
+}
+
+http://jaeger.localhost {
+    reverse_proxy jaeger:16686
+}
+
+http://prometheus.localhost {
+    reverse_proxy prometheus:9090
+}

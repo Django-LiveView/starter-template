@@ -1,0 +1,62 @@
+.block--info
+    position: relative
+    display: flex
+    flex-wrap: wrap
+    column-gap: $space--xxl
+    row-gap: $space--xxl
+    justify-self: center
+    width: max-content
+    max-width: 100%
+
+    &__name
+        display: grid
+        row-gap: $space--m
+        text-align: center
+
+    &__icon
+        position: relative
+        display: flex
+        justify-content: center
+        align-items: center
+        width: $el--s
+        height: $el--s
+
+        & > img
+            transition: opacity $transition--main
+
+            &:first-child
+                z-index: 2
+                opacity: 1
+
+            &:last-child
+                position: absolute
+                z-index: 1
+                opacity: 0
+
+    &__item:hover &__icon > img
+
+        &:first-child
+            opacity: 0
+
+        &:last-child
+            opacity: 1
+
+    &__description
+        margin-left: unset
+        height: 0
+        transition: height $transition--main
+
+        & > span
+            position: absolute
+            left: 0
+            right: 0
+            width: 100%
+            height: 0
+            display: grid
+            overflow: hidden
+            transition: height $transition--main
+
+            &::before
+                display: block
+                content: ''
+                height: $space--l

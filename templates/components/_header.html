@@ -1,0 +1,93 @@
+{% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+
+<header id="header" data-controller="header" class="header container--wide">
+    <h1 class="header__logo">
+        <button type="button" data-page="home" data-action="click->header#changePage">
+            <img src="{% static 'img/header/logo.svg' %}" alt="CCSTech.io">
+            <span class="text--s">CCSTech.io</span>
+        </button>
+    </h1>
+    <div data-header-target="mobileMenu" class="header__menu">
+        <button
+            type="button"
+            class="header__menu--button mobile-view"
+            data-action="click->header#toggleMobileMenu"
+        >
+            <span aria-label="hidden"></span>
+            <span class="header__menu--button__open text--s">{% trans "Abrir/cerrar menú" %}</span>
+        </button>
+        <nav class="header__menu--main">
+            <ul>
+                <li>
+                    <button
+                        type="button"
+                        class="button button--hover-grey mobile-view"
+                    >{% trans "Agenda una cita" %}</button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="header__menu--main__link{% if active_nav == "about us" %} active{% endif %}"
+                        data-page="about us"
+                        data-action="click->header#changePage"
+                    >{% trans "Nosotros" %}</button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="header__menu--main__link{% if active_nav == "services" %} active{% endif %}"
+                        data-page="services"
+                        data-action="click->header#changePage"
+                    >{% trans "Servicios" %}</button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="header__menu--main__link{% if active_nav == "projects" %} active{% endif %}"
+                        data-page="projects landing"
+                        data-action="click->header#changePage"
+                    >{% trans "Proyectos" %}</button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="header__menu--main__link{% if active_nav == "blog" %} active{% endif %}"
+                        data-page="blog list"
+                        data-action="click->header#changePage"
+                    >{% trans "Blog" %}</button>
+                </li>
+                <li>
+                    <button
+                        type="button"
+                        class="header__menu--main__link{% if active_nav == "contact" %} active{% endif %}"
+                        data-page="contact"
+                        data-action="click->header#changePage"
+                    >{% trans "Contacto" %}</button>
+                </li>
+            </ul>
+        </nav>
+        <nav data-header-target="langMenu" class="header__menu--lang">
+            <!-- data-action="header#toggleLangMenu" -->
+            <button type="button">
+                <img src="{% static 'img/header/flag-'|add:CURRENT_LANGUAGE|add:'.svg' %}" alt="idioma">
+                <i aria-label="hidden" class="icon-expand-down desktop-view"></i>
+                <i aria-label="hidden" class="icon-expand-right mobile-view"></i>
+                <span class="text--xs">{% trans "Cambiar idioma" %}</span>
+            </button>
+            <ul data-header-target="langList" style="height: 0; width: 0">
+                {% for language in AVAILABLE_LANGUAGES %}
+                {% if language.0 != CURRENT_LANGUAGE %}
+                <li>
+                    <a href="/{{ language.0 }}/" class="header__menu--lang__flag">
+                        <img src="{% static 'img/header/flag-'|add:language.0|add:'.svg' %}" alt="{{ language.1 }}">
+                        <span class="text--s">{{ language.0 }}</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,182 @@
+{% load i18n static %}
+
+<header data-controller="page parallax animations" class="about-us--header layout-grid--main container--narrow">
+    <object
+        id="cpu-robot"
+        data="{% static 'img/about-us/animated-cpu-robot.svg' %}"
+        type="image/svg+xml"
+        class="layout-grid--main__img about-us--header__img"
+        title="{% trans 'Desarrollo de APPs' %}"
+    ></object>
+    {% trans "Conócenos un" as about_header_title %}
+    {% trans "poco más" as about_header_title_bold %}
+    {% trans "Aquí es donde hacemos que la magia suceda. Desde la concepción hasta su implementación con entidad corporativa, diseño gráfico, diseño web, front-end, back-end, testing, despliegue, marketing, mantenimiento y un poco más." as about_header_subtitle %}
+    {% trans "Contáctanos" as about_header_link %}
+    {% include 'components/blocks/_heading_group.html' with title_tag="h1" title=about_header_title title_highlight=about_header_title_bold subtitle=about_header_subtitle link_page="contact" link_action="click->page#changePage" link_title=about_header_link %}
+    <span aria-label="hidden" class="about-us--header__bg" id="about-header-bg"></span>
+</header>
+
+<section data-controller="page" class="about-us--our-path container--narrow">
+    <figure class="about-us--our-path__quote">
+        <blockquote>
+            <p class="text--xl text--bold align--center about-us--our-path__quote--cite">
+                <span class="about-us--our-path__quote--cite-quote">&ldquo;</span>
+                {% blocktranslate %}
+                    El mejor camino para continuar <strong class="text--orange text--bold">avanzando hacia el futuro</strong> es cumplir con la necesidad de digitalizar procesos. Esto lo podemos lograr con la implementación de tecnologías en la nube, automatización de procesos, <strong class="text--orange text--bold">tecnologías Open Source</strong> y con el poder del código.&rdquo;
+                {% endblocktranslate %}
+            </p>
+        </blockquote>
+        <figcaption class="text--m text--bold align--right">Antony R. Götzschel CEO</figcaption>
+    </figure>
+    {% trans "Misión" as about_path_title %}
+    {% trans "Ayudar a empresas en el proceso de digitalización innovando a través software y tecnologías en la nube junto a procesos de desarrollo DevOps." as about_path_subtitle %}
+    {% trans "Visión" as about_path_title2 %}
+    {% trans "Posicionarnos como referente de innovación en la implementación de nuevas tecnologías y procesos que permitan el crecimiento constante de pequeñas, medianas y grandes empresas, cubriendo la exigencias y superando las expectativas." as about_path_subtitle2 %}
+    {% include 'components/blocks/_heading_group.html' with embed_id="about-mission" container_tag="article" align="right" container_extra_class="about-us--our-path__mission" img_src="img/about-us/animated-lens.svg" title_tag="h2" title_extra_class="text--bolder" title=about_path_title subtitle=about_path_subtitle anchor_id="mission" %}
+    {% include 'components/blocks/_heading_group.html' with embed_id="about-vision" container_tag="article" container_extra_class="about-us--our-path__vision" img_src="img/about-us/animated-airplane.svg" title_tag="h2" title_extra_class="text--bolder" title=about_path_title2 subtitle=about_path_subtitle2 anchor_id="values" %}
+    <p class="about-us--our-path__more">
+        <button
+            type="button"
+            data-page="projects landing"
+            data-action="click->page#changePage"
+            class="button button--hover-orange"
+        >{% trans "Nuestros proyectos" %}</button>
+    </p>
+</section>
+
+<section data-controller="page" class="about-us--why-us container--narrow">
+    <span id="benefit" aria-label="hidden" class="scroll-top"></span>
+    {% trans "<strong class='title--m'>¿Por qué debemos trabajar juntos?</strong>Te lo contamos" as about_whyus_title %}
+    {% trans "En CCSTech.io no nos conformamos solamente con describir una lista de razones que suenen a promesas, para nosotros lo importante es incrementar el alcance de tu proyecto o producto a través de la implementación y el desarrollo de las tecnologías adecuadas según tus necesidades logrando el máximo potencial." as about_whyus_subtitle %}
+    {% include 'components/blocks/_heading_group.html' with title_tag="h2" align="center" title=about_whyus_title subtitle=about_whyus_subtitle %}
+    <ul class="about-us--why-us__list">
+        <li>
+            {% trans "La tecnología OpenSource es vital en nuestra metodología de trabajo para brindarte más calidad y reforzar la seguridad en el proceso de desarrollo gracias a la revisión colaborativa que permite un rápido diagnóstico de errores y sugerencias mejorando en cada versión." as about_whyus_item1 %}
+            {% include 'components/blocks/_block_with_img.html' with embed_id="about-open-source" img_extra_class="about-us--why-us__list--img" img_src="img/about-us/values/animated-methodology.svg" text=about_whyus_item1 %}
+        </li>
+        <li>
+            {% trans "Nuestra alianza con CCSolutions.io nos permite brindarle a tus necesidades las mejores opciones tecnológicas en la nube (Ionos, AWS, Syseleven, Azure, GCP) e implementar una metodología DevOps." as about_whyus_item2 %}
+            {% include 'components/blocks/_block_with_img.html' with embed_id="about-ccsolutions" container_extra_class="about-us--why-us__list--even-item" img_extra_class="about-us--why-us__list--img" img_src="img/about-us/values/animated-cloud.svg" text=about_whyus_item2 %}
+        </li>
+        <li>
+            {% trans "Sabemos que existen distintos tipos de empresas y necesidades que buscan digitalizar y optimizar sus procesos. Por eso siempre contamos con metodologías, iniciativas y gestiones que logran adaptarse y desarrollarse en pro de alcanzar los objetivos de cada proyecto." as about_whyus_item3 %}
+            {% include 'components/blocks/_block_with_img.html' with embed_id="about-digitalization" img_extra_class="about-us--why-us__list--img" img_src="img/about-us/values/animated-optimization.svg" text=about_whyus_item3 %}
+        </li>
+        <li>
+            {% trans "Nos preocupamos por brindar el mejor acompañamiento gracias a un equipo que cuenta con una amplia experiencia y excelentes resultados en diversos proyectos que lo avalan." as about_whyus_item4 %}
+            {% include 'components/blocks/_block_with_img.html' with embed_id="about-team" container_extra_class="about-us--why-us__list--even-item" img_extra_class="about-us--why-us__list--img" img_src="img/about-us/values/animated-excellence.svg" text=about_whyus_item4 %}
+        </li>
+    </ul>
+    <p class="about-us--why-us__more">
+        <button
+            type="button"
+            class="button button--hover-orange"
+            data-page="contact"
+            data-action="click->page#changePage"
+        >{% trans "¡Compruébalo!" %}</button>
+    </p>
+    <span aria-label="hidden" class="about-us--services__bg" id="about-services-bg"></span>
+</section>
+
+<section data-controller="page" class="about-us--growth">
+    <h1 class="title--s align--center">{% blocktrans %}Impulsamos el <strong class="text--bold">crecimiento</strong> de cada proyecto partiendo siempre de:{% endblocktrans %}</h1>
+    {% include "components/blocks/_block_info.html" %}
+    <p>
+        <button
+            class="button button--hover-orange"
+            data-page="projects landing"
+            data-action="click->page#changePage"
+        >{% trans "Nuestros proyectos" %}</button>
+    </p>
+    <span aria-label="hidden" class="about-us--growth__bg" id="about-growth-bg"></span>
+</section>
+
+<section data-controller="animations" class="about-us--partner container--narrow">
+    <span id="partners" aria-label="hidden" class="scroll-top"></span>
+    <a
+        href="https://ccsolutions.io"
+        target="_blank"
+        class="about-us--partner__link"
+        data-animations-embed-param="#ani-antony"
+        data-animations-svg-param="#eMWQSLcNFm81"
+        data-animations-iterations-param="1"
+        data-action="mouseenter->animations#playAnimation touchstart->animations#playAnimation"
+    >
+        {% trans "Conoce nuestro" as about_partner_title %}
+        {% trans "partner en soluciones" as about_partner_title_bold %}
+        {% trans "¡El momento es ahora! Comienza la transformación digital de tu negocio o proyecto gracias a la alianza con nuestro partner en digitalización y tecnología en la Nube <span class='about-us--partner__ccsolutiuons'>CCSolutions.io</span>." as about_partner_subtitle %}
+        {% include 'components/blocks/_heading_group.html' with container_extra_class="about-us--partner__header" title_tag="h2" align="center" title=about_partner_title title_highlight=about_partner_title_bold subtitle=about_partner_subtitle %}
+        <div class="about-us--partner__body">
+            <p>{% trans "Es tiempo de implementar las nuevas tecnologías informáticas aplicadas a conceptos, procesos, productos y estrategias. Deja que tu proyecto crezca y supere las expectativas." %}</p>
+            <p>{% trans "Optimiza tus recursos, evoluciona, genera nuevas oportunidades, vuélvete competitivo mientras aumentas tu valor en el mercado a través de la aplicación de nuevas tecnologías." %}</p>
+            <span label-area="hidden" class="about-us--partner__body--arrow"></span>
+            <iframe
+                id="ani-antony"
+                src="{% static 'img/about-us/animated-antony.svg' %}"
+                type="image/svg+xml"
+                title="{% trans 'Nuestro partner CCSolutions.io' %}"
+                class="about-us--partner__body--img"
+            >
+            </iframe>
+        </div>
+    </a>
+    <span aria-label="hidden" class="about-us--partner__bg" id="about-partner-bg"></span>
+</section>
+
+<section
+    data-controller="team page"
+    class="about-us--team container--narrow layout-grid--main"
+    data-team-index-value="0"
+>
+    <span id="team" aria-label="hidden" class="scroll-top"></span>
+    {% trans "En CSStech.io" as about_team_title %}
+    {% trans "Somos un equipode expertos en desarrollo y deseño UX/UI que entinede el entorno digital, sus necesidaded y fortalezas desde adentro ya que nacimos digital y sabemos ser digitales, Cada miembro del equipo <strong class='text--bolds'>enriquece los procesos de la organización y nos ayudan a mejorar la experiencia de nuestros clientes</strong>." as about_team_subtitle %}
+    {% include 'components/blocks/_heading_group.html' with title_extra_class="text--bold" title=about_team_title subtitle=about_team_subtitle link_page="contact" link_action="click->page#changePage" link_title=about_header_link %}
+    <div
+        class="about-us--team__members"
+        data-action="wheel->team#slideTeamMembers touchstart->team#getTouchStartPosition touchmove->team#slideTeamMembers"
+    >
+        <div class="about-us--team__member-group moved-up" data-team-target="teamGroup">
+            {% trans "CEO Chief Executive Officer" as antony_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/antony.png" name="Antony Götzschel" position=antony_position %}
+            {% trans "Business Developer" as patrick_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/patrick.png" name="Patrick Martínez" position=patrick_position %}
+            {% trans "Chief Operating Officer" as jennifer_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/jennifer.png" name="Jennifer Ramírez" position=jennifer_position %}
+            {% trans "CTO Chief Technology Officer & Fullstack Developer" as andros_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/andros.png" name="Andros Fenollosa" position=andros_position %}
+        </div>
+        <div class="about-us--team__member-group slide-down" data-team-target="teamGroup">
+            {% trans "Fullstack Developer" as javier_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/javier.png" name="Javier Pérez" position=javier_position %}
+            {% trans "Frontend and Application Developer" as valentina_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/valentina.webp" name="Valentina Rubane" position=valentina_position %}
+            {% trans "Junior Frontend Developer" as simone_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/simone.png" name="Simone Mandola" position=simone_position %}
+            {% trans "Diseño UX/UI" as maria_jose_position %}
+            {% include 'components/blocks/_card_profile.html' with img_src="img/about-us/team/maria-jose.webp" name="María José Pérez" position=maria_jose_position %}
+        </div>
+        <div class="about-us--team__member-nav">
+            <button
+                class="about-us--team__member-nav--prev"
+                data-team-target="prev"
+                data-action="click->team#goToPrevPage"
+                disabled
+            >
+                <span>{% trans "anterior" %}</span>
+            </button>
+            <p class="text--m text--orange"><strong
+                class="text--xxl text--bold"
+                data-team-target="currentPage"
+            >1</strong> / <span data-team-target="totalPages">2</span></p>
+            <button
+                class="about-us--team__member-nav--next"
+                data-team-target="next"
+                data-action="click->team#goToNextPage"
+                disabled
+            >
+                <span>{% trans "siguiente" %}</span>
+            </button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,62 @@
+.server-error
+    box-sizing: border-box
+    position: relative
+    display: grid
+    min-height: 100vh
+    grid-template-columns: repeat(3, 1fr)
+    grid-template-rows: $height--header 1fr
+    gap: $space--xxxl
+    padding-bottom: $space--xxxl
+
+    &__logo
+        grid-column: 1 / 4
+        height: calc(100% - #{$space--m})
+        width: auto
+        justify-self: right
+        align-self: center
+
+    &__cpu-img
+        margin-bottom: $space--king-plus
+
+    &__body
+        display: grid
+        row-gap: $space--xxxl
+
+        &--heading
+            height: max-content
+            align-self: center
+            line-height: auto
+
+            & > h1
+                display: grid
+
+                & > strong
+                    font-size: 10rem
+                    font-weight: 800
+                    line-height: 100%
+        &--address
+            display: grid
+            row-gap: $space--xxs
+
+    &__cpu-img,
+    &__body,
+    &__server-img
+        align-self: center
+
+    &__bg-main
+        @include bg("../img/server-error/backgrounds/server-error-desktop-bg.svg", contain, center right)
+        right: 66%
+        align-self: center
+        min-height: 70rem
+        height: 100%
+        width: 100%
+        margin-bottom: $space--king-plus
+
+    &__bg-gears
+        $size: 25rem
+        @include bg("../img/server-error/backgrounds/gears-bg.svg", contain, center right)
+        height: $size
+        width: $size
+        margin-bottom: calc(#{$size} * 2)
+        left: 25%
+        align-self: center
