@@ -1,13 +1,5 @@
-{% load i18n static %}
+{% load i18n %}
 
 <div class="loading">
-    <div class="loading__body">
-        <embed
-            src="{% static 'img/about-us/values/animated-optimization.svg' %}"
-            type="image/svg+xml"
-            class="loading__body--img"
-            title="{% trans "Desarrollo de APPs" %}"
-        ></embed>
-        <p class="text--l text--orange align--center">{% trans "Cargando" %}...</p>
-    </div>
+    {% trans "Loading" %}
 </div>
