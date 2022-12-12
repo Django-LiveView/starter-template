@@ -11,6 +11,6 @@ export default class extends Controller {
         ? {"scroll": event.currentTarget.dataset.scroll}
         : {}
     );
-    sendData({action: `Change page ${event.currentTarget.dataset.page} - ${getLang()}`, data: data});
+    sendData({action: `${event.currentTarget.dataset.page}->send_page`, data: data});
   };
 }

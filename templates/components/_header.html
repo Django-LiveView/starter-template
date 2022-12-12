@@ -1,22 +1,22 @@
 {% load i18n %}
 
-<header id="header" data-controller="header" class="header container--wide">
+<header id="header" data-controller="page" class="header container--wide">
     <nav class="header__menu--main">
         <ul>
             <li>
                 <button
                     type="button"
-                    class="{% if active_nav == "home" %}active{% endif %}"
+                    class="{% if not active_nav or active_nav == "home" %}active{% endif %}"
                     data-page="home"
-                    data-action="click->header#changePage"
+                    data-action="click->page#changePage"
                 >{% trans "Home" %}</button>
             </li>
 	    <li>
 		<button
 		    type="button"
 		    class="{% if active_nav == "about us" %}active{% endif %}"
-		    data-page="about us"
-		    data-action="click->header#changePage"
+		    data-page="about_us"
+		    data-action="click->page#changePage"
 		>{% trans "About us" %}</button>
 	    </li>
         </ul>

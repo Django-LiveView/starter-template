@@ -1,5 +1,5 @@
 from channels.generic.websocket import JsonWebsocketConsumer
-import app.website.actions.home as home
+import app.website.actions as actions
 
 
 class WebsiteConsumer(JsonWebsocketConsumer):

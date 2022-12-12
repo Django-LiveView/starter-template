@@ -48,4 +48,3 @@ def send_page(consumer, client_data):
     consumer.send_html(data)
     # Hide loading
     toggle_loading(consumer, False)
-
