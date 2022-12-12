@@ -1,8 +1,7 @@
 import requests
-import os
 from django.utils.translation import get_language
 
-API_DOMAIN = os.environ.get("API_DOMAIN") + "v1/"
+API_DOMAIN = "https://jsonplaceholder.typicode.com/"
 
 
 def get_posts(page=1):

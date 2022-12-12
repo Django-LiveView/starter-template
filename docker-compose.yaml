@@ -15,7 +15,6 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       DOMAIN: ${DOMAIN}
       DOMAIN_URL: ${DOMAIN_URL}
-      API_DOMAIN: ${API_DOMAIN}
       REDIS_URI: ${REDIS_URI}
       REDIS_PORT: ${REDIS_PORT}
     expose:

@@ -2,42 +2,32 @@
 <!doctype html>{% get_current_language as CURRENT_LANGUAGE %}
 <html id="html" lang="{{ CURRENT_LANGUAGE }}">
 	<head>
-        {# Google tag (gtag.js) #}
-	    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
-	    <script>
-	        window.dataLayer = window.dataLayer || [];
-	        function gtag(){dataLayer.push(arguments);}
-	        gtag('js', new Date());
-
-	        gtag('config', '{{ GOOGLE_ANALYTICS }}');
-	    </script>
-        {# End Google tag (gtag.js) #}
         {# Config #}
 	    <meta charset="UTF-8">
-        <title id="title">{{ title }}CCSTech.io</title>
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title id="title">{{ title }}</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta name="theme-color" content="#F2F7FD">
         {# End config #}
         {# SEO #}
-		<meta name="description" content="{{ meta.description }}">
+	<meta name="description" content="{{ meta.description }}">
         <meta name="author" content="CCSTech.io">
         <meta name="generator" content="Django">
-        <meta name="keywords" content="html, css, javascript, typescript, django, python, vue, sass, swift, android, ios, clojure">
-		<meta property="og:image" content="{{ meta.image }}">
+        <meta name="keywords" content="html, css, javascript, typescript, django, python, sass">
+	<meta property="og:image" content="{{ meta.image }}">
         <meta property="og:title" content="{{ title }}CCSTech.io">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url }}">
         <meta name="twitter:card" content="{{ meta.description }}">
-        <meta name="twitter:site" content="@ccstech_io">
-        <meta name="twitter:creator" content="@ccstech_io">
+        <meta name="twitter:site" content="@androsfenollosa">
+        <meta name="twitter:creator" content="@androsfenollosa">
         <meta property="og:image:secure_url" content="{{ meta.image }}">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="400">
         <meta property="og:image:height" content="300">
-        <meta property="og:image:alt" content="{{ title }}CCSTech.io">
+        <meta property="og:image:alt" content="{{ title }}">
         {# End SEO #}
         {# Favicon #}
-		<link rel="icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+	<link rel="icon" href="{% static "img/favicon.png" %}" type="image/png" />
         <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icons/touch-icon-iphone.png' %}">
         <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icons/touch-icon-ipad.png' %}">
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icons/touch-icon-iphone-retina.png' %}">
@@ -53,34 +43,18 @@
 	</head>
 	<body
 		data-host="{{ request.get_host }}"
-		data-scheme="{{ request.scheme }}"
 		data-debug="{{ DEBUG }}"
 	>
-        <section id="loading"></section>
-
-		<div>
-			<div id="content-header">
-				{% include 'components/_header.html' %}
-			</div>
-
-			<main id="main" class="main-container">{% include page %}</main>
-
-			<!-- import here modal no connection -->
-			<span id="modal-no-connection">
-                {% include "components/modals/_modal-no-connection.html" %}
-            </span>
-
-            <div id="content-footer">
-			    {% include 'components/_footer.html' %}
-            </div>
-		</div>
-		<!-- Cookiebot Scripts -->
-        <script
-            id="Cookiebot"
-            src="https://consent.cookiebot.com/uc.js"
-            data-cbid="{{ COOKIEBOT_KEY }}"
-            type="text/javascript"
-            data-blockingmode="auto"
-        ></script>
-</body>
+            <section id="loading"></section>
+	    <section id="modal-no-connection">
+		{% include "components/modals/_modal-no-connection.html" %}
+	    </section>
+	    <header id="content-header">
+		{% include 'components/_header.html' %}
+	    </header>
+	    <main id="main" class="main-container">{% include page %}</main>
+            <footer id="content-footer">
+		{% include 'components/_footer.html' %}
+            </footer>
+	</body>
 </html>

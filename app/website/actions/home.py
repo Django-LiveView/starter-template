@@ -1,18 +1,12 @@
-from app.website.actions.api import (
-    get_posts,
-    get_projects,
-    get_project_category_ug_slug,
-)
+
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
-import concurrent
 from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
 from app.website.actions.utils import (
     toggle_loading,
     update_active_nav,
-    toggle_footer_form,
 )
 from core import settings
 
@@ -31,7 +25,7 @@ def get_context():
                 "description": _(
                     "Home page of the website"
                 ),
-                "image": f"{settings.DOMAIN_URL}{static('img/seo/ccstech-io.jpg')}",
+                "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
             },
             "page": template,
         }

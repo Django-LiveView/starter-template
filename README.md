@@ -45,8 +45,8 @@ A simple case: a button that when clicked displays a modal. The flow of actions 
 
 1. Stimulus would capture the `click` event.
 2. The Stimulus Controller function sends via WebSockets (using `sendData`), the action it needs together with the collected information. 
-3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action views.
-4. The `view.py` of the action is executed by rendering the new HTML from a template. Perhaps `modal.html`.
+3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action.
+4. Action (`actions` directory) is executed by rendering the new HTML from a template. Perhaps `modal.html`.
 5. The HTML is sent via `consumer.send_html()` through WebSockets to the client that has requested to execute the action.
 6. Frontend receives a JSON with the new HTML, along with other properties. Inside JSON is specified in which `id` the prerendered HTML should be inserted. In this case it will fill an empty element with `modal.html` contain.
 
