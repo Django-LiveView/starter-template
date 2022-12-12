@@ -1,6 +1,6 @@
 * Tasks
 
-** TODO Navigation Real-time without loads similar to SPA.
+** IN PROGRESS Navigation Real-time without loads similar to SPA.
 ** TODO Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
 ** TODO Multilanguage.
 ** TODO Switch to a static page (Home).
