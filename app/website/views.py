@@ -1,5 +1,6 @@
 from app.website.actions.home import get_context as get_home_context
 from app.website.actions.about_us import get_context as get_about_us_context
+from django.shortcuts import render
 
 
 def home(request):
@@ -67,3 +68,10 @@ def about_us(request):
 
 # def humans(request):
 #     return render(request, "txts/humans.txt", content_type="text/plain")
+
+def page_not_found(request, exception):
+    return render(request, "base.html", {"page": "pages/404.html"})
+
+
+def page_server_error(request):
+    return render(request, "base_simple.html", {"page": "pages/500.html"})

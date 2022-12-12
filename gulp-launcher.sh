@@ -6,4 +6,4 @@ npm i
 gulp dev
 
 # Start server with production mode
-gulp
+#gulp

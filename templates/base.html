@@ -4,37 +4,38 @@
 	<head>
         {# Config #}
 	    <meta charset="UTF-8">
-        <title id="title">{{ title }}</title>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta name="theme-color" content="#F2F7FD">
-        {# End config #}
-        {# SEO #}
-	<meta name="description" content="{{ meta.description }}">
-        <meta name="author" content="CCSTech.io">
-        <meta name="generator" content="Django">
-        <meta name="keywords" content="html, css, javascript, typescript, django, python, sass">
-	<meta property="og:image" content="{{ meta.image }}">
-        <meta property="og:title" content="{{ title }}CCSTech.io">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="{{ url }}">
-        <meta name="twitter:card" content="{{ meta.description }}">
-        <meta name="twitter:site" content="@androsfenollosa">
-        <meta name="twitter:creator" content="@androsfenollosa">
-        <meta property="og:image:secure_url" content="{{ meta.image }}">
-        <meta property="og:image:type" content="image/jpeg">
-        <meta property="og:image:width" content="400">
-        <meta property="og:image:height" content="300">
-        <meta property="og:image:alt" content="{{ title }}">
-        {# End SEO #}
-        {# Favicon #}
-	<link rel="icon" href="{% static "img/favicon.png" %}" type="image/png" />
-        <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icons/touch-icon-iphone.png' %}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icons/touch-icon-ipad.png' %}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icons/touch-icon-iphone-retina.png' %}">
-        <link rel="apple-touch-icon" sizes="167x167" href="{% static 'img/apple-touch-icons/touch-icon-ipad-retina.png' %}">
-        {# End favicon #}
-        {# Styles #}
-		<link rel="stylesheet" media="all and (min-width: 901px)" href="{% static 'css/desktop.css' %}" rel="stylesheet" />
+            <title id="title">{{ title }}</title>
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+            <meta name="theme-color" content="#F2F7FD">
+            {# End config #}
+            {# SEO #}
+	    <meta name="description" content="{{ meta.description }}">
+            <meta name="author" content="CCSTech.io">
+            <meta name="generator" content="Django">
+            <meta name="keywords" content="html, css, javascript, typescript, django, python, sass">
+	    <meta property="og:image" content="{{ meta.image }}">
+            <meta property="og:title" content="{{ title }}CCSTech.io">
+            <meta property="og:type" content="website">
+            <meta property="og:url" content="{{ url }}">
+            <meta name="twitter:card" content="{{ meta.description }}">
+            <meta name="twitter:site" content="@androsfenollosa">
+            <meta name="twitter:creator" content="@androsfenollosa">
+            <meta property="og:image:secure_url" content="{{ meta.image }}">
+            <meta property="og:image:type" content="image/jpeg">
+            <meta property="og:image:width" content="400">
+            <meta property="og:image:height" content="300">
+            <meta property="og:image:alt" content="{{ title }}">
+            {# End SEO #}
+            {# Favicon #}
+	    <link rel="icon" href="{% static "img/favicon.png" %}" type="image/png" />
+            <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icons/touch-icon-iphone.png' %}">
+            <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/apple-touch-icons/touch-icon-ipad.png' %}">
+            <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icons/touch-icon-iphone-retina.png' %}">
+            <link rel="apple-touch-icon" sizes="167x167" href="{% static 'img/apple-touch-icons/touch-icon-ipad-retina.png' %}">
+            {# End favicon #}
+            {# Styles #}
+	    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+	    <link rel="stylesheet" media="all and (min-width: 901px)" href="{% static 'css/desktop.css' %}" rel="stylesheet" />
 		<link rel="stylesheet" media="all and (max-width: 900px)" href="{% static 'css/mobile.css' %}" rel="stylesheet" />
         {# End styles #}
         {# JavaScript #}
@@ -46,15 +47,15 @@
 		data-debug="{{ DEBUG }}"
 	>
             <section id="loading"></section>
-	    <section id="modal-no-connection">
-		{% include "components/modals/_modal-no-connection.html" %}
-	    </section>
-	    <header id="content-header">
-		{% include 'components/_header.html' %}
-	    </header>
-	    <main id="main" class="main-container">{% include page %}</main>
-            <footer id="content-footer">
-		{% include 'components/_footer.html' %}
-            </footer>
+	    <section id="no_connection"></section>
+	    <div class="container">
+		<header id="content-header">
+		    {% include 'components/_header.html' %}
+		</header>
+		<main id="main" class="main-container">{% include page %}</main>
+		<footer id="content-footer">
+		    {% include 'components/_footer.html' %}
+		</footer>
+	    </div>
 	</body>
 </html>
