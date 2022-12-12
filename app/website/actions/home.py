@@ -20,7 +20,7 @@ def get_context():
     context.update(
         {
             "url": settings.DOMAIN_URL + reverse("home"),
-            "title": "",
+            "title": _("Home") + " | " + settings.SITE_NAME,
             "meta": {
                 "description": _(
                     "Home page of the website"

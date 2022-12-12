@@ -65,11 +65,11 @@ export function startEvents(webSocket=window.myWebSocket) {
   // Event when a new message is received by WebSockets
   webSocket.addEventListener("message", (event) => {
     // Parse the data received
-    const data = JSON.parse(event.data);
-
+      const data = JSON.parse(event.data);
+      
     // Renders the HTML received from the Consumer
-    renderHtml(data);
-    moveScrollToAnchor(data);
+      renderHtml(data);
+      moveScrollToAnchor(data);
   });
 
   /**

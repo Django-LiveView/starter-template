@@ -34,6 +34,7 @@ ALLOWED_HOSTS = (
     + ["django"]
 )
 
+SITE_NAME = "Feline Web"
 
 # Application definition
 

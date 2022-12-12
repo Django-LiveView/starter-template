@@ -66,8 +66,15 @@ export const renderHtml = (data, isBackward = false, isCachingData = false) => {
     console.error(`Target ${data.selector} not found`);
     return;
   }
-  // Update URL
-  history.pushState({}, '', data.url)
+    // Update URL
+    if (data.url) {
+	window.history.pushState({ url: data.url }, "", data.url);
+    }
+
+    // Update title
+    if (data.title) {
+	document.title = data.title;
+    }
 }
 
 export function moveScrollToAnchor(data) {
