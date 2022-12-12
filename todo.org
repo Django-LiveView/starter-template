@@ -1,7 +1,9 @@
 * Tasks
 
-** IN PROGRESS Navigation Real-time without loads similar to SPA.
-** TODO Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
+** DONE Navigation Real-time without loads similar to SPA.
+** IN PROGRESS Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
+*** Need fix active
+** TODO Add Favicat
 ** TODO Multilanguage.
 ** TODO Switch to a static page (Home).
 ** TODO Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
@@ -16,7 +18,7 @@
 ** TODO Login.
 ** TODO Private Page (🐈‍⬛).
 ** TODO Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
-** TODO URL dynamic update in Browser (Front-End).
-** TODO Security: Cross-site request forgery protection over WebSockets.
+** DONE URL dynamic update in Browser (Front-End).
+** DONE Security: Cross-site request forgery protection over WebSockets.
 ** TODO RSS feed.
 ** TODO Sitemap.
