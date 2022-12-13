@@ -2,7 +2,11 @@ from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
 from app.website.forms import ContactForm
 from django.urls import reverse
+from django.utils.translation import activate as translation_activate
 
+def set_language(language="en"):
+    if language:
+        translation_activate(language)
 
 def toggle_loading(consumer, show=False):
     """Toogle the footer form."""

@@ -4,7 +4,7 @@
 ** DONE Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
 ** DONE Add Favicat
 ** TODO Multilanguage.
-** TODO Switch to a static page (Home).
+** DONE Switch to a static page (Home).
 ** TODO Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
 ** TODO Single page (Cat 🐈).
 ** TODO Add a new item in the database (👶🏻🐈).

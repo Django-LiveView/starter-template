@@ -41,19 +41,17 @@ SITE_NAME = "Feline Web"
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.staticfiles",
+    "django_extensions",
     "channels",
-    "django_prometheus",
     "app.website",
 ]
 
 MIDDLEWARE = [
-    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -76,9 +74,12 @@ TEMPLATES = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = "es"
+LANGUAGE_CODE = "en"
 
-LANGUAGES = [("es", _("Español")), ("en", _("Inglés"))]
+LANGUAGES = [
+    ("en", _("English")),
+    ("es", _("Spanish")),
+]
 
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 

@@ -1,0 +1,18 @@
+{% load i18n %}
+{% get_current_language as CURRENT_LANGUAGE %}
+{% get_available_languages as AVAILABLE_LANGUAGES %}
+<ul>
+    <li>
+	<a href="#" disabled>{{ CURRENT_LANGUAGE }}</a>
+    </li>
+    {% for language in AVAILABLE_LANGUAGES %}
+    {% if language.0 != CURRENT_LANGUAGE %}
+    <li>
+        <a href="{% if language.0 == 'en' %}/{% else %}/{{ language.0 }}/{% endif %}">
+            {{ language.0 }}
+        </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+

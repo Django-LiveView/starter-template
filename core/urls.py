@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _
 # Underscore _ for paths that will be translated
 urlpatterns = i18n_patterns(
     path("", views.home, name="home"),
-    path(_("about us") + "/", views.about_us, name="about us"),
+    path(_("about-us/"), views.about_us, name="about us"),
     prefix_default_language=False,
 )
 

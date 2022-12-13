@@ -1,5 +1,4 @@
 {% load i18n %}
-
 <header id="header" data-controller="page" class="header container--wide">
     <nav class="header__menu--main">
         <ul>
@@ -20,5 +19,6 @@
 		>{% trans "About us" %}</button>
 	    </li>
         </ul>
+	{% include "components/_language_selector.html" %}
     </nav>
 </header>

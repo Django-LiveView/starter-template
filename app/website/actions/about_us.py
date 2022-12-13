@@ -1,9 +1,9 @@
-
+from app.website.actions.utils import set_language
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
-from django.utils.translation import gettext as _, get_language
+from django.utils.translation import gettext as _
 from app.website.actions.utils import (
     toggle_loading,
     update_active_nav,
@@ -34,17 +34,19 @@ def get_context():
     return context
 
 
-def get_html():
+def get_html(lang=None):
+    set_language(lang)
     return render_to_string(template, get_context())
 
 
 def send_page(consumer, client_data):
+    lang = client_data.get("lang", settings.LANGUAGE_CODE)
     # Show loading
     toggle_loading(consumer, True)
     # Nav
     update_active_nav(consumer, "about us")
     # Main
-    data = {"action": client_data["action"], "selector": "#main", "html": get_html()}
+    data = {"action": client_data["action"], "selector": "#main", "html": get_html(lang=lang)}
     data.update(get_context())
     consumer.send_html(data)
     # Hide loading

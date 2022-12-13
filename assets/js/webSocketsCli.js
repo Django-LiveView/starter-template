@@ -47,7 +47,12 @@ export function connect(url=`${'https:' == document.location.protocol ? 'wss' : 
  */
 export function sendData(message, webSocket=window.myWebSocket) {
     if (webSocket.readyState === WebSocket.OPEN) {
-      webSocket.send(JSON.stringify(message));
+	// Add lang
+	const messageWithoutLang = message;
+	messageWithoutLang.data.lang = document.querySelector("html").getAttribute("lang");
+	const messageFull = messageWithoutLang;
+	// Send
+	webSocket.send(JSON.stringify(messageFull));
     }
 }
 
