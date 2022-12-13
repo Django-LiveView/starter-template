@@ -6,7 +6,7 @@
             <li>
                 <button
                     type="button"
-                    class="{% if not active_nav or active_nav == "home" %}active{% endif %}"
+                    class="{% if active_nav == "home" %}active{% endif %}"
                     data-page="home"
                     data-action="click->page#changePage"
                 >{% trans "Home" %}</button>

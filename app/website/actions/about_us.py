@@ -27,6 +27,7 @@ def get_context():
                 ),
                 "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
             },
+            "active_nav": "about us",
             "page": template,
         }
     )
