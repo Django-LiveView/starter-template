@@ -1,9 +1,8 @@
 * Tasks
 
 ** DONE Navigation Real-time without loads similar to SPA.
-** IN PROGRESS Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
-*** Need fix active
-** TODO Add Favicat
+** DONE Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
+** DONE Add Favicat
 ** TODO Multilanguage.
 ** TODO Switch to a static page (Home).
 ** TODO Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
