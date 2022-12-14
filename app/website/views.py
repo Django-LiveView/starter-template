@@ -70,6 +70,7 @@ def all_cats(request):
 # def humans(request):
 #     return render(request, "txts/humans.txt", content_type="text/plain")
 
+
 def page_not_found(request, exception):
     return render(request, "base.html", {"page": "pages/404.html"})
 

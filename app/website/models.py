@@ -6,7 +6,7 @@ class Cat(models.Model):
     name = models.CharField(max_length=255)
     age = models.IntegerField()
     biography = models.TextField()
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
 
     @property
     def avatar_url(self):

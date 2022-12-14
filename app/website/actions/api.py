@@ -16,5 +16,3 @@ def get_post(slug):
     """Get post from API"""
     response = requests.get(API_DOMAIN + get_language() + "/post/" + slug + "/")
     return response.json()
-
-

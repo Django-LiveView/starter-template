@@ -7,6 +7,8 @@ from django.utils.translation import gettext as _
 from app.website.actions.utils import (
     toggle_loading,
     update_active_nav,
+    enable_lang,
+    loading,
 )
 from core import settings
 
@@ -22,9 +24,7 @@ def get_context():
             "url": settings.DOMAIN_URL + reverse("about us"),
             "title": _("About us") + " | " + settings.SITE_NAME,
             "meta": {
-                "description": _(
-                    "About us page of the website"
-                ),
+                "description": _("About us page of the website"),
                 "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
             },
             "active_nav": "about us",
@@ -38,18 +38,16 @@ def get_html(lang=None):
     return render_to_string(template, get_context())
 
 
-def send_page(consumer, client_data):
-    # Set language
-    lang = client_data["data"].get("lang", settings.LANGUAGE_CODE)
-    set_language(lang)
-    # Show loading
-    toggle_loading(consumer, True)
+@enable_lang
+@loading
+def send_page(consumer, client_data, lang=None):
     # Nav
     update_active_nav(consumer, "about us")
     # Main
-    data = {"action": client_data["action"], "selector": "#main", "html": get_html(lang=lang)}
+    data = {
+        "action": client_data["action"],
+        "selector": "#main",
+        "html": get_html(lang=lang),
+    }
     data.update(get_context())
     consumer.send_html(data)
-    # Hide loading
-    toggle_loading(consumer, False)
-

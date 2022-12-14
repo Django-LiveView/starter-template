@@ -13,13 +13,13 @@ from app.website.consumers import WebsiteConsumer
 
 
 application = ProtocolTypeRouter(
-        {
-            # Django's ASGI application to handle traditional HTTP requests
-            "http": get_asgi_application(),
-            # WebSocket handler
-            "websocket": OriginValidator(
-                URLRouter([re_path(r"^ws/website/$", WebsiteConsumer.as_asgi())]),
-                settings.ALLOWED_HOSTS,
-            ),
-        }
-    )
+    {
+        # Django's ASGI application to handle traditional HTTP requests
+        "http": get_asgi_application(),
+        # WebSocket handler
+        "websocket": OriginValidator(
+            URLRouter([re_path(r"^ws/website/$", WebsiteConsumer.as_asgi())]),
+            settings.ALLOWED_HOSTS,
+        ),
+    }
+)

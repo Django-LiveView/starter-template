@@ -1,0 +1,20 @@
+<nav data-controller="cats">
+    <ul>
+        {% if pagination != 1 %}
+	<li>
+	    <button
+		data-action="click->cats#previousPage"
+		data-pagination="{{ pagination }}"
+	    >👈</button>
+	</li>
+	{% endif %}
+	{% if not is_last_page %}
+        <li>
+	    <button
+		data-action="click->cats#nextPage"
+		data-pagination="{{ pagination }}"
+	    >👉</button>
+	</li>
+	{% endif %}
+    </ul>
+</nav>
