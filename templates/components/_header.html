@@ -18,6 +18,14 @@
 		    data-action="click->page#changePage"
 		>{% trans "About us" %}</button>
 	    </li>
+	    <li>
+		<button
+		    type="button"
+		    class="{% if active_nav == "all cats" %}active{% endif %}"
+		    data-page="cats"
+		    data-action="click->page#changePage"
+		>{% trans "Cats" %}</button>
+	    </li>
         </ul>
 	{% include "components/_language_selector.html" %}
     </nav>

@@ -1,0 +1,10 @@
+{% load i18n %}
+{% for cat in cats %}
+<article class="grid">
+    <img alt="{{ cat.name }}" src="{{ cat.avatar_url }}">
+    <div>
+	<h2>{{ cat.name }}</h2>
+	<p><a href="" role="button">{% trans "More info" %}</a></p>
+    </div>
+</article>
+{% endfor %}
