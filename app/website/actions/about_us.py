@@ -35,12 +35,13 @@ def get_context():
 
 
 def get_html(lang=None):
-    set_language(lang)
     return render_to_string(template, get_context())
 
 
 def send_page(consumer, client_data):
-    lang = client_data.get("lang", settings.LANGUAGE_CODE)
+    # Set language
+    lang = client_data["data"].get("lang", settings.LANGUAGE_CODE)
+    set_language(lang)
     # Show loading
     toggle_loading(consumer, True)
     # Nav

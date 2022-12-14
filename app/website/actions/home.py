@@ -15,8 +15,6 @@ template = "pages/home.html"
 
 
 def get_context(lang=None):
-    # Set language
-    set_language(lang)
     context = get_global_context()
     # Update context
     context.update(
@@ -41,7 +39,9 @@ def get_html(lang=None):
 
 
 def send_page(consumer, client_data):
-    lang = client_data.get("lang", settings.LANGUAGE_CODE)
+    # Set language
+    lang = client_data["data"].get("lang", settings.LANGUAGE_CODE)
+    set_language(lang)
     # Show loading
     toggle_loading(consumer, True)
     # Nav
