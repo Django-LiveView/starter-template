@@ -1,13 +1,24 @@
 # Django
 django===4.1.1
+Pillow===9.3.0
+django-extensions===3.2.1
+dj-database-url==0.5.0
+
 # Django Server
 daphne===3.0.2
 asgiref===3.5.2
-# Kit utilities
-django-extensions===3.2.1
+
+# Databases
+psycopg2-binary===2.9.3
+
 # Django Channels
 channels==3.0.5
+
 # Redis Layer
 channels_redis===3.4.1
+
 # Requests
 requests===2.28.1
+
+# Fake data
+Faker===15.3.4 

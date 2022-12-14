@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +57,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
+DATABASES = {
+    "default": dj_database_url.config(
+        default=f"postgres://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASSWORD')}@{os.environ.get('DB_HOST')}:{os.environ.get('DB_PORT')}/{os.environ.get('DB_NAME')}"
+    )
+}
+
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -83,7 +91,7 @@ LANGUAGES = [
 
 LOCALE_PATHS = (BASE_DIR / "locale/",)
 
-TIME_ZONE = "CET"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -93,10 +101,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_ROOT = os.environ.get("STATIC_ROOT")
 STATIC_URL = os.environ.get("STATIC_URL")
-THUMBOR_URL = os.environ.get("THUMBOR_URL")
-THUMBOR_ENABLED = os.environ.get("THUMBOR_ENABLED", "False") == "True"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = os.environ.get("MEDIA_URL")
+
+# Email configuration
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS") == "True"
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL") == "True"
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+EMAIL_CONTACT = os.environ.get("EMAIL_CONTACT")
+STATIC_ROOT = os.environ.get("STATIC_ROOT")
+STATIC_URL = os.environ.get("STATIC_URL")
 
 
 DOMAIN = os.environ.get("DOMAIN")
@@ -105,11 +127,6 @@ DOMAIN_URL = (
     if os.environ.get("DOMAIN_URL")[-1:] == "/"
     else os.environ.get("DOMAIN_URL")
 )
-
-# Metrics and observability
-JAEGER_AGENT_HOST = os.environ.get("JAEGER_AGENT_HOST")
-JAEGER_AGENT_PORT = os.environ.get("JAEGER_AGENT_PORT")
-JAEGER_SERVICE_NAME = os.environ.get("JAEGER_SERVICE_NAME")
 
 # Fix nginx proxy
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

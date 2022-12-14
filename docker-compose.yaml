@@ -15,13 +15,43 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       DOMAIN: ${DOMAIN}
       DOMAIN_URL: ${DOMAIN_URL}
+      STATIC_URL: ${STATIC_URL}
+      STATIC_ROOT: ${STATIC_ROOT}
+      MEDIA_URL: ${MEDIA_URL}
       REDIS_URI: ${REDIS_URI}
       REDIS_PORT: ${REDIS_PORT}
+      DB_NAME:  ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+      EMAIL_USE_SSL: ${EMAIL_USE_SSL}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      EMAIL_CONTACT: ${EMAIL_CONTACT}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
     expose:
       - 8000
       - 6831
     depends_on:
       - redis
+      - postgresql
+
+      
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    restart: "no"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - ${DB_PORT}:5432
+
 
   redis:
     image: redis:alpine

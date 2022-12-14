@@ -3,9 +3,9 @@
 ** DONE Navigation Real-time without loads similar to SPA.
 ** DONE Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
 ** DONE Add Favicat
-** TODO Multilanguage.
+** DONE Multilanguage.
 ** DONE Switch to a static page (Home).
-** TODO Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
+** IN PROGRESS Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
 ** TODO Single page (Cat 🐈).
 ** TODO Add a new item in the database (👶🏻🐈).
 ** TODO Delete item from the database (🐈☠).

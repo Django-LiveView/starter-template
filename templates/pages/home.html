@@ -1,2 +1,18 @@
 {% load i18n %}
-<h1>{% trans "Home page" %}</h1>
+<h1>{% trans "Welcome to the <strong>HTML over the Wire</strong> template for Django v2" %}</h1>
+<p>{% trans "You will be able to find typical solutions when creating a dynamic web page using the HTML over WebSockets approach." %}</p>
+<ul>
+    <li>
+	{% trans "Navigator that marks as active the page where you are (Header of this page)." %}
+    </li>
+    <li>
+	Multilanguage, with its translated routes, language selector (right of the header) and .po file system (<code>locale</code> directory).
+    </li>
+    <li data-controller="page">
+	<a
+	    href="#"
+	    data-page="about_us"
+	    data-action="click->page#changePage"
+	>{% trans "Static page - About us" %}</a>
+    </li>
+</ul>

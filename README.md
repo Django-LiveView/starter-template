@@ -37,6 +37,18 @@ This template has an example of the most common cases.
 - `/rss.xml` -> Feed cat.
 - `/sitemap.txt` -> Sitemap.
 
+## Run
+
+```shell
+docker compose up
+```
+
+Make fake data.
+
+```shell
+docker compose exec django "python3 manage.py runscript make_cats"
+```
+
 ## How does the information move?
 
 When an event occurs in the frontend, **HTML generation is not JavaScript's job**. All logic, rendering, updating and any functionality is handled by the backend.

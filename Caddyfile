@@ -10,18 +10,5 @@ http://feline-web.localhost {
     reverse_proxy @notStatic django:8000
 
     file_server /static/*
-}
-
-http://feline-web-gulp.localhost {
-
-    root * /usr/src/app/
-    encode gzip zstd
-
-    @notStatic {
-      not path /static/* /media/*
-    }
-
-    reverse_proxy @notStatic gulp:3000
-
-    file_server /static/*
+    file_server /media/*
 }
