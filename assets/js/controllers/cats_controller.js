@@ -4,6 +4,12 @@ import { getLang } from "../mixins/miscellaneous.js";
 
 export default class extends Controller {
 
+    openCatSingle(event) {
+	event.preventDefault();
+	const slug = event.target.dataset.slug;
+	sendData({action: "cat_single->send_page", data: {slug: slug}});
+    }
+
     nextPage(event) {
 	event.preventDefault();
 	const data = Object.assign({},
@@ -11,7 +17,7 @@ export default class extends Controller {
 				 ? {"pagination": event.currentTarget.dataset.pagination}
 				 : {}
 	);
-	sendData({action: `cats->next_page`, data: data});
+	sendData({action: "cats->next_page", data: data});
     };
 
     previousPage(event) {
@@ -21,7 +27,7 @@ export default class extends Controller {
 				 ? {"pagination": event.currentTarget.dataset.pagination}
 				 : {}
 	);
-	sendData({action: `cats->previous_page`, data: data});
+	sendData({action: "cats->previous_page", data: data});
     };
 
 }

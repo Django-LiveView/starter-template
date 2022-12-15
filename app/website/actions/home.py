@@ -1,11 +1,9 @@
-from app.website.actions.utils import set_language
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.actions.utils import (
-    toggle_loading,
     update_active_nav,
     enable_lang,
     loading,

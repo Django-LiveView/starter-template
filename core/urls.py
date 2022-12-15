@@ -24,6 +24,7 @@ urlpatterns = i18n_patterns(
     path("", views.home, name="home"),
     path(_("about-us/"), views.about_us, name="about us"),
     path(_("cats/"), views.all_cats, name="all cats"),
+    path(_("cats/<slug:cat_slug>/"), views.cat_single, name="cat single"),
     prefix_default_language=False,
 )
 

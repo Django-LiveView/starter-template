@@ -1,0 +1,10 @@
+{% load i18n %}
+<p>
+    <img alt="{{ cat.name }}" src="{{ cat.avatar_url }}">
+</p>
+<h1>{{ cat.name }}</h1>
+<p>{{ cat.age }} years</p>
+<p>{{ cat.biography }}</p>
+<p>
+    <a href="{% url 'all cats' %}">{% trans "All cats" %}</a>
+</p>

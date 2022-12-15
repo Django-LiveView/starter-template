@@ -14,7 +14,7 @@ This template has an example of the most common cases.
 - Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
 - Navigator whose active button changes dynamically.
 - Contact form with validations.
-- Collect file from a client (🐈🖼️).
+- Get file from a client (🐈🖼️).
 - Login.
 - Private Page (🐈‍⬛).
 - Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).

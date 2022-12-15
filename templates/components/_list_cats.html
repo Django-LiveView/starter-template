@@ -1,10 +1,16 @@
 {% load i18n %}
 {% for cat in cats %}
-<article class="grid">
+<article class="grid" data-controller="cats">
     <img alt="{{ cat.name }}" src="{{ cat.avatar_url }}">
     <div>
 	<h2>{{ cat.name }}</h2>
-	<p><a href="" role="button">{% trans "More info" %}</a></p>
+	<p>
+	    <a
+		href="{% url 'cat single' cat_slug=cat.slug %}"
+		role="button"
+		data-slug="{{ cat.slug }}"
+		data-action="click->cats#openCatSingle"
+	    >{% trans "More info" %}</a></p>
     </div>
 </article>
 {% endfor %}

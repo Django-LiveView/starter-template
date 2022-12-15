@@ -1,6 +1,7 @@
 from app.website.actions.home import get_context as get_home_context
 from app.website.actions.about_us import get_context as get_about_us_context
 from app.website.actions.cats import get_context as get_cats_context
+from app.website.actions.cat_single import get_context as get_cat_single_context
 from django.shortcuts import render
 
 
@@ -16,11 +17,8 @@ def all_cats(request):
     return render(request, "base.html", get_cats_context())
 
 
-# def blog_single(request, slug):
-#     post = get_post(slug)
-#     context = get_blog_single_context(post=post)
-#     context.update({"post": post})
-#     return render(request, "base.html", context)
+def cat_single(request, cat_slug):
+    return render(request, "base.html", get_cat_single_context(slug=cat_slug))
 
 
 # def project_landing(request):

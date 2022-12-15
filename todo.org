@@ -13,7 +13,7 @@
 ** TODO Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
 ** TODO Navigator whose active button changes dynamically.
 ** TODO Contact form with validations.
-** TODO Collect file from a client (🐈🖼️).
+** TODO Get file from a client (🐈🖼️).
 ** TODO Login.
 ** TODO Private Page (🐈‍⬛).
 ** TODO Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).

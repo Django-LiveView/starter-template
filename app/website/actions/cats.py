@@ -1,11 +1,9 @@
-from app.website.actions.utils import set_language
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.actions.utils import (
-    toggle_loading,
     update_active_nav,
     enable_lang,
     loading,
@@ -45,8 +43,6 @@ def get_html(lang=None):
 @enable_lang
 @loading
 def send_page(consumer, client_data, lang=None):
-    # Show loading
-    toggle_loading(consumer, True)
     # Nav
     update_active_nav(consumer, "all cats")
     # Main
@@ -57,13 +53,11 @@ def send_page(consumer, client_data, lang=None):
     }
     data.update(get_context(lang=lang))
     consumer.send_html(data)
-    # Hide loading
-    toggle_loading(consumer, False)
 
+# Pagination
 
 def is_last_page(page=1):
     return Cat.objects.all().count() // elements_per_page < page
-
 
 @enable_lang
 @loading
