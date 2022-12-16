@@ -5,6 +5,10 @@
 <h1>{{ cat.name }}</h1>
 <p>{{ cat.age }} years</p>
 <p>{{ cat.biography }}</p>
-<p>
-    <a href="{% url 'all cats' %}">{% trans "All cats" %}</a>
+<p data-controller="page">
+    <a
+	data-page="cats"
+        data-action="click->page#changePage"
+	href="{% url 'cats list' %}"
+    >{% trans "cats" %}</a>
 </p>

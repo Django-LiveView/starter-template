@@ -13,7 +13,7 @@ def about_us(request):
     return render(request, "base.html", get_about_us_context())
 
 
-def all_cats(request):
+def cats_list(request):
     return render(request, "base.html", get_cats_context())
 
 
