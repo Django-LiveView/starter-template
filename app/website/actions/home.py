@@ -1,5 +1,6 @@
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from app.website.models import Cat
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -27,6 +28,7 @@ def get_context(lang=None):
             },
             "active_nav": "home",
             "page": template,
+            "first_cat": Cat.objects.first(),
         }
     )
     return context
