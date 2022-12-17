@@ -9,6 +9,7 @@ class Cat(models.Model):
     age = models.IntegerField()
     biography = models.TextField()
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     @property
     def avatar_url(self):
@@ -29,8 +30,8 @@ class Client(models.Model):
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    channel = models.CharField(max_length=200, blank=True, null=True, default=None)
+    channel_name = models.CharField(max_length=200, blank=True, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.username if self.user else self.channel_name

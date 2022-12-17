@@ -1,5 +1,6 @@
 from channels.generic.websocket import JsonWebsocketConsumer
 import app.website.actions as actions
+from app.website.models import Client
 
 
 class WebsiteConsumer(JsonWebsocketConsumer):
@@ -7,10 +8,13 @@ class WebsiteConsumer(JsonWebsocketConsumer):
         """Event when client connects"""
         # Accept the connection
         self.accept()
+        # Save the client
+        Client.objects.create(channel_name=self.channel_name)
 
     def disconnect(self, close_code):
         """Event when client disconnects"""
-        pass
+        # Delete the client
+        Client.objects.filter(channel_name=self.channel_name).delete()
 
     def receive_json(self, data_received):
         """
