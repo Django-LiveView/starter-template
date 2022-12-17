@@ -55,4 +55,3 @@ def send_page(consumer, client_data, lang=None):
     }
     data.update(get_context(lang=lang, slug=slug))
     consumer.send_html(data)
-

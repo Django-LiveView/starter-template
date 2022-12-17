@@ -54,10 +54,13 @@ def send_page(consumer, client_data, lang=None):
     data.update(get_context(lang=lang))
     consumer.send_html(data)
 
+
 # Pagination
+
 
 def is_last_page(page=1):
     return Cat.objects.all().count() // elements_per_page < page
+
 
 @enable_lang
 @loading

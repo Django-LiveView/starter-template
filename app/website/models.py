@@ -22,40 +22,15 @@ class Cat(models.Model):
     def __str__(self):
         return self.name
 
+
 class Client(models.Model):
     """
     Each client who is connected to the website
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     channel = models.CharField(max_length=200, blank=True, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.user.username
-
-
-class Room(models.Model):
-    """
-    Rooms where clients are grouped
-    """
-    name = models.CharField(max_length=255, blank=True, null=True, default=None)
-    users_subscribed = models.ManyToManyField(User, related_name="users_subscribed")
-    clients_active = models.ManyToManyField(Client, related_name="clients_active")
-
-    def __str__(self):
-        return self.name
-
-
-class Message(models.Model):
-    """
-    Messages for users
-    """
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.text
