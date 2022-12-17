@@ -1,0 +1,16 @@
+/* TEAM */
+
+    Foo
+
+    CTO/Backend: Andros Fenollosa
+    Site: https://andros.dev
+    Twitter: @androsfenollosa
+    From: Valencia, Comunidad Valenciana, Spain
+
+/* SITE */
+
+    Last update: 2023/01/01
+    Language: English, Español
+    Standards: HTML5, CSS3
+    Components: Stimulus
+    IDE: Emacs

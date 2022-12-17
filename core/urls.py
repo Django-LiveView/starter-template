@@ -25,6 +25,11 @@ urlpatterns = i18n_patterns(
     path(_("about-us/"), views.about_us, name="about us"),
     path(_("cats/"), views.cats_list, name="cats list"),
     path(_("cats/<slug:cat_slug>/"), views.cat_single, name="cat single"),
+    path(_("login/"), views.login, name="login"),
+    path("robots.txt", views.robots, name="robots"),
+    path("humans.txt", views.humans, name="humans"),
+    path("security.txt", views.security, name="security"),
+    path("sitemap.txt", views.sitemap, name="sitemap"),
     path("admin/", admin.site.urls),
     prefix_default_language=False,
 )

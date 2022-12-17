@@ -1,0 +1,8 @@
+{# Pages #}
+https://{{ DOMAIN }}{% url 'home' %}
+https://{{ DOMAIN }}{% url 'about us' %}
+https://{{ DOMAIN }}{% url 'cats list' %}
+https://{{ DOMAIN }}{% url 'login' %}
+{# Cats #}
+{% for cat in cats %}https://{{ DOMAIN }}{% url "cat single" cat_slug=cat.slug %}
+{% endfor %}
