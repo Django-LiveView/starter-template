@@ -6,7 +6,7 @@
 ** DONE Multilanguage.
 ** DONE Switch to a static page (Home).
 ** DONE Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
-** IN PROGRESS Single page (Cat 🐈).
+** DONE Single page (Cat 🐈).
 ** TODO Add a new item in the database (👶🏻🐈).
 ** TODO Delete item from the database (🐈☠).
 ** TODO Update item from the database (🐈👉🐕).
@@ -14,7 +14,7 @@
 ** TODO Navigator whose active button changes dynamically.
 ** TODO Contact form with validations.
 ** TODO Get file from a client (🐈🖼️).
-** TODO Login.
+** IN PROGRESS Login.
 ** TODO Private Page (🐈‍⬛).
 ** TODO Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
 ** DONE URL dynamic update in Browser (Front-End).

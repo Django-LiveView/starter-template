@@ -9,7 +9,12 @@ run.format: ## Format style with black
 	black --exclude="/(postgres_data|venv|migrations|\.git)/" core/ app/
 
 run.makemessages: ## Make messages
-	docker compose -f docker-compose.yaml exec django python3 manage.py makemessages --extension html,py --all
+	docker compose exec django python3 manage.py makemessages --extension html,py --all
 
 run.compilemessages: ## Compile messages
-	docker compose -f docker-compose.yaml exec django python3 manage.py compilemessages
+	docker compose exec django python3 manage.py compilemessages
+
+run.fake: ## Fake data
+	docker compose exec django python3 manage.py runscript make_admin
+	docker compose exec django python3 manage.py runscript make_users
+	docker compose exec django python3 manage.py runscript make_cats

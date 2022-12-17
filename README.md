@@ -25,6 +25,7 @@ This template has an example of the most common cases.
 
 ## URLs
 
+- `/admin/` -> Django admin. (User: `admin`, Password: `admin`)
 - `/` -> Home.
 - `/cats/` -> List of cats. 
 - `/cats/felix/` -> Single cat.
@@ -46,7 +47,7 @@ docker compose up
 Make fake data.
 
 ```shell
-docker compose exec django "python3 manage.py runscript make_cats"
+make run.fake
 ```
 
 ## How does the information move?
