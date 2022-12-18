@@ -30,7 +30,7 @@ def get_context(lang=None):
             "active_nav": "login",
             "page": template,
             "form": LoginForm(),
-            "users": User.objects.all(),
+            "users": User.objects.filter(is_staff=False),
         }
     )
     return context
@@ -53,3 +53,22 @@ def send_page(consumer, client_data, lang=None):
     }
     data.update(get_context(lang=lang))
     consumer.send_html(data)
+
+
+@enable_lang
+@loading
+def log_in(consumer, client_data, lang=None):
+    form = LoginForm(client_data)
+    if form.is_valid():
+        # Log in
+        consumer.log_in(form.cleaned_data["user"])
+        # Send page
+        send_page(consumer, client_data, lang=lang)
+    else:
+        # Send errors
+        data = {
+            "action": client_data["action"],
+            "selector": "#login__inputs",
+            "form": form,
+        }
+        consumer.send_json(data)
