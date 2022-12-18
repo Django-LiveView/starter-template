@@ -4,11 +4,18 @@ import os
 import requests
 import threading
 
+
 class LoginForm(forms.Form):
-    email = forms.CharField(label=_("Email"), max_length=255,
-                            widget=forms.TextInput(attrs={'data-login-target': 'email'}))
-    password = forms.CharField(label=_("Password"), max_length=100, widget=forms.PasswordInput(
-        attrs={'data-login-target': 'password'}))
+    email = forms.CharField(
+        label=_("Email"),
+        max_length=255,
+        widget=forms.EmailInput(attrs={"data-login-target": "email"}),
+    )
+    password = forms.CharField(
+        label=_("Password"),
+        max_length=100,
+        widget=forms.PasswordInput(attrs={"data-login-target": "password"}),
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -21,7 +28,6 @@ class LoginForm(forms.Form):
         if not password:
             raise forms.ValidationError(_("Password required"))
         return password
-
 
 
 class ContactForm(forms.Form):

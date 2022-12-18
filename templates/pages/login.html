@@ -1,5 +1,12 @@
 {% load i18n %}
 <h1>{% trans "Login page" %}</h1>
-{{ form.as_p }}
-
-
+<form data-controller="login">
+    {{ form.as_p }}
+    <button type="button" data-action="click->login#logIn">{% trans "Log in" %}</button>
+</form>
+<h2>All users - Password: "password"</h2>
+<ul>
+    {% for user in users %}
+    <li>{{ user.email }}</li>
+    {% endfor %}
+</ul>

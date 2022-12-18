@@ -3,13 +3,14 @@ from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from app.website.actions.utils import (
+from app.website.utils import (
     update_active_nav,
     enable_lang,
     loading,
 )
 from core import settings
 from app.website.forms import LoginForm
+from app.website.models import User
 
 
 template = "pages/login.html"
@@ -21,7 +22,7 @@ def get_context(lang=None):
     context.update(
         {
             "url": settings.DOMAIN_URL + reverse("login"),
-            "title": _("login") + " | " + settings.SITE_NAME,
+            "title": _("Login") + " | " + settings.SITE_NAME,
             "meta": {
                 "description": _("Login"),
                 "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
@@ -29,6 +30,7 @@ def get_context(lang=None):
             "active_nav": "login",
             "page": template,
             "form": LoginForm(),
+            "users": User.objects.all(),
         }
     )
     return context

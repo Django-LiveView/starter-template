@@ -4,7 +4,7 @@ from app.website.models import Cat
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from app.website.actions.utils import (
+from app.website.utils import (
     update_active_nav,
     enable_lang,
     loading,

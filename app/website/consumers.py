@@ -1,6 +1,13 @@
+import os
 from channels.generic.websocket import JsonWebsocketConsumer
-import app.website.actions as actions
 from app.website.models import Client
+
+# Load all actions
+path = os.getcwd()
+for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
+    if entry.is_file():
+        name = entry.name.split(".")[0]
+        exec(f"from app.website.actions import {name} as {name}")
 
 
 class WebsiteConsumer(JsonWebsocketConsumer):
@@ -33,9 +40,10 @@ class WebsiteConsumer(JsonWebsocketConsumer):
                 action = action_data[0].lower()
                 function = action_data[1].lower()
                 try:
-                    eval(f"actions.{action}.{function}(self, data)")
-                except Exception:
+                    eval(f"{action}.{function}(self, data)")
+                except Exception as e:
                     print(f"Bad action: {data['action']}")
+                    print(e)
 
     def send_html(self, data):
         """Event: Send html to client
