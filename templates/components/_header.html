@@ -26,6 +26,23 @@
 		    data-action="click->page#changePage"
 		>{% trans "Cats" %}</button>
 	    </li>
+	    {% if user.is_authenticated %}
+	    <li>
+		<button
+		    type="button"
+		    class="{% if active_nav == "profile" %}active{% endif %}"
+		    data-page="profile"
+		    data-action="click->page#changePage"
+		>{% trans "Profile" %}</button>
+	    </li>
+	    <li>
+		<button
+		    type="button"
+		    data-page="login"
+		    data-action="click->login#logOut"
+		>{% trans "Logout" %}</button>
+	    </li>
+	    {% else %}
 	    <li>
 		<button
 		    type="button"
@@ -34,6 +51,7 @@
 		    data-action="click->page#changePage"
 		>{% trans "Login" %}</button>
 	    </li>
+	    {% endif %}
         </ul>
 	{% include "components/_language_selector.html" %}
     </nav>

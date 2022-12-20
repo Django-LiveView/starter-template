@@ -11,21 +11,21 @@ from django.core import validators
 
 # Forms
 
+
 class LoginForm(forms.Form):
     email = forms.CharField(
         label=_("Email"),
         max_length=255,
         validators=[validators.EmailValidator(message=_("Invalid email"))],
-        error_messages={'required': _('This field is required.')},
+        error_messages={"required": _("This field is required.")},
         widget=forms.EmailInput(attrs={"data-login-target": "email"}),
     )
     password = forms.CharField(
         label=_("Password"),
         max_length=100,
-        error_messages={'required': _('This field is required.')},
+        error_messages={"required": _("This field is required.")},
         widget=forms.PasswordInput(attrs={"data-login-target": "password"}),
     )
-
 
 
 class ContactForm(forms.Form):

@@ -11,6 +11,8 @@ from app.website.utils import (
 from core import settings
 from app.website.forms import LoginForm
 from app.website.models import User
+from django.contrib.auth import authenticate
+from channels.auth import login, logout
 
 
 template = "pages/login.html"
@@ -58,17 +60,27 @@ def send_page(consumer, client_data, lang=None):
 @enable_lang
 @loading
 def log_in(consumer, client_data, lang=None):
+    """Log in user"""
     form = LoginForm(client_data["data"])
+    # Check if form is valid
     if form.is_valid():
-        # Log in
-        #consumer.log_in(form.cleaned_data["user"])
-        # Send page
-        #send_page(consumer, client_data, lang=lang)
-        print("Log in")
-        
+        auth = authenticate(
+            email=form.cleaned_data["email"],
+            password=form.cleaned_data["password"],
+        )
+        if auth:
+            # Log in
+            login(consumer.scope, auth)
+        else:
+            # Info to user that email or password is incorrect
+            form.add_error("email", _("Invalid email or password"))
+            data = {
+                "action": client_data["action"],
+                "selector": "#login__form",
+                "html": render_to_string("forms/login.html", {"form": form}),
+            }
+            consumer.send_html(data)
     else:
-        print("Error")
-        
         # Send errors
         data = {
             "action": client_data["action"],
