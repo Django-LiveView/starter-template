@@ -33,4 +33,13 @@
 	    {% trans "Dynamic page - Single cat" %}: {{ first_cat.name }}
 	</a>
     </li>
+    <li>
+	<a
+	    href="{% url 'login' %}"
+	    data-page="login"
+	    data-action="click->page#changePage"
+	>
+	    {% trans "Form with validations: Login" %}
+	</a>
+    </li>
 </ul>

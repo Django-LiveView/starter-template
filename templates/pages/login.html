@@ -1,10 +1,7 @@
 {% load i18n %}
 <h1>{% trans "Login page" %}</h1>
-<form data-controller="login">
-    <div id="login__inputs">	
-    {{ form.as_p }}
-    </div>
-    <button type="button" data-action="click->login#logIn">{% trans "Log in" %}</button>
+<form id="login__form" data-controller="login">
+    {% include "forms/login.html" %}
 </form>
 <h2>{% trans "All users - Password: 'password'" %}</h2>
 <ul>

@@ -58,17 +58,21 @@ def send_page(consumer, client_data, lang=None):
 @enable_lang
 @loading
 def log_in(consumer, client_data, lang=None):
-    form = LoginForm(client_data)
+    form = LoginForm(client_data["data"])
     if form.is_valid():
         # Log in
-        consumer.log_in(form.cleaned_data["user"])
+        #consumer.log_in(form.cleaned_data["user"])
         # Send page
-        send_page(consumer, client_data, lang=lang)
+        #send_page(consumer, client_data, lang=lang)
+        print("Log in")
+        
     else:
+        print("Error")
+        
         # Send errors
         data = {
             "action": client_data["action"],
-            "selector": "#login__inputs",
-            "form": form,
+            "selector": "#login__form",
+            "html": render_to_string("forms/login.html", {"form": form}),
         }
-        consumer.send_json(data)
+        consumer.send_html(data)

@@ -3,31 +3,29 @@ from django.utils.translation import gettext as _
 import os
 import requests
 import threading
+from django.core import validators
 
+
+# Custom validators
+# https://docs.djangoproject.com/en/4.1/ref/validators/
+
+# Forms
 
 class LoginForm(forms.Form):
     email = forms.CharField(
         label=_("Email"),
         max_length=255,
+        validators=[validators.EmailValidator(message=_("Invalid email"))],
+        error_messages={'required': _('This field is required.')},
         widget=forms.EmailInput(attrs={"data-login-target": "email"}),
     )
     password = forms.CharField(
         label=_("Password"),
         max_length=100,
+        error_messages={'required': _('This field is required.')},
         widget=forms.PasswordInput(attrs={"data-login-target": "password"}),
     )
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if not email:
-            raise forms.ValidationError(_("Email required"))
-        return email
-
-    def clean_password(self):
-        password = self.cleaned_data.get("password")
-        if not password:
-            raise forms.ValidationError(_("Password required"))
-        return password
 
 
 class ContactForm(forms.Form):
