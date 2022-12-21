@@ -65,7 +65,7 @@ def log_in(consumer, client_data, lang=None):
     # Check if form is valid
     if form.is_valid():
         auth = authenticate(
-            email=form.cleaned_data["email"],
+            username=form.cleaned_data["email"],
             password=form.cleaned_data["password"],
         )
         if auth:

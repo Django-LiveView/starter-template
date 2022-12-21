@@ -18,13 +18,19 @@ class LoginForm(forms.Form):
         max_length=255,
         validators=[validators.EmailValidator(message=_("Invalid email"))],
         error_messages={"required": _("This field is required.")},
-        widget=forms.EmailInput(attrs={"data-login-target": "email"}),
+        widget=forms.EmailInput(attrs={
+            "data-login-target": "email",
+            "data-action": "keydown.enter->login#logIn",
+        }),
     )
     password = forms.CharField(
         label=_("Password"),
         max_length=100,
         error_messages={"required": _("This field is required.")},
-        widget=forms.PasswordInput(attrs={"data-login-target": "password"}),
+        widget=forms.PasswordInput(attrs={
+            "data-login-target": "password",
+            "data-action": "keydown.enter->login#logIn",
+        }),
     )
 
 

@@ -89,6 +89,12 @@ TEMPLATES = [
     }
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'app.website.backends.EmailAuthBackend'
+)
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
