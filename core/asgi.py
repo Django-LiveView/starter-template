@@ -5,6 +5,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 django.setup()
 
 from django.conf import settings
+from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
 from channels.security.websocket import OriginValidator
 from channels.routing import ProtocolTypeRouter, URLRouter
@@ -17,9 +18,11 @@ application = ProtocolTypeRouter(
         # Django's ASGI application to handle traditional HTTP requests
         "http": get_asgi_application(),
         # WebSocket handler
-        "websocket": OriginValidator(
-            URLRouter([re_path(r"^ws/website/$", WebsiteConsumer.as_asgi())]),
-            settings.ALLOWED_HOSTS,
+        "websocket": AuthMiddlewareStack(
+            OriginValidator(
+                URLRouter([re_path(r"^ws/website/$", WebsiteConsumer.as_asgi())]),
+                settings.ALLOWED_HOSTS,
+            )
         ),
     }
 )

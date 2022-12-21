@@ -1,7 +1,5 @@
 from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
-from app.website.forms import ContactForm
-from django.urls import reverse
 from django.utils.translation import activate as translation_activate
 from django.conf import settings
 
@@ -50,9 +48,11 @@ def loading(func):
 
 def update_active_nav(consumer, page):
     """Update the active nav item in the navbar."""
+    context = get_global_context(consumer=consumer)
+    context["active_page"] = page
     data = {
         "action": "Update active nav",
         "selector": "#content-header",
-        "html": render_to_string("components/_header.html", {"active_nav": page}),
+        "html": render_to_string("components/_header.html", context),
     }
     consumer.send_html(data)

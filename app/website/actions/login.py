@@ -10,16 +10,17 @@ from app.website.utils import (
 )
 from core import settings
 from app.website.forms import LoginForm
-from app.website.models import User
+from app.website.models import User, Client
 from django.contrib.auth import authenticate
 from channels.auth import login, logout
+from asgiref.sync import async_to_sync
 
 
 template = "pages/login.html"
 
 
-def get_context(lang=None):
-    context = get_global_context()
+def get_context(consumer=None, lang=None):
+    context = get_global_context(consumer=consumer)
     # Update context
     context.update(
         {
@@ -38,8 +39,8 @@ def get_context(lang=None):
     return context
 
 
-def get_html(lang=None):
-    return render_to_string(template, get_context(lang=lang))
+def get_html(consumer=None, lang=None):
+    return render_to_string(template, get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
@@ -53,7 +54,7 @@ def send_page(consumer, client_data, lang=None):
         "selector": "#main",
         "html": get_html(lang=lang),
     }
-    data.update(get_context(lang=lang))
+    data.update(get_context(consumer=consumer, lang=lang))
     consumer.send_html(data)
 
 
@@ -65,12 +66,19 @@ def log_in(consumer, client_data, lang=None):
     # Check if form is valid
     if form.is_valid():
         auth = authenticate(
-            username=form.cleaned_data["email"],
-            password=form.cleaned_data["password"],
+            username=form.cleaned_data["email"].strip(),
+            password=form.cleaned_data["password"].strip(),
         )
         if auth:
             # Log in
             login(consumer.scope, auth)
+            async_to_sync(login)(consumer.scope, auth)
+            consumer.scope["session"].save()
+            # Save user association with client
+            Client.objects.filter(user=auth).delete()
+            Client.objects.filter(channel_name=consumer.channel_name).update(user=auth)
+            # Update header
+            update_active_nav(consumer, "")
         else:
             # Info to user that email or password is incorrect
             form.add_error("email", _("Invalid email or password"))

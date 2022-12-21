@@ -90,8 +90,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'app.website.backends.EmailAuthBackend'
+    "django.contrib.auth.backends.ModelBackend",
+    "app.website.backends.EmailAuthBackend",
 )
 
 

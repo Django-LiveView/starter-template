@@ -42,6 +42,9 @@
 		    data-action="click->login#logOut"
 		>{% trans "Logout" %}</button>
 	    </li>
+	    <li>
+		{% trans "Hi" %}, {{ user.username }}
+	    </li>
 	    {% else %}
 	    <li>
 		<button
