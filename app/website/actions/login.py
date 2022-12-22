@@ -14,6 +14,7 @@ from app.website.models import User, Client
 from django.contrib.auth import authenticate
 from channels.auth import login, logout
 from asgiref.sync import async_to_sync
+from app.website.actions import home
 from app.website.actions import profile
 
 
@@ -72,7 +73,6 @@ def log_in(consumer, client_data, lang=None):
         )
         if auth:
             # Log in
-            login(consumer.scope, auth)
             async_to_sync(login)(consumer.scope, auth)
             consumer.scope["session"].save()
             # Save user association with client
@@ -97,3 +97,13 @@ def log_in(consumer, client_data, lang=None):
             "html": render_to_string("forms/login.html", {"form": form}),
         }
         consumer.send_html(data)
+
+        
+@enable_lang
+@loading
+def log_out(consumer, client_data, lang=None):
+    """Log out user"""
+    async_to_sync(logout)(consumer.scope)
+    consumer.scope["session"].save()
+    # Redirect to home
+    home.send_page(consumer, client_data, lang=lang)

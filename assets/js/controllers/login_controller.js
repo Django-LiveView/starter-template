@@ -17,4 +17,13 @@ export default class extends Controller {
 		}
 	});
     }
+
+    logOut(event) {
+	event.preventDefault();
+	sendData(
+	    {
+		action: "login->log_out",
+		data: {}
+	});
+	}
 }
