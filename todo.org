@@ -11,12 +11,11 @@
 ** DONE Security: Cross-site request forgery protection over WebSockets.
 ** DONE Sitemap.
 ** DONE Navigator whose active button changes dynamically.
-** IN PROGRESS Login.
-*** IN PROGRESS Logout
-*** TODO Private page and redirect after login
-*** TODO Redirect if login page or private
-** TODO Private Page (🐈‍⬛).
-** TODO Get file from a client (🐈🖼️).
+** DONE Login.
+** DONE Private Page (🐈‍⬛).
+*** DONE Private page and redirect after login
+*** DONE Redirect if login page or private
+** IN PROGRESS Get file from a client (🐈🖼️).
 ** TODO Contact form with validations.
 ** TODO RSS feed.
 ** TODO Add a new item in the database (👶🏻🐈).

@@ -14,6 +14,7 @@ from app.website.models import User, Client
 from django.contrib.auth import authenticate
 from channels.auth import login, logout
 from asgiref.sync import async_to_sync
+from app.website.actions import profile
 
 
 template = "pages/login.html"
@@ -77,8 +78,8 @@ def log_in(consumer, client_data, lang=None):
             # Save user association with client
             Client.objects.filter(user=auth).delete()
             Client.objects.filter(channel_name=consumer.channel_name).update(user=auth)
-            # Update header
-            update_active_nav(consumer, "")
+            # Redirect to profile
+            profile.send_page(consumer, client_data, lang=lang)
         else:
             # Info to user that email or password is incorrect
             form.add_error("email", _("Invalid email or password"))

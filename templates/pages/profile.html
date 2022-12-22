@@ -1,0 +1,11 @@
+{% load i18n %}
+<h1>{% trans "Profile" %}</h1>
+<p>
+    <img alt="Avatar" src="{{ user.profile.avatar_url }}" width="400">
+</p>
+<dl>
+    <dt>Username</dt>
+    <dd>{{ user.username }}</dd>
+    <dt>Email</dt>
+    <dd>{{ user.email }}</dd>
+</dl>

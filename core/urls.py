@@ -26,6 +26,7 @@ urlpatterns = i18n_patterns(
     path(_("cats/"), views.cats_list, name="cats list"),
     path(_("cats/<slug:cat_slug>/"), views.cat_single, name="cat single"),
     path(_("login/"), views.login, name="login"),
+    path(_("profile/"), views.profile, name="profile"),
     path("robots.txt", views.robots, name="robots"),
     path("humans.txt", views.humans, name="humans"),
     path("security.txt", views.security, name="security"),
