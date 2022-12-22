@@ -98,7 +98,7 @@ def log_in(consumer, client_data, lang=None):
         }
         consumer.send_html(data)
 
-        
+
 @enable_lang
 @loading
 def log_out(consumer, client_data, lang=None):

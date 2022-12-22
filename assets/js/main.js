@@ -3,6 +3,7 @@ import { Application } from "./vendors/stimulus.js";
 import pageController from "./controllers/page_controller.js";
 import catsController from "./controllers/cats_controller.js";
 import loginController from "./controllers/login_controller.js";
+import profileController from "./controllers/profile_controller.js";
 
 /*
    INITIALIZATION
@@ -19,3 +20,4 @@ window.Stimulus = Application.start();
 Stimulus.register("page", pageController);
 Stimulus.register("cats", catsController);
 Stimulus.register("login", loginController);
+Stimulus.register("profile", profileController);
