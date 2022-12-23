@@ -1,13 +1,26 @@
 {% load i18n %}
 <div data-controller="profile">
     <h1>{% trans "Profile" %}</h1>
+    <h2>{% trans "User data" %}</h2>
+    <dl>
+	<dt>{% trans "Username" %}</dt>
+	<dd>{{ user.username }}</dd>
+	<dt>{% trans "Email" %}</dt>
+	<dd>{{ user.email }}</dd>
+    </dl>
+    <h2>{% trans "CRUD Cats" %}</h2>
+    <p>{% trans "Now that you have logged in, you can Add, Update and Delete cats. Go back to Cats to see the controls." %}</p>
+    <p>{% trans "Go to" %}
+	<a
+	    href="{% url 'cats list' %}"
+	    data-controller="page"
+	    data-page="cats"
+	    data-action="click->page#changePage"
+	>{% trans "Cats" %}</a></p>
+    <h2>{% trans "Avatar" %}</h2>
+    <p>{% trans "Change the avatar image to experience how files are sent using WebSockets" %}</p>
     <p id="avatar__container">
 	{% include "components/_avatar.html" %}
     </p>
-    <dl>
-	<dt>Username</dt>
-	<dd>{{ user.username }}</dd>
-	<dt>Email</dt>
-	<dd>{{ user.email }}</dd>
-    </dl>
+
 </div>

@@ -21,12 +21,13 @@ This template has an example of the most common cases.
 - URL dynamic update in Browser (Front-End).
 - Security: Cross-site request forgery protection over WebSockets.
 - RSS feed.
+- TXT files.
 - Sitemap.
 
 ## URLs
 
-- `/admin/` -> Django admin. (User: `admin`, Password: `admin`)
 - `/` -> Home.
+- `/about-us/` -> Static page.
 - `/cats/` -> List of cats. 
 - `/cats/felix/` -> Single cat.
 - `/cats/felix/new/` -> Add new cat.
@@ -36,7 +37,11 @@ This template has an example of the most common cases.
 - `/profile/` -> Private page.
 - `/comments/` -> List API commets.
 - `/rss.xml` -> Feed cat.
-- `/sitemap.txt` -> Sitemap.
+- `/sitemap.txt` -> Sitemap (Yes, a Sitemap can also be in txt).
+- `/robots.txt` -> Tells search engine crawlers which URLs on your site they can access.
+- `/humans.txt` -> The people behind a website.
+- `/security.txt` -> Security information that is meant to allow security researchers to easily report security vulnerabilities.
+- `/admin/` -> Django admin. (User: `admin`, Password: `admin`)
 
 ## Run
 
@@ -56,9 +61,9 @@ When an event occurs in the frontend, **HTML generation is not JavaScript's job*
 
 A simple case: a button that when clicked displays a modal. The flow of actions would be as follows:
 
-1. Stimulus would capture the `click` event.
-2. The Stimulus Controller function sends via WebSockets (using `sendData`), the action it needs together with the collected information. 
-3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action.
+1. Stimulus would capture the `click` event, maybe a button.
+2. The Stimulus **Controller** (`home_controller.js`) function sends via WebSockets (using `sendData`), the **action** it needs together with the collected information.
+3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action. Depending on the action we will do one task or another. Example: If the action is `home->open_modal`, we will call the function `actions.home.open_modal` in Django.
 4. Action (`actions` directory) is executed by rendering the new HTML from a template. Perhaps `modal.html`.
 5. The HTML is sent via `consumer.send_html()` through WebSockets to the client that has requested to execute the action.
 6. Frontend receives a JSON with the new HTML, along with other properties. Inside JSON is specified in which `id` the prerendered HTML should be inserted. In this case it will fill an empty element with `modal.html` contain.
@@ -97,7 +102,7 @@ docker compose up
 docker compose exec -T django bash -c "python3 manage.py runscript make_fake_data"
 ```
 
-## Thanks 😍
+## Technology Stack 😍
 
 - [Django](https://www.djangoproject.com/)
 - [Channels](https://channels.readthedocs.io/en/stable/)
