@@ -36,7 +36,7 @@ This template has an example of the most common cases.
 - `/login/` -> Login.
 - `/profile/` -> Private page.
 - `/comments/` -> List API commets.
-- `/rss.xml` -> Feed cat.
+- `/feed/` -> Cat Feed (RSS/Atom).
 - `/sitemap.txt` -> Sitemap (Yes, a Sitemap can also be in txt).
 - `/robots.txt` -> Tells search engine crawlers which URLs on your site they can access.
 - `/humans.txt` -> The people behind a website.
