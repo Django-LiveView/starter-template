@@ -1,3 +1,15 @@
 {% load i18n %}
 <h1>{% trans "About us page" %}</h1>
 <p>{% trans "This is just a static example page, a simple, friendly and minimalistic example of how to load a complete HTML using WebSockets." %}</p>
+<h2>{% trans "Example of functionality" %}</h2>
+<p>{% trans "When clicked the button will ask Django to generate a random number and render it below." %}</p>
+<div data-controller="aboutUs">
+    <p>
+	<button data-action="click->aboutUs#getRandomNumberText">{% trans "Get random number only text" %}</button>
+    </p>
+    <p id="content-random-number-text"></p>
+    <p>
+	<button data-action="click->aboutUs#getRandomNumberHTML">{% trans "Get random numberwith HTML" %}</button>
+    </p>
+    <div id="content-random-number-html"></div>
+</div>

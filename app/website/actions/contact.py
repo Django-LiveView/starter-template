@@ -70,4 +70,3 @@ def send(consumer, client_data, lang=None):
             "html": render_to_string("forms/contact.html", {"form": form}),
         }
         consumer.send_html(data)
-

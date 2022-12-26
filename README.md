@@ -60,21 +60,6 @@ Make fake data.
 make run.fake
 ```
 
-## How does the information move?
-
-When an event occurs in the frontend, **HTML generation is not JavaScript's job**. All logic, rendering, updating and any functionality is handled by the backend.
-
-A simple case: a button that when clicked displays a modal. The flow of actions would be as follows:
-
-1. Stimulus would capture the `click` event, maybe a button.
-2. The Stimulus **Controller** (`home_controller.js`) function sends via WebSockets (using `sendData`), the **action** it needs together with the collected information.
-3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action. Depending on the action we will do one task or another. Example: If the action is `home->open_modal`, we will call the function `actions.home.open_modal` in Django.
-4. Action (`actions` directory) is executed by rendering the new HTML from a template. Perhaps `modal.html`.
-5. The HTML is sent via `consumer.send_html()` through WebSockets to the client that has requested to execute the action.
-6. Frontend receives a JSON with the new HTML, along with other properties. Inside JSON is specified in which `id` the prerendered HTML should be inserted. In this case it will fill an empty element with `modal.html` contain.
-
-Additionally, without the frontend having to intervene, the browser URL is updated or it is decided whether the HTML is to be replaced or added.
-
 ## Concepts
 
 ### Actions
@@ -93,7 +78,127 @@ Controller between the frontend and the backend. It captures the frontend querie
 
 HTML templates that will use the `views.py` for SSR and the actions for rendering the different elements or responses.
 
-## Create a new page 📰➕
+## How does the information move?
+
+When an event occurs in the frontend, **HTML generation is not JavaScript's job**. All logic, rendering, updating and any functionality is handled by the backend.
+
+A simple case: a button that when clicked displays a modal. The flow of actions would be as follows:
+
+1. Stimulus would capture the `click` event, maybe a button.
+2. The Stimulus **Controller** (`home_controller.js`) function sends via WebSockets (using `sendData`), the **action** it needs together with the collected information.
+3. `consumers.py` would decide which functionality should be executed. They are hosted in the appropriate action. Depending on the action we will do one task or another. Example: If the action is `home->open_modal`, we will call the function `actions.home.open_modal` in Django.
+4. Action (`actions` directory) is executed by rendering the new HTML from a template. Perhaps `modal.html`.
+5. The HTML is sent via `consumer.send_html()` through WebSockets to the client that has requested to execute the action.
+6. Frontend receives a JSON with the new HTML, along with other properties. Inside JSON is specified in which `id` the prerendered HTML should be inserted. In this case it will fill an empty element with `modal.html` contain.
+
+Additionally, without the frontend having to intervene, the browser URL is updated or it is decided whether the HTML is to be replaced or added.
+
+Below you can see an example of how to add a functionality.
+
+## Add a feature 🪄
+
+In the following example we are going to explain how to create the **"Get random number with HTML"** button functionality present in the **About us** page.
+
+I strongly recommend that you first read the Stimulus documentation.
+
+### 1. Include in the page the HTML button
+
+We will also include the event definition following the [Stimulus documentation](https://stimulus.hotwired.dev/).
+
+In `templates/pages/about_us.html`:
+
+```jinja
+<p>
+	<button data-action="click->aboutUs#getRandomNumberHTML">{% trans "Get random numberwith HTML" %}</button>
+</p>
+```
+
+And a container, with a unique id, to indicate where the final result will be rendered.
+
+```jinja
+<div id="content-random-number-html"></div>
+```
+
+Let's not forget that all of this must be wrapped in an element with the appropriate *data-controller*.
+
+```jinja
+<div data-controller="aboutUs">
+...
+</div>
+```
+
+Everything together would be as follows:
+
+```jinja
+<div data-controller="aboutUs">
+	<p>
+		<button data-action="click->aboutUs#getRandomNumberHTML">{% trans "Get random numberwith HTML" %}</button>
+	</p>
+	<div id="content-random-number-html"></div>
+</div>
+```
+
+### 2. Define the functionality of the JavaScript event
+
+In `assets/js/controllers/about_us_controller.js`, we add the function `getRandomNumberHTML`. It will not send any information, it will only invoke the Action `update_random_number_html` on file `about_us` (`app/website/actions/about_us.py`).
+
+```javascript
+import { Controller } from "../vendors/stimulus.js";
+import { sendData } from "../webSocketsCli.js";
+import { getLang } from "../mixins/miscellaneous.js";
+
+export default class extends Controller {
+
+    static targets = [];
+
+    getRandomNumberHTML(event) {
+		sendData(
+			{
+			action: "about_us->update_random_number_html",
+			data: {}
+			}
+		);
+    }
+}
+```
+
+### 3. Create functionality in the action
+
+In `app/website/actions/about_us.py`, we add the function `update_random_number_html`.
+
+```python
+from random import randint
+
+def update_random_number_html(consumer, client_data):
+    """Update random number html"""
+    data = {
+        "action": client_data["action"],
+        "selector": "#content-random-number-html",
+        "html": render_to_string(
+            "components/_random_number.html", {"number": randint(0, 100)}
+        ),
+    }
+    consumer.send_html(data)
+```
+
+First we define the dictionary needed by the FrontEnd with the minimum information.
+
+- `action`: It is optional. It is used in case you want to activate the cache system so that the client can continue navigating with connection errors or simply to avoid making requests to the Actions. The most common is to return the same string that comes from the FrontEnd.
+- `selector`: Indicate the selector where the HTML will be rendered.
+- `html`: The HTML to place inside the selector. It is rendered from the BackEnd using the `render_to_string` function. The first parameter indicates the template path (we will define it in the next step) and the second one the context. In our case a random number with the name `number`.
+- `consumer.send_html(data)`: Sends the above dictionary to the client via WebSockets. When the FrontEnd receives the information, it will interpret the information and place the HTML in the appropriate sector.
+
+### 4. Create HTML template for rendering
+
+We create a HTML file in `templates/components/_random_number.html` with the following content:
+
+```jinja2
+<h3>{{ number }}</h3>
+```
+
+And we are done.
+
+## Create a new page 🗒️➕
 
 When we create a page we must enable the possibility for Django to generate a static page, in case it enters by URL, in addition to preparing a new Action for its dynamic generation. Therefore we must follow the following steps.
 
@@ -233,6 +338,8 @@ window.Stimulus = Application.start();
 // Register all controllers
 Stimulus.register("contact", contactController); // New line
 ```
+
+## Add a feature
 
 ## More documentation
 

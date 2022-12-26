@@ -9,7 +9,7 @@ from app.website.utils import (
     loading,
 )
 from core import settings
-
+from random import randint
 
 template = "pages/about_us.html"
 
@@ -48,4 +48,26 @@ def send_page(consumer, client_data, lang=None):
         "html": get_html(lang=lang),
     }
     data.update(get_context())
+    consumer.send_html(data)
+
+
+def update_random_number_text(consumer, client_data):
+    """Update random number text"""
+    data = {
+        "action": client_data["action"],
+        "selector": "#content-random-number-text",
+        "html": str(randint(0, 100)),
+    }
+    consumer.send_html(data)
+
+
+def update_random_number_html(consumer, client_data):
+    """Update random number html"""
+    data = {
+        "action": client_data["action"],
+        "selector": "#content-random-number-html",
+        "html": render_to_string(
+            "components/_random_number.html", {"number": randint(0, 100)}
+        ),
+    }
     consumer.send_html(data)
