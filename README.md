@@ -358,4 +358,4 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 - [Django](https://www.djangoproject.com/)
 - [Channels](https://channels.readthedocs.io/en/stable/)
-  - [Stimulus](https://stimulus.hotwired.dev/)
+- [Stimulus](https://stimulus.hotwired.dev/)
