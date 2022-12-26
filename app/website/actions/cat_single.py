@@ -23,7 +23,8 @@ def get_context(lang=None, slug=None):
     # Update context
     context.update(
         {
-            "url": settings.DOMAIN_URL + reverse("cats list"),
+            "url": settings.DOMAIN_URL
+            + reverse("cat single", kwargs={"cat_slug": slug}),
             "title": cat.name + " | " + settings.SITE_NAME,
             "meta": {
                 "description": _("All cats page"),

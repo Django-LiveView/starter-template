@@ -26,6 +26,14 @@
 		    data-action="click->page#changePage"
 		>{% trans "Cats" %}</button>
 	    </li>
+	    <li>
+		<button
+		    type="button"
+		    class="{% if active_nav == "contact" %}active{% endif %}"
+		    data-page="contact"
+		    data-action="click->page#changePage"
+		>{% trans "Contact" %}</button>
+	    </li>
 	    {% if user.is_authenticated %}
 	    <li>
 		<button
@@ -55,14 +63,7 @@
 		>{% trans "Login" %}</button>
 	    </li>
 	    {% endif %}
-	    <li>
-		<button
-		    type="button"
-		    class="{% if active_nav == "contact" %}active{% endif %}"
-		    data-page="contact"
-		    data-action="click->page#changePage"
-		>{% trans "Contact" %}</button>
-	    </li>
+
         </ul>
 	{% include "components/_language_selector.html" %}
     </nav>
