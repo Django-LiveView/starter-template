@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from app.website import views
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
@@ -27,6 +27,7 @@ urlpatterns = i18n_patterns(
     path(_("cats/<slug:cat_slug>/"), views.cat_single, name="cat single"),
     path(_("login/"), views.login, name="login"),
     path(_("profile/"), views.profile, name="profile"),
+    path(_("contact/"), views.contact, name="contact"),
     path("robots.txt", views.robots, name="robots"),
     path("humans.txt", views.humans, name="humans"),
     path("security.txt", views.security, name="security"),

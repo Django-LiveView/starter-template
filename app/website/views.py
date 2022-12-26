@@ -40,6 +40,10 @@ def profile(request):
     return render(request, "base.html", get_profile_context())
 
 
+def contact(request):
+    return render(request, "base.html", get_contact_context())
+
+
 def robots(request):
     return render(
         request,

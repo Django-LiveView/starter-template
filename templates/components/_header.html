@@ -55,6 +55,14 @@
 		>{% trans "Login" %}</button>
 	    </li>
 	    {% endif %}
+	    <li>
+		<button
+		    type="button"
+		    class="{% if active_nav == "contact" %}active{% endif %}"
+		    data-page="contact"
+		    data-action="click->page#changePage"
+		>{% trans "Contact" %}</button>
+	    </li>
         </ul>
 	{% include "components/_language_selector.html" %}
     </nav>

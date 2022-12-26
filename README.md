@@ -43,7 +43,12 @@ This template has an example of the most common cases.
 - `/security.txt` -> Security information that is meant to allow security researchers to easily report security vulnerabilities.
 - `/admin/` -> Django admin. (User: `admin`, Password: `admin`)
 
-## Run
+## Requirements
+
+- Docker 🐋
+- Make ⚙️
+
+## Run 🏃
 
 ```shell
 docker compose up
@@ -88,18 +93,145 @@ Controller between the frontend and the backend. It captures the frontend querie
 
 HTML templates that will use the `views.py` for SSR and the actions for rendering the different elements or responses.
 
-## Run 🏃
+## Create a new page 📰➕
 
-1. Up
+When we create a page we must enable the possibility for Django to generate a static page, in case it enters by URL, in addition to preparing a new Action for its dynamic generation. Therefore we must follow the following steps.
 
+In the following example we are going to create the About us page.
+
+### 1. Define the route
+
+In `urls.py` we add the path and point to the future view.
+
+```python
+urlpatterns = i18n_patterns(
+	...
+    path(_("about-us/"), views.about_us, name="about us"),
+	...
+)
 ```
-docker compose up
+
+### 2. Define the view
+
+In `app/website/views.py` we add the view.
+
+```python
+def about_us(request):
+    return render(request, "base.html", get_about_us_context())
 ```
 
-2. Add data. 
+Where does `get_about_us_context()` come from? It will be loaded automatically. It will look for an Action called `about_us.py` and inside it will get the `get_context` function which in the view will have the alias `get_about_us_context()`. That there are no conflicts with other contexts.
 
+### 3. Add new Action
+
+We create the `about_us.py` file inside `app/website/actions` with the following content.
+
+```python
+from django.template.loader import render_to_string
+from django.templatetags.static import static
+from app.website.context_processors import get_global_context
+from django.urls import reverse
+from django.utils.translation import gettext as _
+from app.website.utils import (
+    update_active_nav,
+    enable_lang,
+    loading,
+)
+from core import settings
+
+
+template = "pages/about_us.html"
+
+
+def get_context():
+    context = get_global_context()
+    # Update context
+    context.update(
+        {
+            "url": settings.DOMAIN_URL + reverse("about us"),
+            "title": _("About us") + " | " + settings.SITE_NAME,
+            "meta": {
+                "description": _("About us page of the website"),
+                "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
+            },
+            "active_nav": "about us",
+            "page": template,
+        }
+    )
+    return context
+
+
+def get_html(lang=None):
+    return render_to_string(template, get_context())
+
+
+@enable_lang
+@loading
+def send_page(consumer, client_data, lang=None):
+    # Nav
+    update_active_nav(consumer, "about us")
+    # Main
+    data = {
+        "action": client_data["action"],
+        "selector": "#main",
+        "html": get_html(lang=lang),
+    }
+    data.update(get_context())
+    consumer.send_html(data)
 ```
-docker compose exec -T django bash -c "python3 manage.py runscript make_fake_data"
+
+### 4. Add template
+
+We create the `about_us.html` file inside `templates/pages` with the following content.
+
+```jinja
+{% load i18n %}
+<h1>{% trans "About us page" %}</h1>
+```
+
+### 5. Add event handler in JavaScript
+
+Using Stimulus, we will create the controller. To do this we create a file called `about_us_controller.js` in `assets/js/controllers` with the following content.
+
+```javascript
+import { Controller } from "../vendors/stimulus.js";
+import { sendData } from "../webSocketsCli.js";
+import { getLang } from "../mixins/miscellaneous.js";
+
+export default class extends Controller {
+
+    static targets = [];
+
+    foo(event) {
+		sendData(
+			{
+			action: "foo->boo",
+			data: {}
+		});
+	}
+}
+```
+
+And we register it in `assets/js/main.js`.
+
+```javascript
+import { connect, startEvents } from './webSocketsCli.js';
+import { Application } from "./vendors/stimulus.js";
+import contactController from "./controllers/contact_controller.js"; // New line
+
+/*
+   INITIALIZATION
+ */
+
+// WebSocket connection
+connect();
+startEvents();
+
+// Stimulus
+window.Stimulus = Application.start();
+
+// Register all controllers
+Stimulus.register("contact", contactController); // New line
 ```
 
 ## Technology Stack 😍

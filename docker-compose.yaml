@@ -80,3 +80,10 @@ services:
       - .:/usr/src/app/
     ports:
       - 3000:3000
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    expose:
+      - 1025
+    ports:
+      - 8025:8025
