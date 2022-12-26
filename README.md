@@ -109,7 +109,11 @@ In `templates/pages/about_us.html`:
 
 ```jinja
 <p>
-	<button data-action="click->aboutUs#getRandomNumberHTML">{% trans "Get random numberwith HTML" %}</button>
+	<button
+		data-action="click->aboutUs#getRandomNumberHTML"
+	>
+		{% trans "Get random numberwith HTML" %}
+	</button>
 </p>
 ```
 
@@ -132,7 +136,11 @@ Everything together would be as follows:
 ```jinja
 <div data-controller="aboutUs">
 	<p>
-		<button data-action="click->aboutUs#getRandomNumberHTML">{% trans "Get random numberwith HTML" %}</button>
+		<button
+		    data-action="click->aboutUs#getRandomNumberHTML"
+		>
+			{% trans "Get random numberwith HTML" %}
+		</button>
 	</p>
 	<div id="content-random-number-html"></div>
 </div>
@@ -152,12 +160,12 @@ export default class extends Controller {
     static targets = [];
 
     getRandomNumberHTML(event) {
-		sendData(
-			{
-			action: "about_us->update_random_number_html",
-			data: {}
-			}
-		);
+        sendData(
+            {
+                action: "about_us->update_random_number_html",
+                data: {}
+            }
+        );
     }
 }
 ```
@@ -351,4 +359,4 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 - [Django](https://www.djangoproject.com/)
 - [Channels](https://channels.readthedocs.io/en/stable/)
-- [Stimulus](https://stimulus.hotwired.dev/)
+  - [Stimulus](https://stimulus.hotwired.dev/)
