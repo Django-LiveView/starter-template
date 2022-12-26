@@ -49,7 +49,7 @@ def loading(func):
 def update_active_nav(consumer, page):
     """Update the active nav item in the navbar."""
     context = get_global_context(consumer=consumer)
-    context["active_page"] = page
+    context["active_nav"] = page
     data = {
         "action": "Update active nav",
         "selector": "#content-header",

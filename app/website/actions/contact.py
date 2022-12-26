@@ -43,7 +43,7 @@ def get_html(consumer=None, lang=None):
 @loading
 def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "login")
+    update_active_nav(consumer, "contact")
     # Main
     data = {
         "action": client_data["action"],
