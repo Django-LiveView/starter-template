@@ -316,12 +316,13 @@ export default class extends Controller {
     static targets = [];
 
     foo(event) {
-		sendData(
-			{
-			action: "foo->boo",
-			data: {}
-		});
-	}
+        sendData(
+            {
+                action: "foo->boo",
+                data: {}
+            }
+        );
+    }
 }
 ```
 
