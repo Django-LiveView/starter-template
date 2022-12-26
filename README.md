@@ -234,6 +234,12 @@ window.Stimulus = Application.start();
 Stimulus.register("contact", contactController); // New line
 ```
 
+## More documentation
+
+I have written a **book** where I explain all the concepts I have used in the template, explained step by step and some other mechanisms that are not present. If you are interested in further **increasing your knowledge about HTML over WebSockets in Python**, or creating **real-time SPAs using Django**, I recommend you to buy a copy. In addition, you will **indirectly support me** to continue working on the template.
+
+- [Building SPAs with Django and HTML Over the Wire: Learn to build real-time single page applications with Python](https://www.amazon.com/Building-SPAs-Django-HTML-Over-ebook/dp/B0B3DV54ZT/ref=sr_1_1?crid=39E4BTNKDQ74I&keywords=andros+fenollosa&qid=1672045604&sprefix=andros+fenollos%2Caps%2C165&sr=8-1)
+
 ## Technology Stack 😍
 
 - [Django](https://www.djangoproject.com/)
