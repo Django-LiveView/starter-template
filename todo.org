@@ -16,7 +16,7 @@
 *** DONE Private page and redirect after login
 *** DONE Redirect if login page or private
 ** DONE Get file from a client (🐈🖼️).
-** IN PROGRESS Contact form with validations.
+** DONE Contact form with validations.
 ** TODO RSS feed.
 ** TODO Add a new item in the database (👶🏻🐈).
 ** TODO Delete item from the database (🐈☠).

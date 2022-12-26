@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app.website import views
+from app.website.feeds import LatestEntriesFeed
 from django.conf.urls.i18n import i18n_patterns
 from django.utils.translation import gettext_lazy as _
 
@@ -28,6 +29,7 @@ urlpatterns = i18n_patterns(
     path(_("login/"), views.login, name="login"),
     path(_("profile/"), views.profile, name="profile"),
     path(_("contact/"), views.contact, name="contact"),
+    path(_("feed/"), LatestEntriesFeed(), name="feed"),
     path("robots.txt", views.robots, name="robots"),
     path("humans.txt", views.humans, name="humans"),
     path("security.txt", views.security, name="security"),
