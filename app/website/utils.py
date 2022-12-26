@@ -2,6 +2,7 @@ from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
 from django.utils.translation import activate as translation_activate
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 
 
 def set_language(language="en"):
@@ -56,3 +57,21 @@ def update_active_nav(consumer, page):
         "html": render_to_string("components/_header.html", context),
     }
     consumer.send_html(data)
+
+
+def send_email(
+    subject="", to=[], template_txt="", template_html="", data={}, attachments=[]
+):
+    """Send email"""
+    msg = EmailMultiAlternatives(
+        subject,
+        render_to_string(template_txt, data | {"settings": settings}),
+        settings.DEFAULT_FROM_EMAIL,
+        to,
+    )
+    msg.attach_alternative(
+        render_to_string(template_html, data | {"settings": settings}), "text/html"
+    )
+    for attachment in attachments:
+        msg.attach_file(attachment)
+    return msg.send()

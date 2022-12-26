@@ -7,10 +7,10 @@ from app.website.utils import (
     update_active_nav,
     enable_lang,
     loading,
+    send_email,
 )
 from core import settings
 from app.website.forms import ContactForm
-from asgiref.sync import async_to_sync
 
 
 template = "pages/contact.html"
@@ -56,12 +56,30 @@ def send_page(consumer, client_data, lang=None):
 
 @enable_lang
 @loading
-def send(consumer, client_data, lang=None):
+def send_message(consumer, client_data, lang=None):
     """Send message"""
     form = ContactForm(client_data["data"])
     # Check if form is valid
     if form.is_valid():
-        pass
+        # Send success message
+        data = {
+            "action": client_data["action"],
+            "selector": "#contact__form",
+            "html": render_to_string("forms/contact_success.html"),
+        }
+        consumer.send_html(data)
+        # Send email
+        send_email(
+            subject=_("Contact"),
+            to=[form.cleaned_data["email"]],
+            template_txt="emails/contact.txt",
+            template_html="emails/contact.html",
+            data={
+                "name": form.cleaned_data["name"],
+                "email": form.cleaned_data["email"],
+                "message": form.cleaned_data["message"],
+            },
+        )
     else:
         # Send errors
         data = {

@@ -1,0 +1,4 @@
+{% load i18n %}
+{% trans "Name" %}: {{ name }}
+{% trans "Email" %}: {{ email }}
+{% trans "Message" %}: {{ message }}
