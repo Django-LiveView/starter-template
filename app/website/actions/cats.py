@@ -10,6 +10,7 @@ from app.website.utils import (
 )
 from core import settings
 from app.website.models import Cat
+from app.website.forms import CatForm
 
 
 template = "pages/all_cats.html"
@@ -116,3 +117,22 @@ def previous_page(consumer, client_data, lang=None):
     """Prev page"""
     page = int(client_data["data"]["pagination"])
     send_cats_per_page(consumer, client_data, lang=lang, page=page - 1)
+
+
+@enable_lang
+@loading
+def create(consumer, cliente_data, lang=None):
+    """Create cat"""
+    # Get form
+    form = CatForm(cliente_data["data"])
+    if form.is_valid():
+        # Create cat
+        cat = form.save()
+        # Send cat
+        data = {
+            "action": "create_cat",
+            "selector": "#list-cats",
+            "html": render_to_string("components/_cat.html", {"cat": cat}),
+        }
+        consumer.send_html(data)
+        # Send message

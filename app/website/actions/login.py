@@ -7,6 +7,7 @@ from app.website.utils import (
     update_active_nav,
     enable_lang,
     loading,
+    send_notification,
 )
 from core import settings
 from app.website.forms import LoginForm
@@ -80,6 +81,8 @@ def log_in(consumer, client_data, lang=None):
             Client.objects.filter(channel_name=consumer.channel_name).update(user=auth)
             # Redirect to profile
             profile.send_page(consumer, client_data, lang=lang)
+            # Send message
+            send_notification(consumer, _("You are now logged in!"), "success")
         else:
             # Info to user that email or password is incorrect
             form.add_error("email", _("Invalid email or password"))
@@ -107,3 +110,5 @@ def log_out(consumer, client_data, lang=None):
     consumer.scope["session"].save()
     # Redirect to home
     home.send_page(consumer, client_data, lang=lang)
+    # Send message
+    send_notification(consumer, _("You are now logged out!"), "success")

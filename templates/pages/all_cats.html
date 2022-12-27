@@ -5,9 +5,10 @@
 {% if user.is_authenticated %}
 <p>    
     <a
+	data-controller="page"
 	href="{% url 'cat new' %}"
 	role="button"
-	data-page="new cat"
+	data-page="cat_new"
 	data-action="click->page#changePage"
     >➕ {% trans "Add" %}</a>
 </p>

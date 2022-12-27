@@ -33,3 +33,24 @@ section:empty
 
 .feed__img
   width: 2rem
+
+.notifications
+  position: fixed
+  bottom: 0
+  right: 0
+  padding: 2rem
+  box-sizing: border-box
+  width: 50vw
+  &__notification
+    padding: 1rem
+    font-weight: bold
+    margin: .2rem 0
+    padding: 1rem
+    &:empty
+      display: none
+    &--success
+      background: green
+    &--info
+      background: blue
+    &--error
+      background: red

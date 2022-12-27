@@ -9,9 +9,9 @@
 	<p class="grid">
 	    <a
 		href="{% url 'cat single' cat_slug=cat.slug %}"
-		      role="button"
-		      data-slug="{{ cat.slug }}"
-		      data-action="click->cats#openCatSingle"
+		role="button"
+		data-slug="{{ cat.slug }}"
+		data-action="click->cats#openCatSingle"
 	    >{% trans "View profile" %}</a>
 	    {% if user.is_authenticated %}
 	    <a

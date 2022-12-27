@@ -32,7 +32,7 @@ export default class extends Controller {
 	sendData({action: "cats->previous_page", data: data});
     };
 
-    create(event) {
+    async create(event) {
 	event.preventDefault();
 	// Get: data:image/jpeg;base64,[long string]
 	const base64URL = await this.encodeFileAsBase64URL(this.avatarTarget.files[0]);

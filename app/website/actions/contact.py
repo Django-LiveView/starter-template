@@ -8,6 +8,7 @@ from app.website.utils import (
     enable_lang,
     loading,
     send_email,
+    send_notification,
 )
 from core import settings
 from app.website.forms import ContactForm
@@ -68,6 +69,8 @@ def send_message(consumer, client_data, lang=None):
             "html": render_to_string("forms/contact_success.html"),
         }
         consumer.send_html(data)
+        # Send notification
+        send_notification(consumer, _("Contact email sent"), "success")
         # Send email
         send_email(
             subject=_("Contact"),

@@ -3,6 +3,8 @@ from app.website.context_processors import get_global_context
 from django.utils.translation import activate as translation_activate
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from uuid import uuid4
+from time import sleep
 
 
 def set_language(language="en"):
@@ -75,3 +77,34 @@ def send_email(
     for attachment in attachments:
         msg.attach_file(attachment)
     return msg.send()
+
+
+def send_notification(consumer: object, message: str, level: str = "info"):
+    """Send notification."""
+    # Variables
+    uuid = str(uuid4())
+    timeout = 3000  # ms
+    # Show message
+    data = {
+        "action": "new_notification",
+        "selector": "#notifications",
+        "html": render_to_string(
+            "components/_notification.html",
+            {
+                "id": uuid,
+                "message": message,
+                "level": level,
+            },
+        ),
+        "append": True,
+    }
+    consumer.send_html(data)
+    # Remove message
+    # Sleep timeout
+    sleep(timeout / 1000)
+    data = {
+        "action": "delete_notification",
+        "selector": f"#notifications > #notifications__item-{uuid}",
+        "html": "",
+    }
+    consumer.send_html(data)

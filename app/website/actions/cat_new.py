@@ -15,8 +15,8 @@ from app.website.forms import CatForm
 template = "pages/new_cat.html"
 
 
-def get_context():
-    context = get_global_context()
+def get_context(consumer=None, lang=None):
+    context = get_global_context(consumer=consumer)
     # Update context
     context.update(
         {
@@ -34,8 +34,8 @@ def get_context():
     return context
 
 
-def get_html(lang=None):
-    return render_to_string(template, get_context())
+def get_html(consumer=None, lang=None):
+    return render_to_string(template, get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
@@ -47,7 +47,7 @@ def send_page(consumer, client_data, lang=None):
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": get_html(consumer=consumer, lang=lang),
     }
     data.update(get_context())
     consumer.send_html(data)

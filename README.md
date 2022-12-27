@@ -3,22 +3,23 @@
 This template has an example of the most common cases.
 
 - Navigation Real-time without loads similar to SPA.
+- URL dynamic update in Browser (Front-End).
 - Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
 - Multilanguage.
+- Real-time notification message or "flash message" (Feline notifications 🐈📢).
 - Switch to a static page (Home).
 - Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
 - Single page (Cat 🐈).
 - Add a new item in the database (👶🏻🐈).
 - Delete item from the database (🐈☠).
 - Update item from the database (🐈👉🐕).
-- Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
+- Broadcast: Sending information to all customers in Real-time (🐈📢 🐈🐈🐈🐈🐈).
 - Navigator whose active button changes dynamically.
 - Contact form with validations.
 - Get file from a client (🐈🖼️).
 - Login.
 - Private Page (🐈‍⬛).
 - Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
-- URL dynamic update in Browser (Front-End).
 - Security: Cross-site request forgery protection over WebSockets.
 - RSS feed.
 - TXT files.
