@@ -4,6 +4,7 @@ from django.utils.translation import activate as translation_activate
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from uuid import uuid4
+from threading import Thread
 from time import sleep
 
 
@@ -99,12 +100,15 @@ def send_notification(consumer: object, message: str, level: str = "info"):
         "append": True,
     }
     consumer.send_html(data)
-    # Remove message
-    # Sleep timeout
-    sleep(timeout / 1000)
-    data = {
-        "action": "delete_notification",
-        "selector": f"#notifications > #notifications__item-{uuid}",
-        "html": "",
-    }
-    consumer.send_html(data)
+    # Remove message async
+    def remove_notification(consumer, uuid):
+        # Sleep timeout
+        sleep(timeout / 1000)
+        data = {
+            "action": "delete_notification",
+            "selector": f"#notifications > #notifications__item-{uuid}",
+            "html": "",
+        }
+        consumer.send_html(data)
+
+    Thread(target=remove_notification, args=(consumer, uuid)).start()
