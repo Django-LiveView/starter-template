@@ -18,6 +18,42 @@ def validate_checkbox_selected(value):
 # Forms
 
 
+class CatForm(forms.Form):
+    name = forms.CharField(
+        label=_("Name"),
+        max_length=100,
+        widget=forms.TextInput(
+            attrs={
+                "data-cats-target": "name",
+            },
+        ),
+    )
+    age = forms.IntegerField(
+        label=_("Age"),
+        widget=forms.NumberInput(
+            attrs={
+                "data-cats-target": "age",
+            },
+        ),
+    )
+    biography = forms.CharField(
+        label=_("Biography"),
+        widget=forms.Textarea(
+            attrs={
+                "data-cats-target": "biography",
+            },
+        ),
+    )
+    avatar = forms.ImageField(
+        label=_("Avatar"),
+        widget=forms.FileInput(
+            attrs={
+                "data-cats-target": "avatar",
+            },
+        ),
+    )
+
+
 class LoginForm(forms.Form):
     email = forms.CharField(
         label=_("Email"),

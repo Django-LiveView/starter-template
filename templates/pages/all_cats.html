@@ -1,8 +1,24 @@
 {% load i18n %}
 <h1>{% trans "All cats" %}</h1>
+
+{# Button: add a new cat #}
+{% if user.is_authenticated %}
+<p>    
+    <a
+	href="{% url 'cat new' %}"
+	role="button"
+	data-page="new cat"
+	data-action="click->page#changePage"
+    >➕ {% trans "Add" %}</a>
+</p>
+{% endif %}
+
+{# List all cats #}
 <div id="list-cats">    
 {% include "components/_list_cats.html" %}
 </div>
+
+{# Pagination #}
 <div id="paginator">
     {% include "components/_paginator.html" %}
 </div>

@@ -3,14 +3,30 @@
 <article class="grid" data-controller="cats">
     <img alt="{{ cat.name }}" src="{{ cat.avatar_url }}">
     <div>
+	{# Name #}
 	<h2>{{ cat.name }}</h2>
-	<p>
+	{# Controls #}
+	<p class="grid">
 	    <a
 		href="{% url 'cat single' cat_slug=cat.slug %}"
+		      role="button"
+		      data-slug="{{ cat.slug }}"
+		      data-action="click->cats#openCatSingle"
+	    >{% trans "View profile" %}</a>
+	    {% if user.is_authenticated %}
+	    <a
+		href="#"
 		role="button"
 		data-slug="{{ cat.slug }}"
-		data-action="click->cats#openCatSingle"
-	    >{% trans "More info" %}</a>
+		data-action="click->cats#openCatUpdate"
+	    >{% trans "Update" %}</a>
+	    <a
+		href="#"
+		role="button"
+		data-slug="{{ cat.slug }}"
+		data-action="click->cats#delete"
+	    >{% trans "Delete" %}</a>
+	    {% endif %}
 	</p>
     </div>
 </article>

@@ -35,7 +35,7 @@ def get_context(consumer=None, lang=None):
             "active_nav": "login",
             "page": template,
             "form": LoginForm(),
-            "users": User.objects.filter(is_staff=False),
+            "users": User.objects.filter(is_staff=False).order_by("username"),
         }
     )
     return context

@@ -1,5 +1,6 @@
 import os
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from app.website.models import Cat
 
@@ -29,14 +30,17 @@ def cat_single(request, cat_slug):
     return render(request, "base.html", get_cat_single_context(slug=cat_slug))
 
 
+@login_required(login_url="login")
+def cat_new(request):
+    return render(request, "base.html", get_cat_new_context())
+
+
 def login(request):
     return render(request, "base.html", get_login_context())
 
 
+@login_required(login_url="login")
 def profile(request):
-    # Redirecto to home if user is not logged in
-    if not request.user.is_authenticated:
-        return redirect(reverse("home"))
     return render(request, "base.html", get_profile_context())
 
 

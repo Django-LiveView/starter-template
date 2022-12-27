@@ -1,25 +1,9 @@
 * Tasks
 
-** DONE Navigation Real-time without loads similar to SPA.
-** DONE Server-Side Rendering (SSR) of pages for SEO (Using `views.py`).
-** DONE Add Favicat
-** DONE Multilanguage.
-** DONE Switch to a static page (Home).
-** DONE Switch to a dynamic page (List of cats 🐈🐈🐈🐈🐈🐈).
-** DONE Single page (Cat 🐈).
-** DONE URL dynamic update in Browser (Front-End).
-** DONE Security: Cross-site request forgery protection over WebSockets.
-** DONE Sitemap.
-** DONE Navigator whose active button changes dynamically.
-** DONE Login.
-** DONE Private Page (🐈‍⬛).
-*** DONE Private page and redirect after login
-*** DONE Redirect if login page or private
-** DONE Get file from a client (🐈🖼️).
-** DONE Contact form with validations.
-** DONE RSS feed.
+
 ** IN PROGRESS Add a new item in the database (👶🏻🐈).
+*** TODO Die session
 ** TODO Delete item from the database (🐈☠).
 ** TODO Update item from the database (🐈👉🐕).
 ** TODO Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
-** TODO Get information from an API and render it (comments from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
+** TODO Get information from an API and render it (_comments_ from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
