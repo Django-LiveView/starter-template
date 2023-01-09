@@ -4,6 +4,34 @@
 	<img src="assets/img/pet-small.png">
 </p>
 
+## What is HTML over WebSockets?
+
+<p align="center">
+	<img src="assets/img/example-scheme.png">
+</p>
+
+HTML over WebSockets is a strategy for creating real-time SPAs by creating a WebSockets connection between a client and a server. It allows JavaScript to request actions, its only responsibility is to handle events, and the backend handles the business logic as well as rendering HTML. This means you can create pages without reloading the page, without AJAX, APIs or requests. One technology provides a secure, stable and low-delay connection for real-time web applications.
+
+Let's illustrate with an example.
+
+<p align="center">
+	<img src="assets/img/example-blog.png">
+</p>
+
+I want to render article number 2.
+
+1. A WebSockets connection, a channel, is established between the client and the server.
+
+2. JavaScript sends a text, not a request, via WebSockets to the Server (in our case Django).
+
+3. Django interprets the text and renders the HTML of the article through the template system and the database.
+
+4. Django sends the HTML to JavaScript via the channel and tells it which selector to embed it in.
+
+5. JavaScript draws the received HTML in the indicated selector.
+
+## Common cases
+
 This template has an example of the most common cases.
 
 - Navigation Real-time without loads similar to SPA.
