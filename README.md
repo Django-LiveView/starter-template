@@ -1,7 +1,7 @@
 # Django template for creating a complete HTML over the Wire site
 
 <p align="center">
-	<img src="assets/pet-small.png">
+	<img src="assets/img/pet-small.png">
 </p>
 
 This template has an example of the most common cases.
