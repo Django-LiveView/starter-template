@@ -1,4 +1,7 @@
-{% load i18n %}
+{% load static i18n %}
+<p class="pet">
+    <img class="pet__image" alt="Pet" src="{% static "img/pet-small.png" %}">
+</p>
 <h1>{% trans "Welcome to the <strong>HTML over the Wire</strong> template for Django v2" %}</h1>
 <p>{% trans "You will be able to find typical solutions when creating a dynamic web page using the HTML over WebSockets approach." %}</p>
 <ul data-controller="page cats">

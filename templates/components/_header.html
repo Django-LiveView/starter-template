@@ -1,15 +1,17 @@
-{% load i18n %}
+{% load static i18n %}
 <header id="header" data-controller="page" class="header container--wide">
     <nav class="header__menu--main">
         <ul>
             <li>
-                <button
-                    type="button"
+                <a
+		    href="{% url 'home' %}"
                     class="{% if active_nav == "home" %}active{% endif %}"
                     data-page="home"
                     data-action="click->page#changePage"
-                >{% trans "Home" %}</button>
-            </li>
+                >
+		    <img class="brand" src="{% static "img/pet-small.png" %}" alt="Brand">
+		</a>
+	    </li>
 	    <li>
 		<button
 		    type="button"

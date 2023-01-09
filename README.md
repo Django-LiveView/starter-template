@@ -1,5 +1,9 @@
 # Django template for creating a complete HTML over the Wire site
 
+<p align="center">
+	<img src="assets/pet-small.png">
+</p>
+
 This template has an example of the most common cases.
 
 - Navigation Real-time without loads similar to SPA.
@@ -29,7 +33,7 @@ This template has an example of the most common cases.
 
 - `/` -> Home.
 - `/about-us/` -> Static page.
-- `/cats/` -> List of cats. 
+- `/cats/` -> List of cats.
 - `/cats/felix/` -> Single cat.
 - `/cats/felix/new/` -> Add new cat.
 - `/cats/felix/update/` -> Update cat.
@@ -73,7 +77,7 @@ Where to generate URLs for Server-Side Rendering (SSR). It uses the same logic, 
 
 ### Consumers
 
-Controller between the frontend and the backend. It captures the frontend queries and their information, to execute the appropriate action. 
+Controller between the frontend and the backend. It captures the frontend queries and their information, to execute the appropriate action.
 
 ### Templates
 
@@ -110,11 +114,11 @@ In `templates/pages/about_us.html`:
 
 ```jinja
 <p>
-	<button
-		data-action="click->aboutUs#getRandomNumberHTML"
-	>
-		{% trans "Get random numberwith HTML" %}
-	</button>
+    <button
+        data-action="click->aboutUs#getRandomNumberHTML"
+    >
+        {% trans "Get random numberwith HTML" %}
+    </button>
 </p>
 ```
 
@@ -136,14 +140,14 @@ Everything together would be as follows:
 
 ```jinja
 <div data-controller="aboutUs">
-	<p>
-		<button
-		    data-action="click->aboutUs#getRandomNumberHTML"
-		>
-			{% trans "Get random numberwith HTML" %}
-		</button>
-	</p>
-	<div id="content-random-number-html"></div>
+    <p>
+        <button
+            data-action="click->aboutUs#getRandomNumberHTML"
+        >
+            {% trans "Get random numberwith HTML" %}
+        </button>
+    </p>
+    <div id="content-random-number-html"></div>
 </div>
 ```
 
@@ -219,9 +223,9 @@ In `urls.py` we add the path and point to the future view.
 
 ```python
 urlpatterns = i18n_patterns(
-	...
+    ...
     path(_("about-us/"), views.about_us, name="about us"),
-	...
+    ...
 )
 ```
 
