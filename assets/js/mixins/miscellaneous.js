@@ -11,9 +11,22 @@ export function removeBodyScrollLock() {
     document.body.classList.remove("scroll-lock");
 }
 
+export async function encodeFileAsBase64URL(file) {
+    if (file) {
+	return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.addEventListener('loadend', () => {
+		resolve(reader.result);
+            });
+            reader.readAsDataURL(file);
+	});
+    }
+    return null;
+}
+
 // The parallax function
 export function parallax(el, x, y) {
-  if (el) {
+    if (el) {
     const a = window.innerHeight - el.getBoundingClientRect().top
     el.style.transform = `translate3d(${x * a}px, ${y * a}px, 0)`;
   }

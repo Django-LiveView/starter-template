@@ -7,12 +7,10 @@ from app.website.utils import (
     update_active_nav,
     enable_lang,
     loading,
+    send_notification,
+    get_image_from_base64,
 )
 from core import settings
-import base64
-import time
-from django.core.files import File
-from tempfile import NamedTemporaryFile
 
 
 template = "pages/profile.html"
@@ -64,17 +62,7 @@ def update_avatar(consumer, client_data):
     ):
         # Variables
         user = consumer.scope["user"]
-        avatar_base64 = client_data["data"]["base64"]
-        extension = client_data["data"]["mimeType"].split("/")[-1]
-        # Str base64 to bytes
-        base64_img_bytes = avatar_base64.encode("utf-8")
-        decoded_image_data = base64.decodebytes(base64_img_bytes)
-        # Bytes to file
-        my_filename = f"{user.username}-{int(time.time())}.{extension}"
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(decoded_image_data)
-        img_temp.flush()
-        my_file = File(img_temp)
+        my_file, my_filename = get_image_from_base64(client_data["data"]["base64"], client_data["data"]["mimeType"])
         # Update avatar
         user.profile.avatar.save(my_filename, my_file)
         # Update HTML
@@ -85,5 +73,5 @@ def update_avatar(consumer, client_data):
         }
         consumer.send_html(data)
     else:
-        # Bad extension image
-        pass
+        # Bad extension image. Send message
+        send_notification(consumer, _("Bad extension image"), "danger")
