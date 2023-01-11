@@ -62,7 +62,9 @@ def update_avatar(consumer, client_data):
     ):
         # Variables
         user = consumer.scope["user"]
-        my_file, my_filename = get_image_from_base64(client_data["data"]["base64"], client_data["data"]["mimeType"])
+        my_file, my_filename = get_image_from_base64(
+            client_data["data"]["base64"], client_data["data"]["mimeType"]
+        )
         # Update avatar
         user.profile.avatar.save(my_filename, my_file)
         # Update HTML

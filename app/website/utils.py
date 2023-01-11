@@ -11,6 +11,7 @@ import time
 from django.core.files import File
 from tempfile import NamedTemporaryFile
 
+
 def set_language(language="en"):
     """Set the language."""
     if language:
@@ -117,7 +118,7 @@ def send_notification(consumer: object, message: str, level: str = "info"):
     Thread(target=remove_notification, args=(consumer, uuid)).start()
 
 
-def get_image_from_base64(base64_string: str, mime_type: str):
+def get_image_from_base64(base64_string: str, mime_type: str, is_file: bool = True):
     if mime_type in (
         "image/jpeg",
         "image/png",
@@ -129,10 +130,13 @@ def get_image_from_base64(base64_string: str, mime_type: str):
         # Str base64 to bytes
         base64_img_bytes = base64_string.encode("utf-8")
         decoded_image_data = base64.decodebytes(base64_img_bytes)
-        # Bytes to file
         my_filename = f"{uuid}.{extension}"
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(decoded_image_data)
-        img_temp.flush()
-        return File(img_temp), my_filename
+        if is_file:
+            # Bytes to file
+            img_temp = NamedTemporaryFile(delete=True)
+            img_temp.write(decoded_image_data)
+            img_temp.flush()
+            return File(img_temp), my_filename
+        else:
+            return decoded_image_data, my_filename
     return None, None

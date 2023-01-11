@@ -1,4 +1,5 @@
 from django import forms
+from app.website.models import Cat
 from django.utils.translation import gettext as _
 from django.core import validators
 from django.core.exceptions import ValidationError
@@ -46,12 +47,21 @@ class CatForm(forms.Form):
     )
     avatar = forms.ImageField(
         label=_("Avatar"),
+        allow_empty_file=True,
         widget=forms.FileInput(
             attrs={
                 "data-cats-target": "avatar",
             },
         ),
     )
+
+    def save(self):
+        Cat.objects.create(
+            name=self.cleaned_data["name"],
+            age=self.cleaned_data["age"],
+            biography=self.cleaned_data["biography"],
+            avatar=self.cleaned_data["avatar"],
+        )
 
 
 class LoginForm(forms.Form):
