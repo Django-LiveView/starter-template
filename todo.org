@@ -1,9 +1,6 @@
 * Tasks
 
-
-** IN PROGRESS Add a new item in the database (👶🏻🐈).
-*** Fix enter to form. Not show page
-** TODO Delete item from the database (🐈☠).
+** IN PROGRESS Delete item from the database (🐈☠).
 ** TODO Update item from the database (🐈👉🐕).
 ** TODO Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
 ** TODO Get information from an API and render it (_comments_ from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).

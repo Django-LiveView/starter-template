@@ -52,7 +52,7 @@ def send_page(consumer, client_data, lang=None):
         "selector": "#main",
         "html": get_html(consumer=consumer, lang=lang),
     }
-    data.update(get_context(lang=lang))
+    data.update(get_context(consumer=consumer, lang=lang))
     consumer.send_html(data)
 
 
@@ -75,16 +75,18 @@ def send_cats_per_page(consumer, client_data, lang=None, page=1):
     start = (my_page - 1) * elements_per_page
     end = start + elements_per_page
     # Update list of cats
+    context = get_global_context(consumer=consumer)
+    context.update({
+        "cats": Cat.objects.all().order_by("-id")[start:end],
+        "pagination": my_page,
+        "is_last_page": is_last_page(my_page),
+    })
     data = {
         "action": client_data["action"],
         "selector": "#list-cats",
         "html": render_to_string(
             "components/_list_cats.html",
-            {
-                "cats": Cat.objects.all().order_by("-id")[start:end],
-                "pagination": my_page,
-                "is_last_page": is_last_page(my_page),
-            },
+            context,
         ),
     }
     consumer.send_html(data)

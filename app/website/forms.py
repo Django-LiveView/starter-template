@@ -56,7 +56,7 @@ class CatForm(forms.Form):
     )
 
     def save(self):
-        Cat.objects.create(
+        return Cat.objects.create(
             name=self.cleaned_data["name"],
             age=self.cleaned_data["age"],
             biography=self.cleaned_data["biography"],
