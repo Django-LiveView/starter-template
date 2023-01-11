@@ -1,6 +1,5 @@
 * Tasks
 
-** IN PROGRESS Delete item from the database (🐈☠).
-** TODO Update item from the database (🐈👉🐕).
+** IN PROGRESS Update item from the database (🐈👉🐕).
 ** TODO Broadcast: Sending information to all customers in Real-time (Feline notifications 🐈📢).
 ** TODO Get information from an API and render it (_comments_ from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
