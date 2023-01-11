@@ -6,11 +6,11 @@ from django.utils.translation import gettext as _
 from app.website.utils import (
     update_active_nav,
     enable_lang,
+    send_notification,
     loading,
 )
 from core import settings
 from app.website.models import Cat
-from app.website.forms import CatForm
 
 
 template = "pages/all_cats.html"
@@ -123,18 +123,14 @@ def previous_page(consumer, client_data, lang=None):
 
 @enable_lang
 @loading
-def create(consumer, cliente_data, lang=None):
-    """Create cat"""
-    # Get form
-    form = CatForm(cliente_data["data"])
-    if form.is_valid():
-        # Create cat
-        cat = form.save()
-        # Send cat
-        data = {
-            "action": "create_cat",
-            "selector": "#list-cats",
-            "html": render_to_string("components/_cat.html", {"cat": cat}),
-        }
-        consumer.send_html(data)
-        # Send message
+def delete(consumer, client_data, lang=None):
+    """Delete cat"""
+    # Find cat and delete
+    cats = Cat.objects.all()
+    for cat in cats:
+        if cat.slug in client_data["data"]["slug"]:
+            cat.delete()
+    # Notify
+    send_notification(consumer, _("A cat has died! it has 6 lives left."), "danger")
+    # Refresh page
+    send_page(consumer, client_data, lang=lang)
