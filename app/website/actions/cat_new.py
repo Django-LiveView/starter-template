@@ -12,17 +12,16 @@ from app.website.utils import (
 from core import settings
 from app.website.forms import CatForm
 from app.website.actions import cats
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 template = "pages/new_cat.html"
 
 
-def get_context(consumer=None, client_data=None, lang=None):
+def get_context(consumer=None, client_data=None, form=None, lang=None):
     context = get_global_context(consumer=consumer)
     # Check client_data["data"]["form"] exist
-    if client_data and "data" in client_data and "form" in client_data["data"]:
-        form = CatForm(client_data["data"]["form"])
-    else:
+    if not form:
         form = CatForm()
     # Update context
     context.update(
@@ -41,8 +40,8 @@ def get_context(consumer=None, client_data=None, lang=None):
     return context
 
 
-def get_html(consumer=None, client_data=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, client_data=client_data, lang=lang))
+def get_html(consumer=None, client_data=None, form=None, lang=None):
+    return render_to_string(template, get_context(consumer=consumer, client_data=client_data, form=form, lang=lang))
 
 
 @enable_lang
@@ -63,13 +62,23 @@ def send_page(consumer, client_data, lang=None):
 @loading
 def create(consumer, client_data, lang=None):
     if client_data and "data" in client_data and "form" in client_data["data"]:
-        # Save image
-        my_file, my_filename = get_image_from_base64(client_data["data"]["form"]["avatar"]["base64"], client_data["data"]["form"]["avatar"]["mimeType"])
-        client_data["data"]["form"]["avatar"] = my_file
-        # Get form
-        form = CatForm(client_data["data"]["form"])
+        # Add file to input image
+        base64_str = client_data["data"]["form"]["avatar"]["base64"]
+        mime_type = client_data["data"]["form"]["avatar"]["mimeType"]
+        my_file, my_filename = get_image_from_base64(base64_str, mime_type)
+        # Set data in form
+        form = CatForm(
+            client_data["data"]["form"],
+            {
+                "avatar": SimpleUploadedFile(
+                    my_filename,
+                    my_file.read(),
+                    content_type=mime_type,
+                )
+            }
+        )
         if form.is_valid():
-            form.save()
+            #form.save()
             # Redirect to cats list
             cats.send_page(consumer, client_data, lang=lang)
         else:
@@ -77,7 +86,7 @@ def create(consumer, client_data, lang=None):
             data = {
                 "action": client_data["action"],
                 "selector": "#main",
-                "html": get_html(consumer=consumer, client_data=client_data, lang=lang),
+                "html": get_html(consumer=consumer, client_data=client_data, form=form, lang=lang),
             }
             data.update(get_context())
             consumer.send_html(data)
