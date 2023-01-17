@@ -1,0 +1,8 @@
+{% load i18n static %}
+<h1>{% trans "Update cat" %}</h1>
+<div class="grid">
+    <p><img alt="{{ cat.name }}" src="{{ cat.avatar_url }}"></p>
+    <form id="update-cat__form" data-controller="cats">
+	{% include "forms/cat.html" %}
+    </form>
+</div>

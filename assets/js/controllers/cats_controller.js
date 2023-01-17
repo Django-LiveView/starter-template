@@ -51,13 +51,19 @@ export default class extends Controller {
 	}});
     };
 
+    async openUpdateForm(event) {
+	event.preventDefault();
+	const slug = event.target.dataset.slug;
+	sendData({action: "cat_update->send_page", data: {slug: slug}});
+    };
+
     async update(event) {
 	event.preventDefault();
 	// Get: data:image/jpeg;base64,[long string]
 	const base64URL = await encodeFileAsBase64URL(this.avatarTarget.files[0]);
 	const base64 = base64URL ? base64URL.split(',')[1] : false;
 	const mimeType = base64URL ? base64URL.split(';')[0].split(':')[1] : false;
-	sendData({action: "cat_update->update", data: {
+	sendData({action: "cat_update->open_update_form", data: {
 	    form : {
 		name: this.nameTarget.value,
 		age: this.ageTarget.value,
@@ -68,7 +74,7 @@ export default class extends Controller {
 		}
 	    }
 	}});
-	};
+    };
 
     async delete(event) {
 	event.preventDefault();

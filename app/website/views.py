@@ -34,6 +34,10 @@ def cat_single(request, cat_slug):
 def cat_new(request):
     return render(request, "base.html", get_cat_new_context())
 
+@login_required(login_url="login")
+def cat_update(request, cat_slug):
+    return render(request, "base.html", get_cat_update_context(slug=cat_slug))
+
 
 def login(request):
     return render(request, "base.html", get_login_context())
