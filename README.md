@@ -386,6 +386,12 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 - [Building SPAs with Django and HTML Over the Wire: Learn to build real-time single page applications with Python](https://www.amazon.com/Building-SPAs-Django-HTML-Over-ebook/dp/B0B3DV54ZT/ref=sr_1_1?crid=39E4BTNKDQ74I&keywords=andros+fenollosa&qid=1672045604&sprefix=andros+fenollos%2Caps%2C165&sr=8-1)
 
+## Roadmap
+
+- [ ] Website
+- [ ] Migrate consumers to asynchronous calls
+- [ ] Porting to a Django extension
+
 ## Technology Stack 😍
 
 - [Django](https://www.djangoproject.com/)
