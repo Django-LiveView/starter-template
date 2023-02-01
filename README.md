@@ -1,5 +1,5 @@
 # Djalmeow
-## Django template for creating a complete HTML over the Wire site
+## Django template for creating a complete HTML over the Wire site or LiveView
 
 <p align="center">
 	<img src="assets/img/pet-small.png">
