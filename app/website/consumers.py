@@ -1,6 +1,32 @@
 import os
 from channels.generic.websocket import JsonWebsocketConsumer
 from app.website.models import Client
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+import psutil
+import threading
+import time
+from django.template.loader import render_to_string
+
+# Example of how to send only from server to client.
+# DEMO: Every 2 seconds send CPU and RAM.
+
+def refresh_resources(cpu_history=[], ram_history=[]):
+    time.sleep(2)
+    my_channel_layer = get_channel_layer()
+    cpu_history_limit = cpu_history
+    if my_channel_layer:
+        # CPU
+        total_cpu = psutil.cpu_percent()
+        cpu_history.append({"label": total_cpu, "value": total_cpu / 100})
+        cpu_history_limit = cpu_history if len(cpu_history) < 10 else cpu_history[1:10]
+        cpu_html = render_to_string('components/_cpu_bars.html', {'items': cpu_history_limit})
+        # Render
+        data = {"action": "Update CPU", "selector": "#cpu", "html": cpu_html}
+        async_to_sync(my_channel_layer.group_send)("broadcast", {"type": "send_data_to_frontend", "data": data})
+    threading.Thread(target=refresh_resources, args=(cpu_history_limit, [])).start()
+
+refresh_resources()
 
 # Load all actions
 path = os.getcwd()
@@ -9,17 +35,23 @@ for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
         name = entry.name.split(".")[0]
         exec(f"from app.website.actions import {name} as {name}")
 
-
 class WebsiteConsumer(JsonWebsocketConsumer):
+
+    channel_name_broadcast = "broadcast"
+
     def connect(self):
         """Event when client connects"""
         # Accept the connection
         self.accept()
+        # Add to group broadcast
+        async_to_sync(self.channel_layer.group_add)(self.channel_name_broadcast, self.channel_name)
         # Save the client
         Client.objects.create(channel_name=self.channel_name)
 
     def disconnect(self, close_code):
         """Event when client disconnects"""
+        # Remove from group broadcast
+        async_to_sync(self.channel_layer.group_discard)(self.channel_name_broadcast, self.channel_name)
         # Delete the client
         Client.objects.filter(channel_name=self.channel_name).delete()
 
@@ -45,7 +77,7 @@ class WebsiteConsumer(JsonWebsocketConsumer):
                     print(f"Bad action: {data['action']}")
                     print(e)
 
-    def send_html(self, data):
+    def send_html(self, data, broadcast=False):
         """Event: Send html to client
 
         Example minimum data:
@@ -85,4 +117,14 @@ class WebsiteConsumer(JsonWebsocketConsumer):
             if "scroll" in data:
                 my_data.update({"scroll": data["scroll"]})
             # Send the data
-            self.send_json(my_data)
+            if broadcast:
+                if hasattr(self, "channel_layer"):
+                    async_to_sync(self.channel_layer.group_send)(self.channel_name_broadcast, {"type": "send_data_to_frontend", "data": my_data})
+            else:
+                self.send_data_to_frontend(my_data)
+
+    def send_data_to_frontend(self, data):
+        """Send data to the frontend"""
+        # Corrects the data if it comes from an external call or a group_send
+        send_data = data["data"] if "type" in data else data
+        self.send_json(send_data)

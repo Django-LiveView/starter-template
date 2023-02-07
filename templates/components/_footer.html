@@ -1,4 +1,24 @@
 {% load i18n static %}
+<h2 style="margin-top: 3rem">{% trans "Monitoring your resources" %}</h2>
+<p>{% trans "Your resources in real time, and without using JavaScript" %} 🤯</p>
+<section class="grid"  style="margin-bottom: 10rem">
+    <div>
+	<h3>{% trans "CPU" %}</h3>
+	<table class="charts-css bar show-4-secondary-axes">
+	    <tbody id="cpu"></tbody>
+	</table>
+    </div>
+    <div>
+	<h3>{% trans "RAM" %}</h3>
+	<table class="charts-css column show-data-axes">
+	    <tbody id="ram">
+		<tr>
+		    <td style="--size: 0.5; --color: red;"></td>
+		</tr>
+	    </tbody>
+	</table>
+    </div>
+</section>
 <p>
     <a href="{% url 'feed' %}" target="_blank">
 	<img alt="RSS" src="{% static 'img/rss.png' %}" class="feed__img"> Cat Feed (RSS/Atom)

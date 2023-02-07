@@ -41,33 +41,14 @@ function scrollToTop () {
 }
 
 // Renders the HTML received from the Consumer or from indexedDB
-export const renderHtml = (data, isBackward = false, isCachingData = false) => {
-  const newFragmentHtml = document.createRange().createContextualFragment(data.html);
+export const renderHTML = (data, isBackward = false, isCachingData = false) => {
 
-  const newFragmentHeader = document.createRange().createContextualFragment(data.header);
-  const newFragmentMain = document.createRange().createContextualFragment(data.main);
-  const newFragmentFooter = document.createRange().createContextualFragment(data.footer);
-
-  const targetHtml = document.querySelector(data.selector);
-
-  const targetHeader = document.querySelector("#content-header");
-  const targetMain = document.querySelector("#main");
-  const targetFooter = document.querySelector("#content-footer");
-
-  if (targetHtml) {
+  const targetHTML = document.querySelector(data.selector);
+  if (targetHTML) {
     if (data.append) {
-      targetHtml.appendChild(newFragmentHtml);
+      targetHTML.innerHTML += data.html;
     } else {
-      // Send data from Local Storage
-      if (isBackward || isCachingData) {
-        targetHeader.replaceChildren(newFragmentHeader);
-        // Clear calendly iframe content, it will be generated automatically by its url
-        if (data.action.includes("contact")) newFragmentMain.querySelector("#calendly").textContent = "";
-        targetMain.replaceChildren(newFragmentMain);
-        targetFooter.replaceChildren(newFragmentFooter);
-      } else {
-        targetHtml.replaceChildren(newFragmentHtml);
-      }
+        targetHTML.innerHTML = data.html;
     }
 
     // If it is a new page or is backward, the scroll returns to the beginning

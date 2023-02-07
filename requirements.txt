@@ -21,4 +21,7 @@ channels_redis===3.4.1
 requests===2.28.1
 
 # Fake data
-Faker===15.3.4 
+Faker===15.3.4
+
+# Demo
+psutil===5.9.4

@@ -2,7 +2,7 @@
 import {
   addBodyScrollLock,
   removeBodyScrollLock,
-  renderHtml,
+  renderHTML,
   moveScrollToAnchor
 } from "./mixins/miscellaneous.js";
 
@@ -71,9 +71,9 @@ export function startEvents(webSocket=window.myWebSocket) {
   webSocket.addEventListener("message", (event) => {
     // Parse the data received
       const data = JSON.parse(event.data);
-      
+
     // Renders the HTML received from the Consumer
-      renderHtml(data);
+      renderHTML(data);
       moveScrollToAnchor(data);
   });
 
