@@ -1,6 +1,6 @@
 {% for item in items %}
 <tr>
-    <th scope="row"> {{ item.value }}% </th>
-    <td style="--size: {{ item.value }};"> <span class="data"> {{ item.label }} </span> </td>
+    <th scope="row"> {{ item.label }}% </th>
+    <td style="--size: {{ item.value }}; --color: {{ item.color }}"> <span class="data"> {{ item.label }}% </span> </td>
 </tr>
 {% endfor %}

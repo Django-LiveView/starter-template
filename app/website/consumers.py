@@ -12,13 +12,19 @@ from django.template.loader import render_to_string
 # DEMO: Every 2 seconds send CPU and RAM.
 
 def refresh_resources(cpu_history=[], ram_history=[]):
-    time.sleep(2)
+    time.sleep(1)
     my_channel_layer = get_channel_layer()
     cpu_history_limit = cpu_history
     if my_channel_layer:
         # CPU
         total_cpu = psutil.cpu_percent()
-        cpu_history.append({"label": total_cpu, "value": total_cpu / 100})
+        cpu_history.append(
+            {
+                "label": total_cpu,
+                "value": total_cpu / 100,
+                "color": "red" if total_cpu > 80 else "yellow" if total_cpu > 50 else "green",
+             }
+        )
         cpu_history_limit = cpu_history if len(cpu_history) < 10 else cpu_history[1:10]
         cpu_html = render_to_string('components/_cpu_bars.html', {'items': cpu_history_limit})
         # Render
