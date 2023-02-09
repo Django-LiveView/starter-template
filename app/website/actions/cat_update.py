@@ -25,47 +25,47 @@ def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None
     list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
     if len(list_cats) > 0:
         cat = list_cats[0]
-    if not form:
         form = CatForm(initial={
             "name": cat.name,
             "age": cat.age,
             "biography": cat.biography,
         })
-    # Update context
-    context.update(
-        {
-            "url": settings.DOMAIN_URL + reverse("cat update"),
-            "title": _("New cat") + " | " + settings.SITE_NAME,
-            "meta": {
-                "description": _("New cat page of the website"),
-                "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
-            },
-            "active_nav": "",
-            "page": template,
-            "cat": cat,
-            "form": form,
-        }
+        # Update context
+        context.update(
+            {
+                "url": settings.DOMAIN_URL + reverse("cat update", kwargs={"cat_slug": slug}),
+                "title": _("New cat") + " | " + settings.SITE_NAME,
+                "meta": {
+                    "description": _("Update a cat"),
+                    "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
+                },
+                "active_nav": "",
+                "page": template,
+                "cat": cat,
+                "form": form,
+            }
     )
     return context
 
 
-def get_html(consumer=None, client_data=None, form=None, lang=None):
+def get_html(consumer=None, slug=None, client_data=None, form=None, lang=None):
     return render_to_string(
         template,
-        get_context(consumer=consumer, client_data=client_data, form=form, lang=lang),
+        get_context(consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang),
     )
 
 
 @enable_lang
 @loading
 def send_page(consumer, client_data, lang=None):
+    slug = client_data["data"]["slug"]
     # Nav
     update_active_nav(consumer, "")
     # Main
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(consumer=consumer, client_data=client_data, lang=lang),
+        "html": get_html(lang=lang, slug=slug),
     }
     data.update(get_context())
     consumer.send_html(data)

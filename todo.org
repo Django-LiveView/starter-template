@@ -2,3 +2,4 @@
 
 ** IN PROGRESS Update item from the database (🐈👉🐕).
 ** TODO Get information from an API and render it (_comments_ from [jsonplaceholder](https://jsonplaceholder.typicode.com/)).
+** TODO Translations
