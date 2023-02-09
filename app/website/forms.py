@@ -55,13 +55,19 @@ class CatForm(forms.Form):
         ),
     )
 
-    def save(self):
-        return Cat.objects.create(
-            name=self.cleaned_data["name"],
-            age=self.cleaned_data["age"],
-            biography=self.cleaned_data["biography"],
-            avatar=self.cleaned_data["avatar"],
-        )
+    def save(self, slug=None):
+        """Save the form. If a slug is provided, update the existing cat."""
+        try:
+            cat = Cat.objects.get(slug=slug)
+        except Cat.DoesNotExist:
+            cat = Cat.objects.create(**self.cleaned_data)
+        else:
+            cat.name = self.cleaned_data["name"]
+            cat.age = self.cleaned_data["age"]
+            cat.biography = self.cleaned_data["biography"]
+            cat.avatar = self.cleaned_data["avatar"]
+            cat.save()
+        return cat
 
 
 class LoginForm(forms.Form):

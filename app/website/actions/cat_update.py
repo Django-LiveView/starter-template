@@ -34,7 +34,7 @@ def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None
         context.update(
             {
                 "url": settings.DOMAIN_URL + reverse("cat update", kwargs={"cat_slug": slug}),
-                "title": _("New cat") + " | " + settings.SITE_NAME,
+                "title": _("Update cat " + cat.name) + " | " + settings.SITE_NAME,
                 "meta": {
                     "description": _("Update a cat"),
                     "image": f"{settings.DOMAIN_URL}{static('img/seo/cat.jpg')}",
@@ -73,7 +73,9 @@ def send_page(consumer, client_data, lang=None):
 
 @enable_lang
 @loading
-def create(consumer, client_data, lang=None):
+def update(consumer, client_data, lang=None):
+    slug = client_data["data"]["slug"]
+    # Check if cat exists and if all data is present
     if client_data and "data" in client_data and "form" in client_data["data"]:
         # Add file to input image
         base64_str = client_data["data"]["form"]["avatar"]["base64"]
@@ -91,13 +93,13 @@ def create(consumer, client_data, lang=None):
                     my_file_bytes,
                     content_type=mime_type,
                 )
-            },
+            } if base64_str else None,
         )
         if form.is_valid():
             # Create cat
-            form.save()
+            form.save(slug=slug)
             # Send notification
-            send_notification(consumer, _("A cat is born!"), "success")
+            send_notification(consumer, _("A cat is update!"), "success")
             # Redirect to cats list
             cats.send_page(consumer, client_data, lang=lang)
         else:
@@ -106,7 +108,7 @@ def create(consumer, client_data, lang=None):
                 "action": client_data["action"],
                 "selector": "#main",
                 "html": get_html(
-                    consumer=consumer, client_data=client_data, form=form, lang=lang
+                    consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang
                 ),
             }
             data.update(get_context())

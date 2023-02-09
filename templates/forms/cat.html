@@ -2,4 +2,10 @@
 <div id="cat__inputs">
     {{ form.as_p }}
 </div>
+{% if cat %}
+{# Button to update cat #}
+<button type="button" data-slug="{{ cat.slug }}" data-action="click->cats#update">{% trans "Update cat" %}</button>
+{% else %}
+{# Button to add a new cat #}
 <button type="button" data-action="click->cats#create">{% trans "Create cat" %}</button>
+{% endif %}
