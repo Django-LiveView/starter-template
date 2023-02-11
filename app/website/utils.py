@@ -7,7 +7,6 @@ from uuid import uuid4
 from threading import Thread
 from time import sleep
 import base64
-import time
 from django.core.files import File
 from tempfile import NamedTemporaryFile
 

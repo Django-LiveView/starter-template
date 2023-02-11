@@ -1,6 +1,6 @@
 from django import forms
 from app.website.models import Cat
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.core import validators
 from django.core.exceptions import ValidationError
 
@@ -73,6 +73,7 @@ class CatForm(forms.Form):
 
 
 class LoginForm(forms.Form):
+
     email = forms.CharField(
         label=_("Email"),
         max_length=255,
