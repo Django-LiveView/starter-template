@@ -58,14 +58,16 @@ class CatForm(forms.Form):
     def save(self, slug=None):
         """Save the form. If a slug is provided, update the existing cat."""
         try:
-            cat = Cat.objects.get(slug=slug)
+            list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
+            cat = list_cats[0]
         except Cat.DoesNotExist:
             cat = Cat.objects.create(**self.cleaned_data)
         else:
             cat.name = self.cleaned_data["name"]
             cat.age = self.cleaned_data["age"]
             cat.biography = self.cleaned_data["biography"]
-            cat.avatar = self.cleaned_data["avatar"]
+            if self.cleaned_data["avatar"]:
+                cat.avatar = self.cleaned_data["avatar"]
             cat.save()
         return cat
 

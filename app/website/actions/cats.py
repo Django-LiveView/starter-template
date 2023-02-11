@@ -76,11 +76,13 @@ def send_cats_per_page(consumer, client_data, lang=None, page=1):
     end = start + elements_per_page
     # Update list of cats
     context = get_global_context(consumer=consumer)
-    context.update({
-        "cats": Cat.objects.all().order_by("-id")[start:end],
-        "pagination": my_page,
-        "is_last_page": is_last_page(my_page),
-    })
+    context.update(
+        {
+            "cats": Cat.objects.all().order_by("-id")[start:end],
+            "pagination": my_page,
+            "is_last_page": is_last_page(my_page),
+        }
+    )
     data = {
         "action": client_data["action"],
         "selector": "#list-cats",

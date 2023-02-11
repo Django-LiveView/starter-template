@@ -25,15 +25,22 @@ def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None
     list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
     if len(list_cats) > 0:
         cat = list_cats[0]
-        form = CatForm(initial={
-            "name": cat.name,
-            "age": cat.age,
-            "biography": cat.biography,
-        })
+        form = (
+            form
+            if form
+            else CatForm(
+                initial={
+                    "name": cat.name,
+                    "age": cat.age,
+                    "biography": cat.biography,
+                }
+            )
+        )
         # Update context
         context.update(
             {
-                "url": settings.DOMAIN_URL + reverse("cat update", kwargs={"cat_slug": slug}),
+                "url": settings.DOMAIN_URL
+                + reverse("cat update", kwargs={"cat_slug": slug}),
                 "title": _("Update cat " + cat.name) + " | " + settings.SITE_NAME,
                 "meta": {
                     "description": _("Update a cat"),
@@ -42,16 +49,20 @@ def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None
                 "active_nav": "",
                 "page": template,
                 "cat": cat,
+                "slug": slug,
                 "form": form,
             }
-    )
+        )
+
     return context
 
 
 def get_html(consumer=None, slug=None, client_data=None, form=None, lang=None):
     return render_to_string(
         template,
-        get_context(consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang),
+        get_context(
+            consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang
+        ),
     )
 
 
@@ -78,23 +89,33 @@ def update(consumer, client_data, lang=None):
     # Check if cat exists and if all data is present
     if client_data and "data" in client_data and "form" in client_data["data"]:
         # Add file to input image
+
         base64_str = client_data["data"]["form"]["avatar"]["base64"]
         mime_type = client_data["data"]["form"]["avatar"]["mimeType"]
-        # Create byte file from base64
-        my_file_bytes, my_filename = get_image_from_base64(
-            base64_str, mime_type, is_file=False
-        )
-        # Set data in form
+        is_new_avatar = base64_str and mime_type
+        if is_new_avatar:
+            # Create byte file from base64
+            my_file_bytes, my_filename = get_image_from_base64(
+                base64_str, mime_type, is_file=False
+            )
+            new_uploaded_file = SimpleUploadedFile(
+                my_filename,
+                my_file_bytes,
+                content_type=mime_type,
+            )
+        # Update data in form
         form = CatForm(
             client_data["data"]["form"],
             {
-                "avatar": SimpleUploadedFile(
-                    my_filename,
-                    my_file_bytes,
-                    content_type=mime_type,
-                )
-            } if base64_str else None,
+                "avatar": new_uploaded_file,
+            }
+            if is_new_avatar
+            else None,
         )
+        # Disable required field for avatar
+        form.fields["avatar"].required = False
+
+        # Check if form is valid
         if form.is_valid():
             # Create cat
             form.save(slug=slug)
@@ -108,7 +129,11 @@ def update(consumer, client_data, lang=None):
                 "action": client_data["action"],
                 "selector": "#main",
                 "html": get_html(
-                    consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang
+                    consumer=consumer,
+                    slug=slug,
+                    client_data=client_data,
+                    form=form,
+                    lang=lang,
                 ),
             }
             data.update(get_context())
