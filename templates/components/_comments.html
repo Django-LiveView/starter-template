@@ -1,0 +1,11 @@
+{% if comments %}
+<h2>Comments</h2>
+{% for comment in comments %}
+<article>
+    <hr>
+    <h3>{{ comment.name }}</h3>
+    <p>{{ comment.email }}</p>
+    <p>{{ comment.body }}</p>
+</article>
+{% endfor %}
+{% endif %}

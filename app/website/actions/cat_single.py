@@ -10,7 +10,7 @@ from app.website.utils import (
 )
 from core import settings
 from app.website.models import Cat
-
+import requests
 
 template = "pages/single_cat.html"
 
@@ -55,4 +55,24 @@ def send_page(consumer, client_data, lang=None):
         "html": get_html(lang=lang, slug=slug),
     }
     data.update(get_context(lang=lang, slug=slug))
+    consumer.send_html(data)
+    # Comments
+    render_comments_from_external_API(consumer, slug)
+
+
+def render_comments_from_external_API(consumer, slug):
+    list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
+    post = list_cats[0]
+    post_id = post.id
+    # Get comments from external API
+    response = requests.get(
+        "https://jsonplaceholder.typicode.com/comments", {"postId": post_id}
+    )
+    comments = response.json()
+    # Render
+    data = {
+        "action": "update_cat->comments",
+        "selector": "#comments",
+        "html": render_to_string("components/_comments.html", {"comments": comments}),
+    }
     consumer.send_html(data)

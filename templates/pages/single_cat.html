@@ -1,4 +1,5 @@
 {% load i18n %}
+<article>
 <p>
     <img alt="{{ cat.name }}" src="{{ cat.avatar_url }}">
 </p>
@@ -9,6 +10,11 @@
     <a
 	data-page="cats"
         data-action="click->page#changePage"
-	href="{% url 'cats list' %}"
-    >{% trans "cats" %}</a>
+		   href="{% url 'cats list' %}"
+    >{% trans "Back to cats" %}</a>
 </p>
+</article>
+{# Asynchronous example of how to get data from an API and render them #}
+<section id="comments">
+    {% include "components/_comments.html" %}
+</section>
