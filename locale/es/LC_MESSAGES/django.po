@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 08:42+0000\n"
+"POT-Creation-Date: 2023-02-11 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,12 @@ msgstr "Página de nuevo gato"
 #: app/website/actions/cat_new.py:92
 msgid "A cat is born!"
 msgstr "Ha nacido un minino!"
+
+#: app/website/actions/cat_single.py:30 app/website/actions/cats.py:28
+#, fuzzy
+#| msgid "All cats"
+msgid "All cats page"
+msgstr "Todos los gatos"
 
 #: app/website/actions/cat_update.py:44
 msgid "Update cat "
@@ -141,8 +147,8 @@ msgstr "El campo es obligatorio."
 msgid "Password"
 msgstr "Contraseña"
 
-#: app/website/forms.py:127
-msgid "Mesaage"
+#: app/website/forms.py:127 templates/emails/contact.html:7
+msgid "Message"
 msgstr "Mensaje"
 
 #: app/website/forms.py:138
@@ -209,6 +215,10 @@ msgstr "Son los recursos en tiempo real, sin usar JavaScript"
 msgid "CPU"
 msgstr ""
 
+#: templates/components/_footer.html:12
+msgid "Cat Feed"
+msgstr "Feed de gatos"
+
 #: templates/components/_header.html:53
 msgid "Logout"
 msgstr "Salir"
@@ -232,10 +242,6 @@ msgstr "Borrar"
 #: templates/components/_loading.html:4
 msgid "Loading"
 msgstr "Cargando"
-
-#: templates/emails/contact.html:7
-msgid "Message"
-msgstr "Mensaje"
 
 #: templates/forms/cat.html:7 templates/pages/update_cat.html:2
 msgid "Update cat"
@@ -266,8 +272,8 @@ msgid ""
 "This is just a static example page, a simple, friendly and minimalistic "
 "example of how to load a complete HTML using WebSockets."
 msgstr ""
-"Esto es sólo una página estática de ejemplo, un simple, amigable y minimalista "
-"ejemplo de cómo cargar un HTML completo usando WebSockets."
+"Esto es sólo una página estática de ejemplo, un simple, amigable y "
+"minimalista ejemplo de cómo cargar un HTML completo usando WebSockets."
 
 #: templates/pages/about_us.html:4
 msgid "Example of functionality"
@@ -278,16 +284,16 @@ msgid ""
 "When clicked the button will ask Django to generate a random number and "
 "render it below."
 msgstr ""
-"Cuando apretes el botón pedirás a Django que genere un número aleatorio y "
-"lo renderizará debajo."
+"Cuando apretes el botón pedirás a Django que genere un número aleatorio y lo "
+"renderizará debajo."
 
 #: templates/pages/about_us.html:8
 msgid "Get random number only text"
 msgstr "Genera un número aleatorio en texto plano"
 
 #: templates/pages/about_us.html:12
-msgid "Get random numberwith HTML"
-msgstr ""
+msgid "Get random number with HTML"
+msgstr "Genera un número aleatorio con HTML"
 
 #: templates/pages/all_cats.html:2
 msgid "All cats"
@@ -314,14 +320,15 @@ msgid ""
 "You will be able to find typical solutions when creating a dynamic web page "
 "using the HTML over WebSockets approach."
 msgstr ""
-"Podrás encontrar soluciones típicas a la hora de crear una página web dinámica "
-"utilizando el enfoque HTML sobre WebSockets."
+"Podrás encontrar soluciones típicas a la hora de crear una página web "
+"dinámica utilizando el enfoque HTML sobre WebSockets."
 
 #: templates/pages/home.html:9
 msgid ""
 "Navigator that marks as active the page where you are (Header of this page)."
 msgstr ""
-"Navegador que marca como activa la página en la que te encuentras (Cabecera de esta página)."
+"Navegador que marca como activa la página en la que te encuentras (Cabecera "
+"de esta página)."
 
 #: templates/pages/home.html:12
 msgid ""
@@ -347,6 +354,10 @@ msgstr "Página dinámica - Gato individual"
 msgid "Form with validations: Login"
 msgstr "Formulario con validaciones: Identificación"
 
+#: templates/pages/login.html:2
+msgid "Login page"
+msgstr "Página de identificación"
+
 #: templates/pages/login.html:6
 msgid "All accounts: Email 👇 - Password 'password'"
 msgstr "Todas las cuentas: Correos 👇 - Y contraseña 'password'"
@@ -368,8 +379,8 @@ msgid ""
 "Now that you have logged in, you can Add, Update and Delete cats. Go back to "
 "Cats to see the controls."
 msgstr ""
-"Ahora que ha iniciado sesión, puede Añadir, Actualizar y Eliminar gatos. Vuelve a "
-"Gatos para ver los controles.
+"Ahora que ha iniciado sesión, puede Añadir, Actualizar y Eliminar gatos. "
+"Vuelve a Gatos para ver los controles."
 
 #: templates/pages/profile.html:13
 msgid "Go to"
@@ -379,8 +390,8 @@ msgstr "Ir a"
 msgid ""
 "Change the avatar image to experience how files are sent using WebSockets"
 msgstr ""
-"Cambia la imagen del avatar para experimentar cómo se envían los archivos mediante WebSockets"
-
+"Cambia la imagen del avatar para experimentar cómo se envían los archivos "
+"mediante WebSockets"
 
 #: templates/pages/single_cat.html:14
 msgid "Back to cats"

@@ -124,7 +124,7 @@ class ContactForm(forms.Form):
     )
 
     message = forms.CharField(
-        label=_("Mesaage"),
+        label=_("Message"),
         max_length=1500,
         error_messages={"required": _("This field is required.")},
         widget=forms.Textarea(

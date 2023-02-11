@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 08:42+0000\n"
+"POT-Creation-Date: 2023-02-11 09:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,8 +145,8 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: app/website/forms.py:127
-msgid "Mesaage"
+#: app/website/forms.py:127 templates/emails/contact.html:7
+msgid "Message"
 msgstr ""
 
 #: app/website/forms.py:138
@@ -213,6 +213,10 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
+#: templates/components/_footer.html:12
+msgid "Cat Feed"
+msgstr ""
+
 #: templates/components/_header.html:53
 msgid "Logout"
 msgstr ""
@@ -235,10 +239,6 @@ msgstr ""
 
 #: templates/components/_loading.html:4
 msgid "Loading"
-msgstr ""
-
-#: templates/emails/contact.html:7
-msgid "Message"
 msgstr ""
 
 #: templates/forms/cat.html:7 templates/pages/update_cat.html:2
@@ -286,7 +286,7 @@ msgid "Get random number only text"
 msgstr ""
 
 #: templates/pages/about_us.html:12
-msgid "Get random numberwith HTML"
+msgid "Get random number with HTML"
 msgstr ""
 
 #: templates/pages/all_cats.html:2
