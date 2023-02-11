@@ -5,6 +5,10 @@
 	<img src="assets/img/pet-small.png">
 </p>
 
+<p align="center">
+	<img src="demo.gif">
+</p>
+
 ## What is HTML over WebSockets?
 
 <p align="center">
@@ -390,7 +394,7 @@ run.fake                  Fake data
 run.format                Format style with black
 run.makemessages          Make messages
 run.server                Run server
-``
+```
 
 Example:
 
