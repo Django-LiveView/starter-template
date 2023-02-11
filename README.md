@@ -380,6 +380,24 @@ window.Stimulus = Application.start();
 Stimulus.register("contact", contactController); // New line
 ```
 
+## Tools
+
+Use `make` to automate the most common tasks.
+
+```sh
+run.compilemessages       Compile messages
+run.fake                  Fake data
+run.format                Format style with black
+run.makemessages          Make messages
+run.server                Run server
+``
+
+Example:
+
+```sh
+make run.format
+```
+
 ## More documentation
 
 I have written a **book** where I explain all the concepts I have used in the template, explained step by step and some other mechanisms that are not present. If you are interested in further **increasing your knowledge about HTML over WebSockets in Python**, or creating **real-time SPAs using Django**, I recommend you to buy a copy. In addition, you will **indirectly support me** to continue working on the template.

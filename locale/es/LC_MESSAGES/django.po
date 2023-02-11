@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-13 15:53+0100\n"
+"POT-Creation-Date: 2023-02-11 08:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,98 +18,370 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/website/actions/about_us.py:26 templates/components/_header.html:20
+#: app/website/actions/about_us.py:23 templates/components/_header.html:21
 msgid "About us"
 msgstr "Nosotros"
 
-#: app/website/actions/about_us.py:29
+#: app/website/actions/about_us.py:25
 msgid "About us page of the website"
-msgstr ""
+msgstr "Página acerca de nosotros"
 
-#: app/website/actions/home.py:25 templates/components/_header.html:12
+#: app/website/actions/cat_new.py:31 templates/pages/new_cat.html:2
+msgid "New cat"
+msgstr "Nuevo gato"
+
+#: app/website/actions/cat_new.py:33
+msgid "New cat page of the website"
+msgstr "Página de nuevo gato"
+
+#: app/website/actions/cat_new.py:92
+msgid "A cat is born!"
+msgstr "Ha nacido un minino!"
+
+#: app/website/actions/cat_update.py:44
+msgid "Update cat "
+msgstr "Gato actulizado "
+
+#: app/website/actions/cat_update.py:46
+msgid "Update a cat"
+msgstr "Gato actualizado"
+
+#: app/website/actions/cat_update.py:123
+msgid "A cat is update!"
+msgstr "Un gato ha sido actualizado!"
+
+#: app/website/actions/cats.py:26 templates/components/_header.html:29
+#: templates/pages/profile.html:19
+msgid "Cats"
+msgstr "Gatos"
+
+#: app/website/actions/cats.py:136
+msgid "A cat has died! it has 6 lives left."
+msgstr "Un gato a muerto! Le quedan 6 vidas."
+
+#: app/website/actions/contact.py:26 app/website/actions/contact.py:28
+#: app/website/actions/contact.py:76 templates/components/_header.html:37
+msgid "Contact"
+msgstr "Contacto"
+
+#: app/website/actions/contact.py:73
+msgid "Contact email sent"
+msgstr "Correo de contacto enviado"
+
+#: app/website/actions/home.py:24
 msgid "Home"
 msgstr "Inicio"
 
-#: app/website/actions/home.py:28
+#: app/website/actions/home.py:26
 msgid "Home page of the website"
-msgstr ""
+msgstr "Página de inicio"
 
-#: app/website/forms.py:11
-msgid "Tu nombre y apellidos"
-msgstr ""
+#: app/website/actions/login.py:31 app/website/actions/login.py:33
+#: templates/components/_header.html:65
+msgid "Login"
+msgstr "Identificación"
 
-#: app/website/forms.py:17
-msgid "Nombre y apellidos"
-msgstr ""
+#: app/website/actions/login.py:85
+msgid "You are now logged in!"
+msgstr "Te has identificado!"
 
-#: app/website/forms.py:24
-msgid "Tu correo electrónico"
-msgstr ""
+#: app/website/actions/login.py:88
+msgid "Invalid email or password"
+msgstr "Correo o contraseña inválida"
 
-#: app/website/forms.py:30
+#: app/website/actions/login.py:114
+msgid "You are now logged out!"
+msgstr "Has cerrado la sesión!"
+
+#: app/website/actions/profile.py:25 app/website/actions/profile.py:27
+#: templates/components/_header.html:46 templates/pages/profile.html:3
+msgid "Profile"
+msgstr "Perfil"
+
+#: app/website/actions/profile.py:79
+msgid "Bad extension image"
+msgstr "Extensión de imagen no admitida"
+
+#: app/website/forms.py:15
+msgid "You must agree to the terms and conditions."
+msgstr "Debes aceptar los terminos y condiciones."
+
+#: app/website/forms.py:24 app/website/forms.py:104
+#: templates/emails/contact.html:3
+msgid "Name"
+msgstr "Nombre"
+
+#: app/website/forms.py:33
+msgid "Age"
+msgstr "Edad"
+
+#: app/website/forms.py:41
+msgid "Biography"
+msgstr "Biografía"
+
+#: app/website/forms.py:49 templates/pages/profile.html:20
+msgid "Avatar"
+msgstr "Avatar"
+
+#: app/website/forms.py:77 app/website/forms.py:115
+#: templates/emails/contact.html:5 templates/pages/profile.html:8
 msgid "Email"
-msgstr ""
+msgstr "Correo"
 
-#: app/website/forms.py:37
-msgid "Tu teléfono"
-msgstr ""
+#: app/website/forms.py:79 app/website/forms.py:117
+msgid "Invalid email"
+msgstr "Correo inválido"
 
-#: app/website/forms.py:44
-msgid "Teléfono"
-msgstr ""
+#: app/website/forms.py:80 app/website/forms.py:91 app/website/forms.py:106
+#: app/website/forms.py:118 app/website/forms.py:129
+msgid "This field is required."
+msgstr "El campo es obligatorio."
 
-#: app/website/forms.py:51
-msgid "Tu mensaje"
-msgstr ""
+#: app/website/forms.py:89
+msgid "Password"
+msgstr "Contraseña"
 
-#: app/website/forms.py:58
-msgid "Mensaje"
-msgstr ""
+#: app/website/forms.py:127
+msgid "Mesaage"
+msgstr "Mensaje"
 
-#: app/website/forms.py:65
-msgid "Acepto los términos y condiciones"
-msgstr ""
+#: app/website/forms.py:138
+msgid "I accept all cuddles and caresses"
+msgstr "Acepto todos los mimos y caricias"
 
-#: app/website/forms.py:91
-msgid "El nombre es obligatorio"
-msgstr ""
+#: app/website/forms.py:141
+msgid "You must accept to continue."
+msgstr "Debes aceptar para continuar."
 
-#: app/website/forms.py:97
-msgid "El email es obligatorio"
-msgstr ""
-
-#: app/website/forms.py:103
-msgid "El teléfono es obligatorio"
-msgstr ""
-
-#: app/website/forms.py:109
-msgid "El mensaje es obligatorio"
-msgstr ""
-
-#: app/website/forms.py:115
-msgid "Debe aceptar los términos y condiciones"
-msgstr ""
-
-#: core/settings.py:80
+#: core/settings.py:104
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
-#: core/settings.py:81
+#: core/settings.py:105
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
-#: core/urls.py:25
+#: core/urls.py:26
 msgid "about-us/"
 msgstr "nosotros/"
+
+#: core/urls.py:27
+msgid "cats/"
+msgstr "gatos/"
+
+#: core/urls.py:28
+msgid "cats/<slug:cat_slug>/"
+msgstr "gatos/<slug:cat_slug>/"
+
+#: core/urls.py:29
+msgid "cat/new/"
+msgstr "gatos/nuevo/"
+
+#: core/urls.py:30
+msgid "cat/update/<slug:cat_slug>/"
+msgstr "gatos/actualizar/<slug:cat_slug>/"
+
+#: core/urls.py:31
+msgid "login/"
+msgstr "identificacion/"
+
+#: core/urls.py:32
+msgid "profile/"
+msgstr "perfil/"
+
+#: core/urls.py:33
+msgid "contact/"
+msgstr "contacto/"
+
+#: core/urls.py:34
+msgid "feed/"
+msgstr ""
+
+#: templates/components/_footer.html:2
+msgid "Monitoring your resources"
+msgstr "Vigilando tus recursos"
+
+#: templates/components/_footer.html:3
+msgid "Your resources in real time, and without using JavaScript"
+msgstr "Son los recursos en tiempo real, sin usar JavaScript"
+
+#: templates/components/_footer.html:5
+msgid "CPU"
+msgstr ""
+
+#: templates/components/_header.html:53
+msgid "Logout"
+msgstr "Salir"
+
+#: templates/components/_header.html:56
+msgid "Hi"
+msgstr "Hola"
+
+#: templates/components/_list_cats.html:15
+msgid "View profile"
+msgstr "Ver perfil"
+
+#: templates/components/_list_cats.html:22
+msgid "Update"
+msgstr "Actualizar"
+
+#: templates/components/_list_cats.html:28
+msgid "Delete"
+msgstr "Borrar"
 
 #: templates/components/_loading.html:4
 msgid "Loading"
 msgstr "Cargando"
 
+#: templates/emails/contact.html:7
+msgid "Message"
+msgstr "Mensaje"
+
+#: templates/forms/cat.html:7 templates/pages/update_cat.html:2
+msgid "Update cat"
+msgstr "Actualizar gato"
+
+#: templates/forms/cat.html:10
+msgid "Create cat"
+msgstr "Crear gato"
+
+#: templates/forms/contact.html:5
+msgid "Send"
+msgstr "Enviar"
+
+#: templates/forms/contact_success.html:2
+msgid "Thanks!"
+msgstr "¡Gracias!"
+
+#: templates/forms/login.html:5
+msgid "Log in"
+msgstr "Identificarte"
+
 #: templates/pages/about_us.html:2
 msgid "About us page"
 msgstr "Pagina nosotros"
 
-#: templates/pages/home.html:2
-msgid "Home page"
-msgstr "Pagina inicio"
+#: templates/pages/about_us.html:3
+msgid ""
+"This is just a static example page, a simple, friendly and minimalistic "
+"example of how to load a complete HTML using WebSockets."
+msgstr ""
+"Esto es sólo una página estática de ejemplo, un simple, amigable y minimalista "
+"ejemplo de cómo cargar un HTML completo usando WebSockets."
+
+#: templates/pages/about_us.html:4
+msgid "Example of functionality"
+msgstr "Ejemplo de funcionalidad"
+
+#: templates/pages/about_us.html:5
+msgid ""
+"When clicked the button will ask Django to generate a random number and "
+"render it below."
+msgstr ""
+"Cuando apretes el botón pedirás a Django que genere un número aleatorio y "
+"lo renderizará debajo."
+
+#: templates/pages/about_us.html:8
+msgid "Get random number only text"
+msgstr "Genera un número aleatorio en texto plano"
+
+#: templates/pages/about_us.html:12
+msgid "Get random numberwith HTML"
+msgstr ""
+
+#: templates/pages/all_cats.html:2
+msgid "All cats"
+msgstr "Todos los gatos"
+
+#: templates/pages/all_cats.html:13
+msgid "Add"
+msgstr "Añadir"
+
+#: templates/pages/contact.html:6
+msgid "View the email sent at"
+msgstr "Mira los correos enviados en"
+
+#: templates/pages/home.html:5
+msgid ""
+"Welcome to <strong>Djalmeow</strong>, the Django template for creating a "
+"complete HTML over the Wire site or LiveView"
+msgstr ""
+"Bienvenidos a <strong>Djalmeow</strong>, una plantilla de Django para crear "
+"una completa página HTML over the Wire site o LiveView"
+
+#: templates/pages/home.html:6
+msgid ""
+"You will be able to find typical solutions when creating a dynamic web page "
+"using the HTML over WebSockets approach."
+msgstr ""
+"Podrás encontrar soluciones típicas a la hora de crear una página web dinámica "
+"utilizando el enfoque HTML sobre WebSockets."
+
+#: templates/pages/home.html:9
+msgid ""
+"Navigator that marks as active the page where you are (Header of this page)."
+msgstr ""
+"Navegador que marca como activa la página en la que te encuentras (Cabecera de esta página)."
+
+#: templates/pages/home.html:12
+msgid ""
+"Multilanguage, with its translated routes, language selector (right of the "
+"header) and .po file system (<code>locale</code> directory)"
+msgstr ""
+"Multilenguaje, con rutas traducidas, selector de idioma (esquina derecha del "
+"de la cabecera) y sistema de archivos .po en (directorio <code>locale</code>)"
+
+#: templates/pages/home.html:19
+msgid "Static page - About us"
+msgstr "Página estática - Sobre nosotros"
+
+#: templates/pages/home.html:27
+msgid "Dynamic page - List of cats"
+msgstr "Página dinámica - Lista de gatos"
+
+#: templates/pages/home.html:36
+msgid "Dynamic page - Single cat"
+msgstr "Página dinámica - Gato individual"
+
+#: templates/pages/home.html:45
+msgid "Form with validations: Login"
+msgstr "Formulario con validaciones: Identificación"
+
+#: templates/pages/login.html:6
+msgid "All accounts: Email 👇 - Password 'password'"
+msgstr "Todas las cuentas: Correos 👇 - Y contraseña 'password'"
+
+#: templates/pages/profile.html:4
+msgid "User data"
+msgstr "Datos de usuario"
+
+#: templates/pages/profile.html:6
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: templates/pages/profile.html:11
+msgid "CRUD Cats"
+msgstr "CRUD de gatos"
+
+#: templates/pages/profile.html:12
+msgid ""
+"Now that you have logged in, you can Add, Update and Delete cats. Go back to "
+"Cats to see the controls."
+msgstr ""
+"Ahora que ha iniciado sesión, puede Añadir, Actualizar y Eliminar gatos. Vuelve a "
+"Gatos para ver los controles.
+
+#: templates/pages/profile.html:13
+msgid "Go to"
+msgstr "Ir a"
+
+#: templates/pages/profile.html:21
+msgid ""
+"Change the avatar image to experience how files are sent using WebSockets"
+msgstr ""
+"Cambia la imagen del avatar para experimentar cómo se envían los archivos mediante WebSockets"
+
+
+#: templates/pages/single_cat.html:14
+msgid "Back to cats"
+msgstr "Volver a gatos"
