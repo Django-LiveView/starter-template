@@ -412,7 +412,6 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 - [ ] Website
 - [ ] Migrate consumers to asynchronous calls
-- [ ] Porting to a Django extension
 
 ## Technology Stack 😍
 
