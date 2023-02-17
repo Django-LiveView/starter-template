@@ -1,7 +1,31 @@
+# Django
 DEBUG=True
-ALLOWED_HOSTS=feline-web.localhost,django
+ALLOWED_HOSTS=feline-web.localhost,django,192.168.1.193
 SECRET_KEY=mysecret
 DOMAIN=feline-web.localhost
 DOMAIN_URL=http://feline-web.localhost
+STATIC_URL=/static/
+STATIC_ROOT=static
+MEDIA_URL=/media/
+
+# Database
+DB_NAME=cat_db
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=postgresql
+DB_PORT=5432
+
+# Redis
 REDIS_URI="redis://:@redis:6379"
 REDIS_PORT=6379
+
+# Email
+DEFAULT_FROM_EMAIL=no-reply@feline-web.localhost
+EMAIL_CONTACT=info@feline-web.localhost
+EMAIL_HOST=mailhog
+EMAIL_USER=
+EMAIL_PASSWORD=
+EMAIL_PORT=1025
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=False
+
