@@ -1,6 +1,6 @@
 # Django
 DEBUG=True
-ALLOWED_HOSTS=feline-web.localhost,django,192.168.1.193
+ALLOWED_HOSTS=feline-web.localhost,django
 SECRET_KEY=mysecret
 DOMAIN=feline-web.localhost
 DOMAIN_URL=http://feline-web.localhost
