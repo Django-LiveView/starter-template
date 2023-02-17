@@ -92,7 +92,7 @@ This template has an example of the most common cases.
 docker compose up
 ```
 
-Make fake data.
+And make fake data.
 
 ```shell
 make run.fake
