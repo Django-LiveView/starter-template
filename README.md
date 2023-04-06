@@ -1,11 +1,12 @@
-# Djalmeow
-## Django template for creating a complete HTML over the Wire site or LiveView
+# Django View
+
+## Framework for creating a complete HTML over the Wire site or LiveView
 
 <p align="center">
 	<img src="assets/img/pet-small.png">
 </p>
 
-## Live Demo 👉 https://djalmeow.andros.dev/ 👈
+## Live Demo 👉 https://django-view-demo.andros.dev/ 👈
 
 <p align="center">
 	<img src="demo.gif">
@@ -37,7 +38,7 @@ Let's illustrate with an example. I want to render article number 2.
 
 ## Common cases
 
-This template has an example of the most common cases.
+This framework contains an example of the most common cases of cat management.
 
 - Navigation Real-time without loads similar to SPA.
 - URL dynamic update in Browser (Front-End).
@@ -88,15 +89,29 @@ This template has an example of the most common cases.
 
 ## Run 🏃
 
+1. Set environment variables
+
+```shell
+cp envExample .env
+```
+
+2. Run Docker.
+
 ```shell
 docker compose up
 ```
 
-And make fake data.
+You may need to stop and restart it because the first time PostgreSQL must be created and Django tries to connect without success.
+
+3. Make fake data.
 
 ```shell
 make run.fake
 ```
+
+4. Open browser.
+
+Open [http://feline-web.localhost/](http://feline-web.localhost/).
 
 ## Concepts
 

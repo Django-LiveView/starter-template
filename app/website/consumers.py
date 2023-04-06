@@ -1,17 +1,17 @@
 import os
-from channels.generic.websocket import JsonWebsocketConsumer
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from channels.db import database_sync_to_async
 from app.website.models import Client
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from channels.layers import get_channel_layer
 import psutil
 import threading
 import time
 from django.template.loader import render_to_string
 
+# DELETE THIS
 # Example of how to send only from server to client.
 # DEMO: Every 2 seconds send CPU and RAM.
-
-
 def refresh_resources(cpu_history=[], ram_history=[]):
     time.sleep(1)
     my_channel_layer = get_channel_layer()
@@ -51,23 +51,27 @@ for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
         name = entry.name.split(".")[0]
         exec(f"from app.website.actions import {name} as {name}")
 
-
-class WebsiteConsumer(JsonWebsocketConsumer):
+class WebsiteConsumer(AsyncJsonWebsocketConsumer):
 
     channel_name_broadcast = "broadcast"
 
-    def connect(self):
+    @database_sync_to_async
+    def create_client(self, channel_name):
+        Client.objects.create(channel_name=channel_name)
+
+    async def connect(self):
         """Event when client connects"""
         # Accept the connection
-        self.accept()
+        await self.accept()
         # Add to group broadcast
-        async_to_sync(self.channel_layer.group_add)(
+        await self.channel_layer.group_add(
             self.channel_name_broadcast, self.channel_name
         )
         # Save the client
-        Client.objects.create(channel_name=self.channel_name)
+        await self.create_client(self.channel_name)
 
-    def disconnect(self, close_code):
+
+    async def disconnect(self, close_code):
         """Event when client disconnects"""
         # Remove from group broadcast
         async_to_sync(self.channel_layer.group_discard)(
@@ -76,7 +80,7 @@ class WebsiteConsumer(JsonWebsocketConsumer):
         # Delete the client
         Client.objects.filter(channel_name=self.channel_name).delete()
 
-    def receive_json(self, data_received):
+    async def receive_json(self, data_received):
         """
         Event when data is received
         All information will arrive in 2 variables:
@@ -98,7 +102,7 @@ class WebsiteConsumer(JsonWebsocketConsumer):
                     print(f"Bad action: {data['action']}")
                     print(e)
 
-    def send_html(self, data, broadcast=False):
+    async def send_html(self, data, broadcast=False):
         """Event: Send html to client
 
         Example minimum data:
@@ -147,7 +151,7 @@ class WebsiteConsumer(JsonWebsocketConsumer):
             else:
                 self.send_data_to_frontend(my_data)
 
-    def send_data_to_frontend(self, data):
+    async def send_data_to_frontend(self, data):
         """Send data to the frontend"""
         # Corrects the data if it comes from an external call or a group_send
         send_data = data["data"] if "type" in data else data
