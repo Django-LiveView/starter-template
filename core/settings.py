@@ -31,7 +31,7 @@ ALLOWED_HOSTS = (
     os.environ.get("ALLOWED_HOSTS", ".localhost,127.0.0.1,[::1]").split(",")
 )
 
-SITE_NAME = "Django View"
+SITE_NAME = "Django LiveView"
 
 # Application definition
 

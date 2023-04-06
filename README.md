@@ -1,4 +1,4 @@
-# Django View
+# Django LiveView
 
 ## Framework for creating a complete HTML over the Wire site or LiveView
 
@@ -6,7 +6,7 @@
 	<img src="assets/img/pet-small.png">
 </p>
 
-## Live Demo 👉 https://django-view-demo.andros.dev/ 👈
+## Live Demo 👉 https://django-liveview-demo.andros.dev/ 👈
 
 <p align="center">
 	<img src="demo.gif">

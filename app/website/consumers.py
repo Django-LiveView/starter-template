@@ -155,4 +155,4 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
         """Send data to the frontend"""
         # Corrects the data if it comes from an external call or a group_send
         send_data = data["data"] if "type" in data else data
-        self.send_json(send_data)
+        await self.send_json(send_data)
