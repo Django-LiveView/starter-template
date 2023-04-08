@@ -59,6 +59,10 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
     def create_client(self, channel_name):
         Client.objects.create(channel_name=channel_name)
 
+    @database_sync_to_async
+    def delete_client(self, channel_name):
+        Client.objects.filter(channel_name=channel_name).delete()
+
     async def connect(self):
         """Event when client connects"""
         # Accept the connection
@@ -74,11 +78,12 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
     async def disconnect(self, close_code):
         """Event when client disconnects"""
         # Remove from group broadcast
-        async_to_sync(self.channel_layer.group_discard)(
+        await self.channel_layer.group_discard(
             self.channel_name_broadcast, self.channel_name
         )
         # Delete the client
-        Client.objects.filter(channel_name=self.channel_name).delete()
+        await self.delete_client(self.channel_name)
+
 
     async def receive_json(self, data_received):
         """
