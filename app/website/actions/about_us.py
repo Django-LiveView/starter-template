@@ -38,9 +38,9 @@ def get_html(lang=None):
 
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "about us")
+    await update_active_nav(consumer, "about us")
     # Main
     data = {
         "action": client_data["action"],
@@ -48,20 +48,20 @@ def send_page(consumer, client_data, lang=None):
         "html": get_html(lang=lang),
     }
     data.update(get_context())
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
-def update_random_number_text(consumer, client_data):
+async def update_random_number_text(consumer, client_data):
     """Update random number text"""
     data = {
         "action": client_data["action"],
         "selector": "#content-random-number-text",
         "html": str(randint(0, 100)),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
-def update_random_number_html(consumer, client_data):
+async def update_random_number_html(consumer, client_data):
     """Update random number html"""
     data = {
         "action": client_data["action"],
@@ -70,4 +70,4 @@ def update_random_number_html(consumer, client_data):
             "components/_random_number.html", {"number": randint(0, 100)}
         ),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)

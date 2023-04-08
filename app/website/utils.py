@@ -53,7 +53,7 @@ def loading(func):
     return wrapper
 
 
-def update_active_nav(consumer, page):
+async def update_active_nav(consumer, page):
     """Update the active nav item in the navbar."""
     context = get_global_context(consumer=consumer)
     context["active_nav"] = page
@@ -62,7 +62,7 @@ def update_active_nav(consumer, page):
         "selector": "#content-header",
         "html": render_to_string("components/_header.html", context),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
 def send_email(

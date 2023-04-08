@@ -102,7 +102,7 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
                 action = action_data[0].lower()
                 function = action_data[1].lower()
                 try:
-                    eval(f"{action}.{function}(self, data)")
+                    await eval(f"{action}.{function}(self, data)")
                 except Exception as e:
                     print(f"Bad action: {data['action']}")
                     print(e)
@@ -149,12 +149,12 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
             # Send the data
             if broadcast:
                 if hasattr(self, "channel_layer"):
-                    async_to_sync(self.channel_layer.group_send)(
+                    await self.channel_layer.group_send(
                         self.channel_name_broadcast,
                         {"type": "send_data_to_frontend", "data": my_data},
                     )
             else:
-                self.send_data_to_frontend(my_data)
+                await self.send_data_to_frontend(my_data)
 
     async def send_data_to_frontend(self, data):
         """Send data to the frontend"""
