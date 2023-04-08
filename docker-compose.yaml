@@ -8,6 +8,7 @@ services:
       dockerfile: ./dockerfiles/django/Dockerfile
     entrypoint: bash ./django-launcher.sh
     restart: "no"
+    container_name: django-liveview_django
     volumes:
       - .:/usr/src/app/
     environment:
@@ -41,10 +42,10 @@ services:
       - redis
       - postgresql
 
-      
+
   postgresql:
     image: postgres
-    container_name: postgresql
+    container_name: django-liveview_postgresql
     restart: "no"
     volumes:
       - ./postgres_data:/var/lib/postgresql/data/
@@ -65,6 +66,7 @@ services:
   caddy:
     image: caddy:alpine
     restart: "no"
+    container_name: django-liveview_caddy
     ports:
       - 80:80
       - 443:443
@@ -81,6 +83,7 @@ services:
       context: ./
       dockerfile: ./dockerfiles/gulp/Dockerfile
     command: bash gulp-launcher.sh
+    container_name: django-liveview_gulp
     restart: "no"
     volumes:
       - .:/usr/src/app/
@@ -90,6 +93,7 @@ services:
   mailhog:
     image: mailhog/mailhog:latest
     restart: "no"
+    container_name: django-liveview_mailhog
     expose:
       - 1025
     ports:

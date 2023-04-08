@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 09:27+0000\n"
+"POT-Creation-Date: 2023-04-08 15:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,6 +65,7 @@ msgstr ""
 
 #: app/website/actions/contact.py:26 app/website/actions/contact.py:28
 #: app/website/actions/contact.py:76 templates/components/_header.html:37
+#: templates/pages/contact.html:2
 msgid "Contact"
 msgstr ""
 
@@ -110,7 +111,7 @@ msgstr ""
 msgid "You must agree to the terms and conditions."
 msgstr ""
 
-#: app/website/forms.py:24 app/website/forms.py:104
+#: app/website/forms.py:24 app/website/forms.py:105
 #: templates/emails/contact.html:3
 msgid "Name"
 msgstr ""
@@ -127,41 +128,41 @@ msgstr ""
 msgid "Avatar"
 msgstr ""
 
-#: app/website/forms.py:77 app/website/forms.py:115
+#: app/website/forms.py:78 app/website/forms.py:116
 #: templates/emails/contact.html:5 templates/pages/profile.html:8
 msgid "Email"
 msgstr ""
 
-#: app/website/forms.py:79 app/website/forms.py:117
+#: app/website/forms.py:80 app/website/forms.py:118
 msgid "Invalid email"
 msgstr ""
 
-#: app/website/forms.py:80 app/website/forms.py:91 app/website/forms.py:106
-#: app/website/forms.py:118 app/website/forms.py:129
+#: app/website/forms.py:81 app/website/forms.py:92 app/website/forms.py:107
+#: app/website/forms.py:119 app/website/forms.py:130
 msgid "This field is required."
 msgstr ""
 
-#: app/website/forms.py:89
+#: app/website/forms.py:90
 msgid "Password"
 msgstr ""
 
-#: app/website/forms.py:127 templates/emails/contact.html:7
+#: app/website/forms.py:128 templates/emails/contact.html:7
 msgid "Message"
 msgstr ""
 
-#: app/website/forms.py:138
+#: app/website/forms.py:139
 msgid "I accept all cuddles and caresses"
 msgstr ""
 
-#: app/website/forms.py:141
+#: app/website/forms.py:142
 msgid "You must accept to continue."
 msgstr ""
 
-#: core/settings.py:104
+#: core/settings.py:100
 msgid "English"
 msgstr ""
 
-#: core/settings.py:105
+#: core/settings.py:101
 msgid "Spanish"
 msgstr ""
 
@@ -303,8 +304,8 @@ msgstr ""
 
 #: templates/pages/home.html:5
 msgid ""
-"Welcome to <strong>Djalmeow</strong>, the Django template for creating a "
-"complete HTML over the Wire site or LiveView"
+"Welcome to <strong>Django LiveView</strong>, the Django framework for "
+"creating a complete HTML over the Wire site or LiveView"
 msgstr ""
 
 #: templates/pages/home.html:6
