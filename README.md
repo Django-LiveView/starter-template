@@ -6,6 +6,15 @@
 	<img src="assets/img/pet-small.png">
 </p>
 
+### Among its superpowers you can find
+
+- Everything is asynchronous by default.
+- Don't learn anything new. If you know Python, you know how to use Django LiveView.
+- Uses Django's template system to draw the frontend.
+- Create SPAs without using APIs or JavaScript frameworks, since everything is drawn by the backend.
+- The logic is not split between the backend and the frontend, it all stays in Python.
+- You can still use all of Django's native tools, such as its ORM, forms, plugins, etc.
+
 ## Live Demo 👉 https://django-liveview-demo.andros.dev/ 👈
 
 <p align="center">

@@ -39,7 +39,7 @@ def refresh_resources(cpu_history=[], ram_history=[]):
         async_to_sync(my_channel_layer.group_send)(
             "broadcast", {"type": "send_data_to_frontend", "data": data}
         )
-    threading.Thread(target=refresh_resources, args=(cpu_history_limit, [])).start()
+    #threading.Thread(target=refresh_resources, args=(cpu_history_limit, [])).start()
 
 
 refresh_resources()
