@@ -1,5 +1,6 @@
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from channels.db import database_sync_to_async
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -16,8 +17,24 @@ from app.website.models import Cat
 template = "pages/all_cats.html"
 elements_per_page = 3
 
+# Database
 
-def get_context(consumer=None, lang=None):
+@database_sync_to_async
+def get_all_cats(start=None, limit=None):
+    my_cats = Cat.objects.all().order_by("-id")
+    if start and limit:
+        return tuple(my_cats[start:limit])
+    if limit:
+        return tuple(my_cats[:limit])
+    return tuple(my_cats)
+
+@database_sync_to_async
+def is_last_page(page=1, elements_per_page=3):
+    return Cat.objects.all().count() // elements_per_page < page
+
+# Functions
+
+async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
     # Update context
     context.update(
@@ -30,42 +47,37 @@ def get_context(consumer=None, lang=None):
             },
             "active_nav": "all cats",
             "page": template,
-            "cats": Cat.objects.all().order_by("-id")[:3],
+            "cats": await get_all_cats(limit=elements_per_page),
             "pagination": 1,
         }
     )
     return context
 
 
-def get_html(consumer=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, lang=lang))
+async def get_html(consumer=None, lang=None):
+    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "all cats")
+    await update_active_nav(consumer, "all cats")
     # Main
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(consumer=consumer, lang=lang),
+        "html": await get_html(consumer=consumer, lang=lang),
     }
-    data.update(get_context(consumer=consumer, lang=lang))
-    consumer.send_html(data)
+    data.update(await get_context(consumer=consumer, lang=lang))
+    await consumer.send_html(data)
 
 
 # Pagination
 
-
-def is_last_page(page=1):
-    return Cat.objects.all().count() // elements_per_page < page
-
-
 @enable_lang
 @loading
-def send_cats_per_page(consumer, client_data, lang=None, page=1):
+async def send_cats_per_page(consumer, client_data, lang=None, page=1):
     """Send cats per page"""
     # Get current page
     if page in client_data["data"]:
@@ -78,11 +90,12 @@ def send_cats_per_page(consumer, client_data, lang=None, page=1):
     context = get_global_context(consumer=consumer)
     context.update(
         {
-            "cats": Cat.objects.all().order_by("-id")[start:end],
+            "cats": await get_all_cats(start=start, limit=end),
             "pagination": my_page,
-            "is_last_page": is_last_page(my_page),
+            "is_last_page": await is_last_page(page=my_page, elements_per_page=elements_per_page),
         }
     )
+    print(context)
     data = {
         "action": client_data["action"],
         "selector": "#list-cats",
@@ -91,7 +104,7 @@ def send_cats_per_page(consumer, client_data, lang=None, page=1):
             context,
         ),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
     # Update pagination
     data = {
         "action": "update_pagination",
@@ -100,32 +113,32 @@ def send_cats_per_page(consumer, client_data, lang=None, page=1):
             "components/_paginator.html",
             {
                 "pagination": my_page,
-                "is_last_page": is_last_page(my_page),
+                "is_last_page": await is_last_page(my_page),
             },
         ),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def next_page(consumer, client_data, lang=None):
+async def next_page(consumer, client_data, lang=None):
     """Next page"""
     page = int(client_data["data"]["pagination"])
-    send_cats_per_page(consumer, client_data, lang=lang, page=page + 1)
+    await send_cats_per_page(consumer, client_data, lang=lang, page=page + 1)
 
 
 @enable_lang
 @loading
-def previous_page(consumer, client_data, lang=None):
+async def previous_page(consumer, client_data, lang=None):
     """Prev page"""
     page = int(client_data["data"]["pagination"])
-    send_cats_per_page(consumer, client_data, lang=lang, page=page - 1)
+    await send_cats_per_page(consumer, client_data, lang=lang, page=page - 1)
 
 
 @enable_lang
 @loading
-def delete(consumer, client_data, lang=None):
+async def delete(consumer, client_data, lang=None):
     """Delete cat"""
     # Find cat and delete
     cats = Cat.objects.all()
@@ -135,4 +148,4 @@ def delete(consumer, client_data, lang=None):
     # Notify
     send_notification(consumer, _("A cat has died! it has 6 lives left."), "danger")
     # Refresh page
-    send_page(consumer, client_data, lang=lang)
+    await send_page(consumer, client_data, lang=lang)

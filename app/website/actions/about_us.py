@@ -14,7 +14,7 @@ from random import randint
 template = "pages/about_us.html"
 
 
-def get_context():
+async def get_context():
     context = get_global_context()
     # Update context
     context.update(
@@ -32,8 +32,8 @@ def get_context():
     return context
 
 
-def get_html(lang=None):
-    return render_to_string(template, get_context())
+async def get_html(lang=None):
+    return render_to_string(template, await get_context())
 
 
 @enable_lang
@@ -45,9 +45,9 @@ async def send_page(consumer, client_data, lang=None):
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": await get_html(lang=lang),
     }
-    data.update(get_context())
+    data.update(await get_context())
     await consumer.send_html(data)
 
 
