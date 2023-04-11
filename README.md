@@ -436,8 +436,9 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 ## Roadmap
 
+- [x] Live demo
+- [x] Migrate consumers to asynchronous calls
 - [ ] Website
-- [ ] Migrate consumers to asynchronous calls
 
 ## Technology Stack 😍
 
