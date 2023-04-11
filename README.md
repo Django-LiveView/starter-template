@@ -3,7 +3,7 @@
 ## Framework for creating a complete HTML over the Wire site or LiveView
 
 <p align="center">
-	<img src="assets/img/pet-small.png">
+	<img src="brand_assets/github social preview.jpg">
 </p>
 
 ### Among its superpowers you can find
