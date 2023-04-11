@@ -73,7 +73,6 @@ class CatForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-
     email = forms.CharField(
         label=_("Email"),
         max_length=255,
@@ -100,7 +99,6 @@ class LoginForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-
     name = forms.CharField(
         label=_("Name"),
         max_length=255,

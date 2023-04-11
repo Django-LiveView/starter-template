@@ -19,6 +19,7 @@ elements_per_page = 3
 
 # Database
 
+
 @database_sync_to_async
 def get_all_cats(start=None, limit=None):
     my_cats = Cat.objects.all().order_by("-id")
@@ -28,11 +29,14 @@ def get_all_cats(start=None, limit=None):
         return tuple(my_cats[:limit])
     return tuple(my_cats)
 
+
 @database_sync_to_async
 def is_last_page(page=1, elements_per_page=3):
     return Cat.objects.all().count() // elements_per_page < page
 
+
 # Functions
+
 
 async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
@@ -75,6 +79,7 @@ async def send_page(consumer, client_data, lang=None):
 
 # Pagination
 
+
 @enable_lang
 @loading
 async def send_cats_per_page(consumer, client_data, lang=None, page=1):
@@ -92,7 +97,9 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
         {
             "cats": await get_all_cats(start=start, limit=end),
             "pagination": my_page,
-            "is_last_page": await is_last_page(page=my_page, elements_per_page=elements_per_page),
+            "is_last_page": await is_last_page(
+                page=my_page, elements_per_page=elements_per_page
+            ),
         }
     )
     print(context)

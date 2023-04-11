@@ -17,9 +17,12 @@ template = "pages/home.html"
 
 # Database
 
+
 @database_sync_to_async
 def get_first_cat():
     return Cat.objects.first()
+
+
 # Functions
 
 

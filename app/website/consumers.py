@@ -9,6 +9,7 @@ import threading
 import time
 from django.template.loader import render_to_string
 
+
 # DELETE THIS
 # Example of how to send only from server to client.
 # DEMO: Every 2 seconds send CPU and RAM.
@@ -39,7 +40,7 @@ def refresh_resources(cpu_history=[], ram_history=[]):
         async_to_sync(my_channel_layer.group_send)(
             "broadcast", {"type": "send_data_to_frontend", "data": data}
         )
-    #threading.Thread(target=refresh_resources, args=(cpu_history_limit, [])).start()
+    # threading.Thread(target=refresh_resources, args=(cpu_history_limit, [])).start()
 
 
 refresh_resources()
@@ -51,8 +52,8 @@ for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
         name = entry.name.split(".")[0]
         exec(f"from app.website.actions import {name} as {name}")
 
-class WebsiteConsumer(AsyncJsonWebsocketConsumer):
 
+class WebsiteConsumer(AsyncJsonWebsocketConsumer):
     channel_name_broadcast = "broadcast"
 
     @database_sync_to_async
@@ -74,7 +75,6 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
         # Save the client
         await self.create_client(self.channel_name)
 
-
     async def disconnect(self, close_code):
         """Event when client disconnects"""
         # Remove from group broadcast
@@ -83,7 +83,6 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
         )
         # Delete the client
         await self.delete_client(self.channel_name)
-
 
     async def receive_json(self, data_received):
         """
