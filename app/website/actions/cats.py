@@ -102,7 +102,6 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
             ),
         }
     )
-    print(context)
     data = {
         "action": client_data["action"],
         "selector": "#list-cats",

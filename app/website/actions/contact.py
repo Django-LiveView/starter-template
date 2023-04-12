@@ -1,4 +1,5 @@
 from django.template.loader import render_to_string
+from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
@@ -16,8 +17,9 @@ from app.website.forms import ContactForm
 
 template = "pages/contact.html"
 
+# Database
 
-def get_context(consumer=None, lang=None):
+async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
     # Update context
     context.update(
@@ -36,41 +38,43 @@ def get_context(consumer=None, lang=None):
     return context
 
 
-def get_html(consumer=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, lang=lang))
+async def get_html(consumer=None, lang=None):
+    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "contact")
+    await update_active_nav(consumer, "contact")
     # Main
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": await get_html(lang=lang),
     }
-    data.update(get_context(consumer=consumer, lang=lang))
-    consumer.send_html(data)
+    data.update(await get_context(consumer=consumer, lang=lang))
+    await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def send_message(consumer, client_data, lang=None):
+async def send_message(consumer, client_data, lang=None):
     """Send message"""
     form = ContactForm(client_data["data"])
     # Check if form is valid
     if form.is_valid():
+        # Nav
+        await update_active_nav(consumer, "")
         # Send success message
         data = {
             "action": client_data["action"],
             "selector": "#contact__form",
             "html": render_to_string("forms/contact_success.html"),
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)
         # Send notification
-        send_notification(consumer, _("Contact email sent"), "success")
+        await send_notification(consumer, _("Contact email sent"), "success")
         # Send email
         send_email(
             subject=_("Contact"),
@@ -90,4 +94,4 @@ def send_message(consumer, client_data, lang=None):
             "selector": "#contact__form",
             "html": render_to_string("forms/contact.html", {"form": form}),
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)

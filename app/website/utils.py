@@ -83,7 +83,7 @@ def send_email(
     return msg.send()
 
 
-def send_notification(consumer: object, message: str, level: str = "info"):
+async def send_notification(consumer: object, message: str, level: str = "info"):
     """Send notification."""
     # Variables
     uuid = str(uuid4())
@@ -102,7 +102,7 @@ def send_notification(consumer: object, message: str, level: str = "info"):
         ),
         "append": True,
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
     # Remove message async
     def remove_notification(consumer, uuid):
