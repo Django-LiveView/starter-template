@@ -15,8 +15,9 @@ from core import settings
 
 template = "pages/profile.html"
 
+# Functions
 
-def get_context(consumer=None, lang=None):
+async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
     # Update context
     context.update(
@@ -34,27 +35,27 @@ def get_context(consumer=None, lang=None):
     return context
 
 
-def get_html(consumer=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, lang=lang))
+async def get_html(consumer=None, lang=None):
+    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "profile")
+    await update_active_nav(consumer, "profile")
     # Main
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(consumer, lang=lang),
+        "html": await get_html(consumer, lang=lang),
     }
-    data.update(get_context(consumer=consumer, lang=lang))
-    consumer.send_html(data)
+    data.update(await get_context(consumer=consumer, lang=lang))
+    await consumer.send_html(data)
 
 
 @loading
-def update_avatar(consumer, client_data):
+async def update_avatar(consumer, client_data):
     if "mimeType" in client_data["data"] and client_data["data"]["mimeType"] in (
         "image/jpeg",
         "image/png",
@@ -73,7 +74,7 @@ def update_avatar(consumer, client_data):
             "selector": "#avatar__container",
             "html": render_to_string("components/_avatar.html", {"user": user}),
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)
     else:
         # Bad extension image. Send message
         send_notification(consumer, _("Bad extension image"), "danger")

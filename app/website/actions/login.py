@@ -90,14 +90,14 @@ async def log_in(consumer, client_data, lang=None):
         )
         if auth:
             # Log in
-            login(consumer.scope, auth)
-            await sync_to_async(consumer.scope["session"].save)()
+            await login(consumer.scope, auth)
+            await database_sync_to_async(consumer.scope["session"].save)()
             # Save user association with client
             await save_client(auth, consumer.channel_name)
             # Redirect to profile
             await profile.send_page(consumer, client_data, lang=lang)
             # Send message
-            send_notification(consumer, _("You are now logged in!"), "success")
+            await send_notification(consumer, _("You are now logged in!"), "success")
         else:
             # Info to user that email or password is incorrect
             form.add_error("email", _("Invalid email or password"))
@@ -121,9 +121,9 @@ async def log_in(consumer, client_data, lang=None):
 @loading
 async def log_out(consumer, client_data, lang=None):
     """Log out user"""
-    logout(consumer.scope)
-    consumer.scope["session"].save()
+    await logout(consumer.scope)
+    await database_sync_to_async(consumer.scope["session"].save)()
     # Redirect to home
     await home.send_page(consumer, client_data, lang=lang)
     # Send message
-    send_notification(consumer, _("You are now logged out!"), "success")
+    await send_notification(consumer, _("You are now logged out!"), "success")
