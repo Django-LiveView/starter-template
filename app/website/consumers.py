@@ -1,4 +1,5 @@
 import os
+import sys
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 from app.website.models import Client
@@ -104,7 +105,9 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
                     await eval(f"{action}.{function}(self, data)")
                 except Exception as e:
                     print(f"Bad action: {data['action']}")
-                    print(e)
+                    # Print the error
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    print(exc_type)
 
     async def send_html(self, data, broadcast=False):
         """Event: Send html to client

@@ -1,4 +1,5 @@
 from django.template.loader import render_to_string
+from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
@@ -14,15 +15,30 @@ from app.website.forms import LoginForm
 from app.website.models import User, Client
 from django.contrib.auth import authenticate
 from channels.auth import login, logout
-from asgiref.sync import async_to_sync
+from asgiref.sync import sync_to_async
 from app.website.actions import home
 from app.website.actions import profile
 
 
 template = "pages/login.html"
 
+# Database
 
-def get_context(consumer=None, lang=None):
+
+@database_sync_to_async
+def get_all_users():
+    return list(User.objects.filter(is_staff=False).order_by("username"))
+
+@database_sync_to_async
+def save_client(auth, channel_name):
+    Client.objects.filter(user=auth).delete()
+    Client.objects.filter(channel_name=channel_name).update(user=auth)
+
+
+# Functions
+
+
+async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
     # Update context
     context.update(
@@ -36,51 +52,50 @@ def get_context(consumer=None, lang=None):
             "active_nav": "login",
             "page": template,
             "form": LoginForm(),
-            "users": User.objects.filter(is_staff=False).order_by("username"),
+            "users": await get_all_users(),
         }
     )
     return context
 
 
-def get_html(consumer=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, lang=lang))
+
+async def get_html(consumer=None, lang=None):
+    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "login")
+    await update_active_nav(consumer, "login")
     # Main
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": await get_html(lang=lang),
     }
-    data.update(get_context(consumer=consumer, lang=lang))
-    consumer.send_html(data)
-
+    data.update(await get_context(consumer=consumer, lang=lang))
+    await consumer.send_html(data)
 
 @enable_lang
 @loading
-def log_in(consumer, client_data, lang=None):
+async def log_in(consumer, client_data, lang=None):
     """Log in user"""
     form = LoginForm(client_data["data"])
     # Check if form is valid
     if form.is_valid():
-        auth = authenticate(
+        auth = await sync_to_async(authenticate)(
             username=form.cleaned_data["email"].strip(),
             password=form.cleaned_data["password"].strip(),
         )
         if auth:
             # Log in
-            async_to_sync(login)(consumer.scope, auth)
-            consumer.scope["session"].save()
+            login(consumer.scope, auth)
+            await sync_to_async(consumer.scope["session"].save)()
             # Save user association with client
-            Client.objects.filter(user=auth).delete()
-            Client.objects.filter(channel_name=consumer.channel_name).update(user=auth)
+            await save_client(auth, consumer.channel_name)
             # Redirect to profile
-            profile.send_page(consumer, client_data, lang=lang)
+            await profile.send_page(consumer, client_data, lang=lang)
             # Send message
             send_notification(consumer, _("You are now logged in!"), "success")
         else:
@@ -91,7 +106,7 @@ def log_in(consumer, client_data, lang=None):
                 "selector": "#login__form",
                 "html": render_to_string("forms/login.html", {"form": form}),
             }
-            consumer.send_html(data)
+            await consumer.send_html(data)
     else:
         # Send errors
         data = {
@@ -99,16 +114,16 @@ def log_in(consumer, client_data, lang=None):
             "selector": "#login__form",
             "html": render_to_string("forms/login.html", {"form": form}),
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def log_out(consumer, client_data, lang=None):
+async def log_out(consumer, client_data, lang=None):
     """Log out user"""
-    async_to_sync(logout)(consumer.scope)
+    logout(consumer.scope)
     consumer.scope["session"].save()
     # Redirect to home
-    home.send_page(consumer, client_data, lang=lang)
+    await home.send_page(consumer, client_data, lang=lang)
     # Send message
     send_notification(consumer, _("You are now logged out!"), "success")

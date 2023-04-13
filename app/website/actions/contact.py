@@ -17,7 +17,8 @@ from app.website.forms import ContactForm
 
 template = "pages/contact.html"
 
-# Database
+
+# Functions
 
 async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
