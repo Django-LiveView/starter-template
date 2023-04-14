@@ -1,3 +1,6 @@
+from threading import Thread
+from asgiref.sync import async_to_sync
+import time
 from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
 from asgiref.sync import sync_to_async
@@ -5,8 +8,6 @@ from django.utils.translation import activate as translation_activate
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from uuid import uuid4
-from threading import Thread
-from time import sleep
 import base64
 from django.core.files import File
 from tempfile import NamedTemporaryFile
@@ -94,29 +95,33 @@ async def send_notification(consumer: object, message: str, level: str = "info")
     # Variables
     uuid = str(uuid4())
     timeout = 3000  # ms
-    # Show message
-    context = get_global_context(consumer=consumer)
-    context.update({"id": uuid, "message": message, "level": level})
-    html = await get_html("components/_notification.html", context)
-    data = {
-        "action": "new_notification",
-        "selector": "#notifications",
-        "html": html,
-        "append": True,
-    }
-    await consumer.send_html(data)
+    async def make_notification(consumer=None, uuid="", level="", message=""):
+         # Show message
+         context = get_global_context(consumer=consumer)
+         context.update({"id": uuid, "message": message, "level": level})
+         html = await get_html("components/_notification.html", context)
+         data = {
+              "action": "new_notification",
+              "selector": "#notifications",
+              "html": html,
+              "append": True,
+         }
+         await consumer.send_html(data)
 
     # Remove message async
-    async def remove_notification(consumer, uuid):
-        # Sleep timeout
-        sleep(timeout / 1000)
+    def remove_notification(consumer=None, uuid="", timeout=0):
+        time.sleep(timeout / 1000)
         data = {
             "action": "delete_notification",
             "selector": f"#notifications > #notifications__item-{uuid}",
             "html": "",
         }
-        await consumer.send_html(data)
-    Thread(target=remove_notification, args=(consumer, uuid)).start()
+        async_to_sync(consumer.send_html)(data)
+
+    # Tasks
+    await make_notification(consumer, uuid, level, message)
+    # Run in background the remove notification, sleep 3 seconds
+    Thread(target=remove_notification, args=(consumer, uuid, timeout)).start()
 
 
 def get_image_from_base64(base64_string: str, mime_type: str, is_file: bool = True):
