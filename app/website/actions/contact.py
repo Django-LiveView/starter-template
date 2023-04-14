@@ -45,7 +45,7 @@ async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "contact")
     # Main
-    my_context = await get_context(consumer=consumer, slug=slug, comments=False)
+    my_context = await get_context(consumer=consumer)
     html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],

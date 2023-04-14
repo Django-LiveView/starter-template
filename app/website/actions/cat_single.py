@@ -40,7 +40,7 @@ async def get_comments(slug):
 # Functions
 
 
-async def get_context(consumer=consumer, slug=None, comments=True):
+async def get_context(consumer=None, slug=None, comments=True):
     context = get_global_context(consumer=consumer)
     # Update context
     cat = await get_cat_from_slug(slug)
