@@ -26,8 +26,8 @@ def get_first_cat():
 # Functions
 
 
-async def get_context():
-    context = get_global_context()
+async def get_context(consumer=None):
+    context = get_global_context(consumer=consumer)
     # Update context
     context.update(
         {
@@ -50,7 +50,7 @@ async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "home")
     # Main
-    my_context = await get_context()
+    my_context = await get_context(consumer=consumer)
     html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],

@@ -40,8 +40,8 @@ async def get_comments(slug):
 # Functions
 
 
-async def get_context(slug=None, comments=True):
-    context = get_global_context()
+async def get_context(consumer=consumer, slug=None, comments=True):
+    context = get_global_context(consumer=consumer))
     # Update context
     cat = await get_cat_from_slug(slug)
     context.update(
@@ -69,7 +69,7 @@ async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "")
     # Main
-    my_context = await get_context(slug=slug, comments=False)
+    my_context = await get_context(consumer, slug=slug, comments=False)
     html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],

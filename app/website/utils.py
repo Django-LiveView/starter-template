@@ -33,16 +33,17 @@ def enable_lang(func):
     return wrapper
 
 
-def toggle_loading(consumer, show=False):
+async def toggle_loading(consumer, show=False):
     """Toogle the footer form."""
+    #html = await get_html(template, get_global_context(consumer=consumer))
     data = {
         "action": ("Show" if show else "Hide") + " loading",
         "selector": "#loading",
-        "html": render_to_string("components/_loading.html", get_global_context())
+        "html": render_to_string("components/_loading.html", get_global_context(consumer=consumer))
         if show
         else "",
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
 def loading(func):
