@@ -8,12 +8,13 @@
 
 ### Among its superpowers you can find
 
-- Everything is asynchronous by default.
-- Don't learn anything new. If you know Python, you know how to use Django LiveView.
-- Uses Django's template system to draw the frontend.
-- Create SPAs without using APIs or JavaScript frameworks, since everything is drawn by the backend.
+- Create SPAs without using APIs.
+- Uses Django's template system to render the frontend (Without JavaScript).
 - The logic is not split between the backend and the frontend, it all stays in Python.
 - You can still use all of Django's native tools, such as its ORM, forms, plugins, etc.
+- Everything is asynchronous by default.
+- Don't learn anything new. If you know Python, you know how to use Django LiveView.
+- All in real time.
 
 ## Live Demo 👉 https://django-liveview-demo.andros.dev/ 👈
 

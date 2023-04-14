@@ -49,13 +49,14 @@ async def toggle_loading(consumer, show=False):
 def loading(func):
     """Decorator: Show loading."""
 
-    def wrapper(*args, **kwargs):
-        toggle_loading(args[0], True)
-        result = func(*args, **kwargs)
-        toggle_loading(args[0], False)
+    async def wrapper(*args, **kwargs):
+        await toggle_loading(args[0], True)
+        result = await func(*args, **kwargs)
+        await toggle_loading(args[0], False)
         return result
 
     return wrapper
+
 
 
 async def update_active_nav(consumer, page):
