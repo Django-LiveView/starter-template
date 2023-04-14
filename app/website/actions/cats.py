@@ -1,10 +1,10 @@
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from channels.db import database_sync_to_async
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     send_notification,
@@ -58,8 +58,6 @@ async def get_context(consumer=None, lang=None):
     return context
 
 
-async def get_html(consumer=None, lang=None):
-    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
 
 
 @enable_lang
@@ -68,12 +66,14 @@ async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "all cats")
     # Main
+    my_context = await get_context()
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": await get_html(consumer=consumer, lang=lang),
+        "html": html
     }
-    data.update(await get_context(consumer=consumer, lang=lang))
+    data.update(my_context)
     await consumer.send_html(data)
 
 
@@ -92,8 +92,9 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
     start = (my_page - 1) * elements_per_page
     end = start + elements_per_page
     # Update list of cats
-    context = get_global_context(consumer=consumer)
-    context.update(
+    my_context = get_global_context(consumer=consumer)
+    my_context_list_cats = my_context.copy()
+    my_context_list_cats.update(
         {
             "cats": await get_all_cats(start=start, limit=end),
             "pagination": my_page,
@@ -102,26 +103,26 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
             ),
         }
     )
+    html_list_cats = await get_html("components/_list_cats.html", my_context_list_cats)
     data = {
         "action": client_data["action"],
         "selector": "#list-cats",
-        "html": render_to_string(
-            "components/_list_cats.html",
-            context,
-        ),
+        "html": html_list_cats,
     }
+
     await consumer.send_html(data)
     # Update pagination
+    my_context_paginator = my_context.copy()
+    my_context_paginator.update(
+        {
+                "pagination": my_page,
+                "is_last_page": await is_last_page(my_page),
+            })
+    html = await get_html("components/_paginator.html", my_context_paginator)
     data = {
         "action": "update_pagination",
         "selector": "#paginator",
-        "html": render_to_string(
-            "components/_paginator.html",
-            {
-                "pagination": my_page,
-                "is_last_page": await is_last_page(my_page),
-            },
-        ),
+        "html": html
     }
     await consumer.send_html(data)
 

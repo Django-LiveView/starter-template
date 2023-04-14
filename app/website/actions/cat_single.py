@@ -1,10 +1,10 @@
-from django.template.loader import render_to_string
 from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     loading,
@@ -21,13 +21,15 @@ template = "pages/single_cat.html"
 
 @database_sync_to_async
 def get_cat_from_slug(slug):
-    return list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
+    try:
+        return list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))[0]
+    except IndexError:
+        return None
 
 
 async def get_comments(slug):
-    list_cats = await get_cat_from_slug(slug)
-    post = list_cats[0]
-    post_id = post.id
+    cat = await get_cat_from_slug(slug)
+    post_id = cat.id
     # Get comments from external API
     response = requests.get(
         "https://jsonplaceholder.typicode.com/comments", {"postId": post_id}
@@ -38,12 +40,10 @@ async def get_comments(slug):
 # Functions
 
 
-async def get_context(lang=None, slug=None, comments=True):
+async def get_context(slug=None, comments=True):
     context = get_global_context()
-    list_cats = await get_cat_from_slug(slug)
-    if len(list_cats) > 0:
-        cat = list_cats[0]
     # Update context
+    cat = await get_cat_from_slug(slug)
     context.update(
         {
             "url": settings.DOMAIN_URL
@@ -56,16 +56,10 @@ async def get_context(lang=None, slug=None, comments=True):
             "active_nav": "",
             "page": template,
             "cat": cat,
-            "comments": await get_comments(slug) if comments else None,
+            "comments": await get_comments(slug) if comments else [],
         }
     )
     return context
-
-
-async def get_html(lang=None, slug=None):
-    return render_to_string(
-        template, await get_context(lang=lang, slug=slug, comments=False)
-    )
 
 
 @enable_lang
@@ -75,23 +69,26 @@ async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "")
     # Main
+    my_context = await get_context(slug=slug, comments=False)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": await get_html(lang=lang, slug=slug),
+        "html": html,
     }
-    data.update(await get_context(lang=lang, slug=slug, comments=False))
+    data.update(my_context)
     await consumer.send_html(data)
     # Comments
     await render_comments(consumer, slug)
 
 
+
 async def render_comments(consumer, slug):
-    comments = await get_comments(slug)
     # Render
+    html = await get_html("components/_comments.html", {"comments": await get_comments(slug)})
     data = {
         "action": "update_cat->comments",
         "selector": "#comments",
-        "html": render_to_string("components/_comments.html", {"comments": comments}),
+        "html": html,
     }
     await consumer.send_html(data)
