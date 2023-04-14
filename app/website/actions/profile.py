@@ -76,4 +76,4 @@ async def update_avatar(consumer, client_data):
         await consumer.send_html(data)
     else:
         # Bad extension image. Send message
-        send_notification(consumer, _("Bad extension image"), "danger")
+        await send_notification(consumer, _("Bad extension image"), "danger")

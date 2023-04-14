@@ -95,23 +95,19 @@ async def send_notification(consumer: object, message: str, level: str = "info")
     uuid = str(uuid4())
     timeout = 3000  # ms
     # Show message
+    context = get_global_context(consumer=consumer)
+    context.update({"id": uuid, "message": message, "level": level})
+    html = await get_html("components/_notification.html", context)
     data = {
         "action": "new_notification",
         "selector": "#notifications",
-        "html": render_to_string(
-            "components/_notification.html",
-            {
-                "id": uuid,
-                "message": message,
-                "level": level,
-            },
-        ),
+        "html": html,
         "append": True,
     }
     await consumer.send_html(data)
 
     # Remove message async
-    def remove_notification(consumer, uuid):
+    async def remove_notification(consumer, uuid):
         # Sleep timeout
         sleep(timeout / 1000)
         data = {
@@ -119,8 +115,7 @@ async def send_notification(consumer: object, message: str, level: str = "info")
             "selector": f"#notifications > #notifications__item-{uuid}",
             "html": "",
         }
-        consumer.send_html(data)
-
+        await consumer.send_html(data)
     Thread(target=remove_notification, args=(consumer, uuid)).start()
 
 
