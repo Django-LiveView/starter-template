@@ -1,5 +1,6 @@
 from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
+from asgiref.sync import sync_to_async
 from django.utils.translation import activate as translation_activate
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -10,6 +11,9 @@ import base64
 from django.core.files import File
 from tempfile import NamedTemporaryFile
 
+
+async def get_html(template, context={}):
+     return await sync_to_async(render_to_string)(template, context)
 
 def set_language(language="en"):
     """Set the language."""

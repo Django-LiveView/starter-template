@@ -1,9 +1,9 @@
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     loading,
@@ -19,6 +19,7 @@ template = "pages/profile.html"
 
 async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
+
     # Update context
     context.update(
         {
@@ -35,22 +36,20 @@ async def get_context(consumer=None, lang=None):
     return context
 
 
-async def get_html(consumer=None, lang=None):
-    return render_to_string(template, await get_context(consumer=consumer, lang=lang))
-
-
 @enable_lang
 @loading
 async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "profile")
     # Main
+    my_context = await get_context(consumer=consumer, lang=lang)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": await get_html(consumer, lang=lang),
+        "html": html,
     }
-    data.update(await get_context(consumer=consumer, lang=lang))
+    data.update(my_context)
     await consumer.send_html(data)
 
 

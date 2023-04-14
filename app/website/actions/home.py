@@ -1,4 +1,3 @@
-from django.template.loader import render_to_string
 from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.models import Cat
@@ -6,6 +5,7 @@ from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     loading,
@@ -44,21 +44,18 @@ async def get_context(lang=None):
     )
     return context
 
-
-async def get_html(lang=None):
-    return render_to_string(template, await get_context(lang=lang))
-
-
 @enable_lang
 @loading
 async def send_page(consumer, client_data, lang=None):
     # Nav
     await update_active_nav(consumer, "home")
     # Main
+    my_context = await get_context(lang=lang)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": await get_html(lang=lang),
+        "html": html,
     }
-    data.update(await get_context(lang=lang))
+    data.update(my_context)
     await consumer.send_html(data)
