@@ -96,20 +96,26 @@ async def log_in(consumer, client_data, lang=None):
             # Send message
             await send_notification(consumer, _("You are now logged in!"), "success")
         else:
-            # Info to user that email or password is incorrect
             form.add_error("email", _("Invalid email or password"))
+            # Info to user that email or password is incorrect
+            my_context = await get_context(consumer=consumer, lang=lang)
+            my_context.update({"form": form})
+            html = await get_html("forms/login.html", my_context)
             data = {
                 "action": client_data["action"],
                 "selector": "#login__form",
-                "html": render_to_string("forms/login.html", {"form": form}),
+                "html": html,
             }
             await consumer.send_html(data)
     else:
         # Send errors
+        my_context = await get_context(consumer=consumer, lang=lang)
+        my_context.update({"form": form})
+        html = await get_html("forms/login.html", my_context)
         data = {
             "action": client_data["action"],
             "selector": "#login__form",
-            "html": render_to_string("forms/login.html", {"form": form}),
+            "html": html,
         }
         await consumer.send_html(data)
 
