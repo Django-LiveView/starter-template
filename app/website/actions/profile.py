@@ -1,3 +1,4 @@
+from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
@@ -14,6 +15,14 @@ from core import settings
 
 
 template = "pages/profile.html"
+
+# Database
+
+
+@database_sync_to_async
+def save_avatar(user, filename, file_data):
+    user.profile.avatar.save(filename, file_data)
+
 
 # Functions
 
@@ -66,12 +75,14 @@ async def update_avatar(consumer, client_data):
             client_data["data"]["base64"], client_data["data"]["mimeType"]
         )
         # Update avatar
-        user.profile.avatar.save(my_filename, my_file)
+        user = consumer.scope["user"]
+        await save_avatar(user, my_filename, my_file)
         # Update HTML
+        html = await get_html("components/_avatar.html", {"user": user})
         data = {
             "action": "update_avatar",
             "selector": "#avatar__container",
-            "html": render_to_string("components/_avatar.html", {"user": user}),
+            "html": html,
         }
         await consumer.send_html(data)
     else:
