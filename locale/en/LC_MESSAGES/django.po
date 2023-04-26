@@ -207,7 +207,7 @@ msgid "Monitoring your resources"
 msgstr ""
 
 #: templates/components/_footer.html:3
-msgid "Your resources in real time, and without using JavaScript"
+msgid "Server resources in real time, and without using JavaScript"
 msgstr ""
 
 #: templates/components/_footer.html:5

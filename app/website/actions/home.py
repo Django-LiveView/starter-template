@@ -44,6 +44,7 @@ async def get_context(consumer=None):
     )
     return context
 
+
 @enable_lang
 @loading
 async def send_page(consumer, client_data, lang=None):

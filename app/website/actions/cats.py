@@ -29,6 +29,7 @@ def get_all_cats(start=None, limit=None):
         return tuple(my_cats[:limit])
     return tuple(my_cats)
 
+
 @database_sync_to_async
 def delete_cat(slug):
     cats = Cat.objects.all()
@@ -65,8 +66,6 @@ async def get_context(consumer=None, lang=None):
     return context
 
 
-
-
 @enable_lang
 @loading
 async def send_page(consumer, client_data, lang=None):
@@ -75,11 +74,7 @@ async def send_page(consumer, client_data, lang=None):
     # Main
     my_context = await get_context(consumer=consumer)
     html = await get_html(template, my_context)
-    data = {
-        "action": client_data["action"],
-        "selector": "#main",
-        "html": html
-    }
+    data = {"action": client_data["action"], "selector": "#main", "html": html}
     data.update(my_context)
     await consumer.send_html(data)
 
@@ -122,15 +117,12 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
     my_context_paginator = my_context.copy()
     my_context_paginator.update(
         {
-                "pagination": my_page,
-                "is_last_page": await is_last_page(my_page),
-            })
+            "pagination": my_page,
+            "is_last_page": await is_last_page(my_page),
+        }
+    )
     html = await get_html("components/_paginator.html", my_context_paginator)
-    data = {
-        "action": "update_pagination",
-        "selector": "#paginator",
-        "html": html
-    }
+    data = {"action": "update_pagination", "selector": "#paginator", "html": html}
     await consumer.send_html(data)
 
 
@@ -157,6 +149,8 @@ async def delete(consumer, client_data, lang=None):
     # Delete cat
     await delete_cat(client_data["data"]["slug"])
     # Notify
-    await send_notification(consumer, _("A cat has died! it has 6 lives left."), "danger")
+    await send_notification(
+        consumer, _("A cat has died! it has 6 lives left."), "danger"
+    )
     # Refresh page
     await send_page(consumer, client_data, lang=lang)

@@ -14,7 +14,8 @@ from tempfile import NamedTemporaryFile
 
 
 async def get_html(template, context={}):
-     return await sync_to_async(render_to_string)(template, context)
+    return await sync_to_async(render_to_string)(template, context)
+
 
 def set_language(language="en"):
     """Set the language."""
@@ -36,11 +37,13 @@ def enable_lang(func):
 
 async def toggle_loading(consumer, show=False):
     """Toogle the footer form."""
-    #html = await get_html(template, get_global_context(consumer=consumer))
+    # html = await get_html(template, get_global_context(consumer=consumer))
     data = {
         "action": ("Show" if show else "Hide") + " loading",
         "selector": "#loading",
-        "html": render_to_string("components/_loading.html", get_global_context(consumer=consumer))
+        "html": render_to_string(
+            "components/_loading.html", get_global_context(consumer=consumer)
+        )
         if show
         else "",
     }
@@ -57,7 +60,6 @@ def loading(func):
         return result
 
     return wrapper
-
 
 
 async def update_active_nav(consumer, page):
@@ -95,18 +97,19 @@ async def send_notification(consumer: object, message: str, level: str = "info")
     # Variables
     uuid = str(uuid4())
     timeout = 3000  # ms
+
     async def make_notification(consumer=None, uuid="", level="", message=""):
-         # Show message
-         context = get_global_context(consumer=consumer)
-         context.update({"id": uuid, "message": message, "level": level})
-         html = await get_html("components/_notification.html", context)
-         data = {
-              "action": "new_notification",
-              "selector": "#notifications",
-              "html": html,
-              "append": True,
-         }
-         await consumer.send_html(data)
+        # Show message
+        context = get_global_context(consumer=consumer)
+        context.update({"id": uuid, "message": message, "level": level})
+        html = await get_html("components/_notification.html", context)
+        data = {
+            "action": "new_notification",
+            "selector": "#notifications",
+            "html": html,
+            "append": True,
+        }
+        await consumer.send_html(data)
 
     # Remove message async
     def remove_notification(consumer=None, uuid="", timeout=0):

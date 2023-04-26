@@ -1,8 +1,10 @@
 from django import forms
+from channels.db import database_sync_to_async
 from app.website.models import Cat
 from django.utils.translation import gettext_lazy as _
 from django.core import validators
 from django.core.exceptions import ValidationError
+from app.website.actions.cat_single import get_cat_from_slug
 
 
 # Custom validators
@@ -55,20 +57,22 @@ class CatForm(forms.Form):
         ),
     )
 
-    def save(self, slug=None):
+    @database_sync_to_async
+    def create_cat(self):
+        """Create a new cat."""
+        cat = Cat.objects.create(**self.cleaned_data)
+        cat.age = self.cleaned_data["age"]
+        cat.biography = self.cleaned_data["biography"]
+        if self.cleaned_data["avatar"]:
+            cat.avatar = self.cleaned_data["avatar"]
+        cat.save()
+        return cat
+
+    async def save(self, slug=None):
         """Save the form. If a slug is provided, update the existing cat."""
-        try:
-            list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
-            cat = list_cats[0]
-        except Cat.DoesNotExist:
-            cat = Cat.objects.create(**self.cleaned_data)
-        else:
-            cat.name = self.cleaned_data["name"]
-            cat.age = self.cleaned_data["age"]
-            cat.biography = self.cleaned_data["biography"]
-            if self.cleaned_data["avatar"]:
-                cat.avatar = self.cleaned_data["avatar"]
-            cat.save()
+        cat = await get_cat_from_slug(slug)
+        if cat is None:
+            return await self.create_cat()
         return cat
 
 
@@ -82,7 +86,8 @@ class LoginForm(forms.Form):
             attrs={
                 "data-login-target": "email",
                 "data-action": "keydown.enter->login#logIn",
-            }
+                "value": "scottmosley@example.org",
+            },
         ),
     )
     password = forms.CharField(

@@ -82,10 +82,11 @@ async def send_page(consumer, client_data, lang=None):
     await render_comments(consumer, slug)
 
 
-
 async def render_comments(consumer, slug):
     # Render
-    html = await get_html("components/_comments.html", {"comments": await get_comments(slug)})
+    html = await get_html(
+        "components/_comments.html", {"comments": await get_comments(slug)}
+    )
     data = {
         "action": "update_cat->comments",
         "selector": "#comments",

@@ -24,6 +24,7 @@ template = "pages/new_cat.html"
 
 # Functions
 
+
 async def get_context(consumer=None, form=None):
     context = get_global_context(consumer=consumer)
     # Check client_data["data"]["form"] exist
@@ -88,19 +89,20 @@ async def create(consumer, client_data, lang=None):
         )
         if form.is_valid():
             # Create cat
-            form.save()
+            await form.save()
             # Send notification
-            send_notification(consumer, _("A cat is born!"), "success")
+            await send_notification(consumer, _("A cat is born!"), "success")
             # Redirect to cats list
-            cats.send_page(consumer, client_data, lang=lang)
+            await cats.send_page(consumer, client_data, lang=lang)
         else:
             # Send form errors
+            my_context = await get_context(consumer=consumer)
+            my_context.update({"form": form})
+            html = await get_html(template, my_context)
             data = {
                 "action": client_data["action"],
                 "selector": "#main",
-                "html": get_html(
-                    consumer=consumer, client_data=client_data, form=form, lang=lang
-                ),
+                "html": html,
             }
-            data.update(get_context())
-            consumer.send_html(data)
+            data.update(my_context)
+            await consumer.send_html(data)

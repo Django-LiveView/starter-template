@@ -29,6 +29,7 @@ template = "pages/login.html"
 def get_all_users():
     return list(User.objects.filter(is_staff=False).order_by("username"))
 
+
 @database_sync_to_async
 def save_client(auth, channel_name):
     Client.objects.filter(user=auth).delete()
@@ -73,6 +74,7 @@ async def send_page(consumer, client_data, lang=None):
     }
     data.update(my_context)
     await consumer.send_html(data)
+
 
 @enable_lang
 @loading

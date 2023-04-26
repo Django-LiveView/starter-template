@@ -20,6 +20,7 @@ template = "pages/contact.html"
 
 # Functions
 
+
 async def get_context(consumer=None):
     context = get_global_context(consumer=consumer)
     # Update context

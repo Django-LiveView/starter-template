@@ -26,6 +26,7 @@ def save_avatar(user, filename, file_data):
 
 # Functions
 
+
 async def get_context(consumer=None, lang=None):
     context = get_global_context(consumer=consumer)
 
