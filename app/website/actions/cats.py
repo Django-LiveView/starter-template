@@ -29,6 +29,13 @@ def get_all_cats(start=None, limit=None):
         return tuple(my_cats[:limit])
     return tuple(my_cats)
 
+@database_sync_to_async
+def delete_cat(slug):
+    cats = Cat.objects.all()
+    for cat in cats:
+        if cat.slug == slug:
+            cat.delete()
+
 
 @database_sync_to_async
 def is_last_page(page=1, elements_per_page=3):
@@ -147,12 +154,9 @@ async def previous_page(consumer, client_data, lang=None):
 @loading
 async def delete(consumer, client_data, lang=None):
     """Delete cat"""
-    # Find cat and delete
-    cats = Cat.objects.all()
-    for cat in cats:
-        if cat.slug in client_data["data"]["slug"]:
-            cat.delete()
+    # Delete cat
+    await delete_cat(client_data["data"]["slug"])
     # Notify
-    send_notification(consumer, _("A cat has died! it has 6 lives left."), "danger")
+    await send_notification(consumer, _("A cat has died! it has 6 lives left."), "danger")
     # Refresh page
     await send_page(consumer, client_data, lang=lang)
