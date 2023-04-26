@@ -1,3 +1,4 @@
+from core import settings
 from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.models import Cat
@@ -10,7 +11,6 @@ from app.website.utils import (
     enable_lang,
     loading,
 )
-from core import settings
 
 
 template = "pages/home.html"
