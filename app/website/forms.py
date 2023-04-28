@@ -99,7 +99,6 @@ class LoginForm(forms.Form):
             attrs={
                 "data-login-target": "email",
                 "data-action": "keydown.enter->login#logIn",
-                "value": "scottmosley@example.org",
             },
         ),
     )
