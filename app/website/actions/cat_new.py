@@ -27,7 +27,6 @@ template = "pages/new_cat.html"
 
 async def get_context(consumer=None, form=None):
     context = get_global_context(consumer=consumer)
-    # Check client_data["data"]["form"] exist
     if not form:
         form = CatForm()
     # Update context

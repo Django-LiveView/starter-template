@@ -1,9 +1,9 @@
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     send_notification,
     enable_lang,
@@ -14,28 +14,30 @@ from core import settings
 from app.website.models import Cat
 from app.website.forms import CatForm
 from app.website.actions import cats
+from app.website.actions.cat_single import get_cat_from_slug
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 template = "pages/update_cat.html"
 
+# Database
 
-def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None):
+
+# Functions
+
+
+async def get_context(consumer=None, slug=None, form=None):
     context = get_global_context(consumer=consumer)
-    list_cats = list(filter(lambda cat: cat.slug == slug, Cat.objects.all()))
-    if len(list_cats) > 0:
-        cat = list_cats[0]
-        form = (
-            form
-            if form
-            else CatForm(
+    cat = await get_cat_from_slug(slug)
+    if cat:
+        if not form:
+            form = CatForm(
                 initial={
                     "name": cat.name,
                     "age": cat.age,
                     "biography": cat.biography,
                 }
             )
-        )
         # Update context
         context.update(
             {
@@ -57,39 +59,31 @@ def get_context(consumer=None, slug=None, client_data=None, form=None, lang=None
     return context
 
 
-def get_html(consumer=None, slug=None, client_data=None, form=None, lang=None):
-    return render_to_string(
-        template,
-        get_context(
-            consumer=consumer, slug=slug, client_data=client_data, form=form, lang=lang
-        ),
-    )
-
-
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     slug = client_data["data"]["slug"]
     # Nav
-    update_active_nav(consumer, "")
+    await update_active_nav(consumer, "")
     # Main
+    my_context = await get_context(consumer=consumer, slug=slug)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang, slug=slug),
+        "html": html,
     }
-    data.update(get_context())
-    consumer.send_html(data)
+
+    await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def update(consumer, client_data, lang=None):
+async def update(consumer, client_data, lang=None):
     slug = client_data["data"]["slug"]
     # Check if cat exists and if all data is present
     if client_data and "data" in client_data and "form" in client_data["data"]:
         # Add file to input image
-
         base64_str = client_data["data"]["form"]["avatar"]["base64"]
         mime_type = client_data["data"]["form"]["avatar"]["mimeType"]
         is_new_avatar = base64_str and mime_type
@@ -118,23 +112,20 @@ def update(consumer, client_data, lang=None):
         # Check if form is valid
         if form.is_valid():
             # Create cat
-            form.save(slug=slug)
+            await form.save(slug=slug)
             # Send notification
-            send_notification(consumer, _("A cat is update!"), "success")
+            await send_notification(consumer, _("A cat is update!"), "success")
             # Redirect to cats list
-            cats.send_page(consumer, client_data, lang=lang)
+            await cats.send_page(consumer, client_data, lang=lang)
         else:
             # Send form errors
+            slug = client_data["data"]["slug"]
+            my_context = await get_context(consumer=consumer, slug=slug, form=form)
+            html = await get_html(template, my_context)
             data = {
                 "action": client_data["action"],
                 "selector": "#main",
-                "html": get_html(
-                    consumer=consumer,
-                    slug=slug,
-                    client_data=client_data,
-                    form=form,
-                    lang=lang,
-                ),
+                "html": html,
             }
-            data.update(get_context())
-            consumer.send_html(data)
+            data.update(my_context)
+            await consumer.send_html(data)

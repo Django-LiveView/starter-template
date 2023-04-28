@@ -68,11 +68,24 @@ class CatForm(forms.Form):
         cat.save()
         return cat
 
+    @database_sync_to_async
+    def update_cat(self, cat):
+        """Update an existing cat."""
+        for field, value in self.cleaned_data.items():
+            if field in ("name", "age", "biography"):
+                setattr(cat, field, value)
+        if self.cleaned_data["avatar"]:
+            cat.avatar = self.cleaned_data["avatar"]
+        cat.save()
+        return cat
+
     async def save(self, slug=None):
         """Save the form. If a slug is provided, update the existing cat."""
         cat = await get_cat_from_slug(slug)
         if cat is None:
             return await self.create_cat()
+        else:
+            return await self.update_cat(cat)
         return cat
 
 
