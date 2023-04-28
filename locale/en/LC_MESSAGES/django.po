@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-08 15:31+0000\n"
+"POT-Creation-Date: 2023-04-28 17:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,143 +26,143 @@ msgstr ""
 msgid "About us page of the website"
 msgstr ""
 
-#: app/website/actions/cat_new.py:31 templates/pages/new_cat.html:2
+#: app/website/actions/cat_new.py:36 templates/pages/new_cat.html:2
 msgid "New cat"
 msgstr ""
 
-#: app/website/actions/cat_new.py:33
+#: app/website/actions/cat_new.py:38
 msgid "New cat page of the website"
 msgstr ""
 
-#: app/website/actions/cat_new.py:92
+#: app/website/actions/cat_new.py:93
 msgid "A cat is born!"
 msgstr ""
 
-#: app/website/actions/cat_single.py:30 app/website/actions/cats.py:28
+#: app/website/actions/cat_single.py:53 app/website/actions/cats.py:57
 msgid "All cats page"
 msgstr ""
 
-#: app/website/actions/cat_update.py:44
+#: app/website/actions/cat_update.py:46
 msgid "Update cat "
 msgstr ""
 
-#: app/website/actions/cat_update.py:46
+#: app/website/actions/cat_update.py:48
 msgid "Update a cat"
 msgstr ""
 
-#: app/website/actions/cat_update.py:123
+#: app/website/actions/cat_update.py:117
 msgid "A cat is update!"
 msgstr ""
 
-#: app/website/actions/cats.py:26 templates/components/_header.html:29
+#: app/website/actions/cats.py:55 templates/components/_header.html:29
 #: templates/pages/profile.html:19
 msgid "Cats"
 msgstr ""
 
-#: app/website/actions/cats.py:136
+#: app/website/actions/cats.py:153
 msgid "A cat has died! it has 6 lives left."
 msgstr ""
 
-#: app/website/actions/contact.py:26 app/website/actions/contact.py:28
-#: app/website/actions/contact.py:76 templates/components/_header.html:37
+#: app/website/actions/contact.py:30 app/website/actions/contact.py:32
+#: app/website/actions/contact.py:82 templates/components/_header.html:37
 #: templates/pages/contact.html:2
 msgid "Contact"
 msgstr ""
 
-#: app/website/actions/contact.py:73
+#: app/website/actions/contact.py:79
 msgid "Contact email sent"
 msgstr ""
 
-#: app/website/actions/home.py:24
+#: app/website/actions/home.py:35
 msgid "Home"
 msgstr ""
 
-#: app/website/actions/home.py:26
+#: app/website/actions/home.py:37
 msgid "Home page of the website"
 msgstr ""
 
-#: app/website/actions/login.py:31 app/website/actions/login.py:33
+#: app/website/actions/login.py:48 app/website/actions/login.py:50
 #: templates/components/_header.html:65
 msgid "Login"
 msgstr ""
 
-#: app/website/actions/login.py:85
+#: app/website/actions/login.py:99
 msgid "You are now logged in!"
 msgstr ""
 
-#: app/website/actions/login.py:88
+#: app/website/actions/login.py:101
 msgid "Invalid email or password"
 msgstr ""
 
-#: app/website/actions/login.py:114
+#: app/website/actions/login.py:134
 msgid "You are now logged out!"
 msgstr ""
 
-#: app/website/actions/profile.py:25 app/website/actions/profile.py:27
+#: app/website/actions/profile.py:37 app/website/actions/profile.py:39
 #: templates/components/_header.html:46 templates/pages/profile.html:3
 msgid "Profile"
 msgstr ""
 
-#: app/website/actions/profile.py:79
+#: app/website/actions/profile.py:91
 msgid "Bad extension image"
 msgstr ""
 
-#: app/website/forms.py:15
+#: app/website/forms.py:17
 msgid "You must agree to the terms and conditions."
 msgstr ""
 
-#: app/website/forms.py:24 app/website/forms.py:105
+#: app/website/forms.py:26 app/website/forms.py:120
 #: templates/emails/contact.html:3
 msgid "Name"
 msgstr ""
 
-#: app/website/forms.py:33
+#: app/website/forms.py:35
 msgid "Age"
 msgstr ""
 
-#: app/website/forms.py:41
+#: app/website/forms.py:43
 msgid "Biography"
 msgstr ""
 
-#: app/website/forms.py:49 templates/pages/profile.html:20
+#: app/website/forms.py:51 templates/pages/profile.html:20
 msgid "Avatar"
 msgstr ""
 
-#: app/website/forms.py:78 app/website/forms.py:116
+#: app/website/forms.py:94 app/website/forms.py:131
 #: templates/emails/contact.html:5 templates/pages/profile.html:8
 msgid "Email"
 msgstr ""
 
-#: app/website/forms.py:80 app/website/forms.py:118
+#: app/website/forms.py:96 app/website/forms.py:133
 msgid "Invalid email"
 msgstr ""
 
-#: app/website/forms.py:81 app/website/forms.py:92 app/website/forms.py:107
-#: app/website/forms.py:119 app/website/forms.py:130
+#: app/website/forms.py:97 app/website/forms.py:108 app/website/forms.py:122
+#: app/website/forms.py:134 app/website/forms.py:145
 msgid "This field is required."
 msgstr ""
 
-#: app/website/forms.py:90
+#: app/website/forms.py:106
 msgid "Password"
 msgstr ""
 
-#: app/website/forms.py:128 templates/emails/contact.html:7
+#: app/website/forms.py:143 templates/emails/contact.html:7
 msgid "Message"
 msgstr ""
 
-#: app/website/forms.py:139
+#: app/website/forms.py:154
 msgid "I accept all cuddles and caresses"
 msgstr ""
 
-#: app/website/forms.py:142
+#: app/website/forms.py:157
 msgid "You must accept to continue."
 msgstr ""
 
-#: core/settings.py:100
+#: core/settings.py:98
 msgid "English"
 msgstr ""
 
-#: core/settings.py:101
+#: core/settings.py:99
 msgid "Spanish"
 msgstr ""
 
@@ -200,6 +200,10 @@ msgstr ""
 
 #: core/urls.py:34
 msgid "feed/"
+msgstr ""
+
+#: templates/components/_comments.html:3
+msgid "Comments"
 msgstr ""
 
 #: templates/components/_footer.html:2

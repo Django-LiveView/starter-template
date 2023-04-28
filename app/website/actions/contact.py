@@ -34,6 +34,7 @@ async def get_context(consumer=None):
             },
             "active_nav": "contact",
             "page": template,
+            "domain_url": settings.DOMAIN_URL,
             "form": ContactForm(),
         }
     )
