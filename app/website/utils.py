@@ -14,6 +14,7 @@ from tempfile import NamedTemporaryFile
 
 
 async def get_html(template, context={}):
+    """Get html from template."""
     return await sync_to_async(render_to_string)(template, context)
 
 
@@ -128,6 +129,16 @@ async def send_notification(consumer: object, message: str, level: str = "info")
 
 
 def get_image_from_base64(base64_string: str, mime_type: str, is_file: bool = True):
+    """Get image from base64 string.
+    Args:
+    base64_string (str): Base64 string.
+    mime_type (str): Mime type. Example: image/jpeg.
+    is_file (bool): Return a file or bytes.
+
+    Returns:
+    File or bytes: Image.
+    str: Filename.
+    """
     if mime_type in (
         "image/jpeg",
         "image/png",
