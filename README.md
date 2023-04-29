@@ -447,6 +447,7 @@ I have written a **book** where I explain all the concepts I have used in the te
   - [ ] Static page
   - [ ] Rendered page from the database
   - [ ] Add a feature
+  - [ ] Broadcast
   - [ ] Form with validations
   - [ ] Send email
   - [ ] CRUD from the database
