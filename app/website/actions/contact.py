@@ -73,6 +73,7 @@ async def send_message(consumer, client_data, lang=None):
             "action": client_data["action"],
             "selector": "#contact__form",
             "html": html_contact_success,
+            "scrollTop": True,
         }
         await consumer.send_html(data)
         # Send notification

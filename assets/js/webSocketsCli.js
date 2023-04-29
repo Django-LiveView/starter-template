@@ -1,9 +1,10 @@
 // Imports
 import {
-  addBodyScrollLock,
-  removeBodyScrollLock,
-  renderHTML,
-  moveScrollToAnchor
+    addBodyScrollLock,
+    removeBodyScrollLock,
+    renderHTML,
+    moveScrollToAnchor,
+    moveScrollToTop
 } from "./mixins/miscellaneous.js";
 
 /*
@@ -75,6 +76,7 @@ export function startEvents(webSocket=window.myWebSocket) {
     // Renders the HTML received from the Consumer
       renderHTML(data);
       moveScrollToAnchor(data);
+      moveScrollToTop(data);
   });
 
   /**

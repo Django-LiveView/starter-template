@@ -1,3 +1,4 @@
+import math
 from django.templatetags.static import static
 from channels.db import database_sync_to_async
 from app.website.context_processors import get_global_context
@@ -40,7 +41,7 @@ def delete_cat(slug):
 
 @database_sync_to_async
 def is_last_page(page=1, elements_per_page=3):
-    return Cat.objects.all().count() // elements_per_page < page
+    return math.ceil(Cat.objects.all().count() / elements_per_page) == page
 
 
 # Functions
@@ -110,6 +111,7 @@ async def send_cats_per_page(consumer, client_data, lang=None, page=1):
         "action": client_data["action"],
         "selector": "#list-cats",
         "html": html_list_cats,
+        "scrollTop": True,
     }
 
     await consumer.send_html(data)

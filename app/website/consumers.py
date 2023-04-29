@@ -128,6 +128,7 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
             "url": "/search/results", # Optional, default: None. If set, the url will be changed
             "title": "Search results", # Optional, default: None. If set, the title will be changed
             "scroll": true # Optional, default: false. If true, the page will be scrolled to the selector
+            "scrollTop": false # Optional, default: false. If true, the page will be scrolled to the top
         }
         """
         if "selector" in data and "html" in data:
@@ -148,6 +149,8 @@ class WebsiteConsumer(AsyncJsonWebsocketConsumer):
                 my_data.update({"title": data["title"]})
             if "scroll" in data:
                 my_data.update({"scroll": data["scroll"]})
+            if "scrollTop" in data:
+                my_data.update({"scrollTop": data["scrollTop"]})
             # Send the data
             if broadcast:
                 if hasattr(self, "channel_layer"):
