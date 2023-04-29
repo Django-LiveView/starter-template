@@ -1,5 +1,6 @@
+{% load i18n %}
 {% if comments %}
-<h2>Comments</h2>
+<h2>{% trans "Comments" %}</h2>
 {% for comment in comments %}
 <article>
     <hr>

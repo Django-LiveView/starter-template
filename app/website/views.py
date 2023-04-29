@@ -14,43 +14,43 @@ for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
         )
 
 
-def home(request):
-    return render(request, "base.html", get_home_context())
+async def home(request):
+    return render(request, "base.html", await get_home_context())
 
 
-def about_us(request):
-    return render(request, "base.html", get_about_us_context())
+async def about_us(request):
+    return render(request, "base.html", await get_about_us_context())
 
 
-def cats_list(request):
-    return render(request, "base.html", get_cats_context())
+async def cats_list(request):
+    return render(request, "base.html", await get_cats_context())
 
 
-def cat_single(request, cat_slug):
-    return render(request, "base.html", get_cat_single_context(slug=cat_slug))
-
-
-@login_required(login_url="login")
-def cat_new(request):
-    return render(request, "base.html", get_cat_new_context())
+async def cat_single(request, cat_slug):
+    return render(request, "base.html", await get_cat_single_context(slug=cat_slug))
 
 
 @login_required(login_url="login")
-def cat_update(request, cat_slug):
-    return render(request, "base.html", get_cat_update_context(slug=cat_slug))
-
-
-def login(request):
-    return render(request, "base.html", get_login_context())
+async def cat_new(request):
+    return render(request, "base.html", await get_cat_new_context())
 
 
 @login_required(login_url="login")
-def profile(request):
-    return render(request, "base.html", get_profile_context())
+async def cat_update(request, cat_slug):
+    return render(request, "base.html", await get_cat_update_context(slug=cat_slug))
 
 
-def contact(request):
-    return render(request, "base.html", get_contact_context())
+async def login(request):
+    return render(request, "base.html", await get_login_context())
+
+
+@login_required(login_url="login")
+async def profile(request):
+    return render(request, "base.html", await get_profile_context())
+
+
+async def contact(request):
+    return render(request, "base.html", await get_contact_context())
 
 
 def robots(request):

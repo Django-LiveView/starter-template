@@ -78,3 +78,11 @@ export function moveScrollToAnchor(data) {
     }, 50)
   }
 }
+
+export function moveScrollToTop(data) {
+  if (data.scrollTop) {
+    setTimeout(() => {
+      document.querySelector("body").scrollIntoView({ behavior: "smooth" });
+    }, 50)
+  }
+}

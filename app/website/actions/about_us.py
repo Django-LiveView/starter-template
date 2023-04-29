@@ -1,9 +1,9 @@
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     loading,
@@ -14,8 +14,8 @@ from random import randint
 template = "pages/about_us.html"
 
 
-def get_context():
-    context = get_global_context()
+async def get_context(consumer=None):
+    context = get_global_context(consumer=consumer)
     # Update context
     context.update(
         {
@@ -32,42 +32,39 @@ def get_context():
     return context
 
 
-def get_html(lang=None):
-    return render_to_string(template, get_context())
-
-
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "about us")
+    await update_active_nav(consumer, "about us")
     # Main
+    my_context = await get_context(consumer=consumer)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": html,
     }
-    data.update(get_context())
-    consumer.send_html(data)
+    data.update(my_context)
+    await consumer.send_html(data)
 
 
-def update_random_number_text(consumer, client_data):
-    """Update random number text"""
+async def update_random_number_text(consumer, client_data):
+    """Update random number with plain text"""
     data = {
         "action": client_data["action"],
         "selector": "#content-random-number-text",
         "html": str(randint(0, 100)),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
-def update_random_number_html(consumer, client_data):
-    """Update random number html"""
+async def update_random_number_html(consumer, client_data):
+    """Update random number with HTML"""
+    html = await get_html("components/_random_number.html", {"number": randint(0, 100)})
     data = {
         "action": client_data["action"],
         "selector": "#content-random-number-html",
-        "html": render_to_string(
-            "components/_random_number.html", {"number": randint(0, 100)}
-        ),
+        "html": html,
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)

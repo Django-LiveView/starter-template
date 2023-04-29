@@ -1,9 +1,10 @@
-from django.template.loader import render_to_string
+from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     enable_lang,
     loading,
@@ -17,7 +18,10 @@ from app.website.forms import ContactForm
 template = "pages/contact.html"
 
 
-def get_context(consumer=None, lang=None):
+# Functions
+
+
+async def get_context(consumer=None):
     context = get_global_context(consumer=consumer)
     # Update context
     context.update(
@@ -30,47 +34,50 @@ def get_context(consumer=None, lang=None):
             },
             "active_nav": "contact",
             "page": template,
+            "domain_url": settings.DOMAIN_URL,
             "form": ContactForm(),
         }
     )
     return context
 
 
-def get_html(consumer=None, lang=None):
-    return render_to_string(template, get_context(consumer=consumer, lang=lang))
-
-
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "contact")
+    await update_active_nav(consumer, "contact")
     # Main
+    my_context = await get_context(consumer=consumer)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(lang=lang),
+        "html": html,
     }
-    data.update(get_context(consumer=consumer, lang=lang))
-    consumer.send_html(data)
+    data.update(my_context)
+    await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def send_message(consumer, client_data, lang=None):
+async def send_message(consumer, client_data, lang=None):
     """Send message"""
     form = ContactForm(client_data["data"])
     # Check if form is valid
     if form.is_valid():
+        # Nav
+        await update_active_nav(consumer, "")
         # Send success message
+        html_contact_success = await get_html("forms/contact_success.html")
         data = {
             "action": client_data["action"],
             "selector": "#contact__form",
-            "html": render_to_string("forms/contact_success.html"),
+            "html": html_contact_success,
+            "scrollTop": True,
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)
         # Send notification
-        send_notification(consumer, _("Contact email sent"), "success")
+        await send_notification(consumer, _("Contact email sent"), "success")
         # Send email
         send_email(
             subject=_("Contact"),
@@ -85,9 +92,10 @@ def send_message(consumer, client_data, lang=None):
         )
     else:
         # Send errors
+        html = await get_html("forms/contact.html", {"form": form})
         data = {
             "action": client_data["action"],
             "selector": "#contact__form",
-            "html": render_to_string("forms/contact.html", {"form": form}),
+            "html": html,
         }
-        consumer.send_html(data)
+        await consumer.send_html(data)

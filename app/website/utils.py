@@ -1,14 +1,20 @@
+from threading import Thread
+from asgiref.sync import async_to_sync
+import time
 from django.template.loader import render_to_string
 from app.website.context_processors import get_global_context
+from asgiref.sync import sync_to_async
 from django.utils.translation import activate as translation_activate
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from uuid import uuid4
-from threading import Thread
-from time import sleep
 import base64
 from django.core.files import File
 from tempfile import NamedTemporaryFile
+
+
+async def get_html(template, context={}):
+    return await sync_to_async(render_to_string)(template, context)
 
 
 def set_language(language="en"):
@@ -29,31 +35,34 @@ def enable_lang(func):
     return wrapper
 
 
-def toggle_loading(consumer, show=False):
+async def toggle_loading(consumer, show=False):
     """Toogle the footer form."""
+    # html = await get_html(template, get_global_context(consumer=consumer))
     data = {
         "action": ("Show" if show else "Hide") + " loading",
         "selector": "#loading",
-        "html": render_to_string("components/_loading.html", get_global_context())
+        "html": render_to_string(
+            "components/_loading.html", get_global_context(consumer=consumer)
+        )
         if show
         else "",
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
 def loading(func):
     """Decorator: Show loading."""
 
-    def wrapper(*args, **kwargs):
-        toggle_loading(args[0], True)
-        result = func(*args, **kwargs)
-        toggle_loading(args[0], False)
+    async def wrapper(*args, **kwargs):
+        await toggle_loading(args[0], True)
+        result = await func(*args, **kwargs)
+        await toggle_loading(args[0], False)
         return result
 
     return wrapper
 
 
-def update_active_nav(consumer, page):
+async def update_active_nav(consumer, page):
     """Update the active nav item in the navbar."""
     context = get_global_context(consumer=consumer)
     context["active_nav"] = page
@@ -62,7 +71,7 @@ def update_active_nav(consumer, page):
         "selector": "#content-header",
         "html": render_to_string("components/_header.html", context),
     }
-    consumer.send_html(data)
+    await consumer.send_html(data)
 
 
 def send_email(
@@ -83,38 +92,39 @@ def send_email(
     return msg.send()
 
 
-def send_notification(consumer: object, message: str, level: str = "info"):
+async def send_notification(consumer: object, message: str, level: str = "info"):
     """Send notification."""
     # Variables
     uuid = str(uuid4())
     timeout = 3000  # ms
-    # Show message
-    data = {
-        "action": "new_notification",
-        "selector": "#notifications",
-        "html": render_to_string(
-            "components/_notification.html",
-            {
-                "id": uuid,
-                "message": message,
-                "level": level,
-            },
-        ),
-        "append": True,
-    }
-    consumer.send_html(data)
+
+    async def make_notification(consumer=None, uuid="", level="", message=""):
+        # Show message
+        context = get_global_context(consumer=consumer)
+        context.update({"id": uuid, "message": message, "level": level})
+        html = await get_html("components/_notification.html", context)
+        data = {
+            "action": "new_notification",
+            "selector": "#notifications",
+            "html": html,
+            "append": True,
+        }
+        await consumer.send_html(data)
+
     # Remove message async
-    def remove_notification(consumer, uuid):
-        # Sleep timeout
-        sleep(timeout / 1000)
+    def remove_notification(consumer=None, uuid="", timeout=0):
+        time.sleep(timeout / 1000)
         data = {
             "action": "delete_notification",
             "selector": f"#notifications > #notifications__item-{uuid}",
             "html": "",
         }
-        consumer.send_html(data)
+        async_to_sync(consumer.send_html)(data)
 
-    Thread(target=remove_notification, args=(consumer, uuid)).start()
+    # Tasks
+    await make_notification(consumer, uuid, level, message)
+    # Run in background the remove notification, sleep 3 seconds
+    Thread(target=remove_notification, args=(consumer, uuid, timeout)).start()
 
 
 def get_image_from_base64(base64_string: str, mime_type: str, is_file: bool = True):

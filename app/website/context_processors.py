@@ -1,4 +1,6 @@
 from django.conf import settings
+from channels.auth import get_user
+from asgiref.sync import async_to_sync
 
 
 def get_global_context(consumer=None):

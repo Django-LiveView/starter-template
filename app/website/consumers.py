@@ -1,17 +1,19 @@
 import os
-from channels.generic.websocket import JsonWebsocketConsumer
+import sys
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from channels.db import database_sync_to_async
 from app.website.models import Client
-from asgiref.sync import async_to_sync
+from asgiref.sync import async_to_sync, sync_to_async
 from channels.layers import get_channel_layer
 import psutil
 import threading
 import time
 from django.template.loader import render_to_string
 
+
+# DELETE THIS
 # Example of how to send only from server to client.
 # DEMO: Every 2 seconds send CPU and RAM.
-
-
 def refresh_resources(cpu_history=[], ram_history=[]):
     time.sleep(1)
     my_channel_layer = get_channel_layer()
@@ -52,31 +54,38 @@ for entry in os.scandir(os.path.join(path, "app", "website", "actions")):
         exec(f"from app.website.actions import {name} as {name}")
 
 
-class WebsiteConsumer(JsonWebsocketConsumer):
-
+class WebsiteConsumer(AsyncJsonWebsocketConsumer):
     channel_name_broadcast = "broadcast"
 
-    def connect(self):
+    @database_sync_to_async
+    def create_client(self, channel_name):
+        Client.objects.create(channel_name=channel_name)
+
+    @database_sync_to_async
+    def delete_client(self, channel_name):
+        Client.objects.filter(channel_name=channel_name).delete()
+
+    async def connect(self):
         """Event when client connects"""
         # Accept the connection
-        self.accept()
+        await self.accept()
         # Add to group broadcast
-        async_to_sync(self.channel_layer.group_add)(
+        await self.channel_layer.group_add(
             self.channel_name_broadcast, self.channel_name
         )
         # Save the client
-        Client.objects.create(channel_name=self.channel_name)
+        await self.create_client(self.channel_name)
 
-    def disconnect(self, close_code):
+    async def disconnect(self, close_code):
         """Event when client disconnects"""
         # Remove from group broadcast
-        async_to_sync(self.channel_layer.group_discard)(
+        await self.channel_layer.group_discard(
             self.channel_name_broadcast, self.channel_name
         )
         # Delete the client
-        Client.objects.filter(channel_name=self.channel_name).delete()
+        await self.delete_client(self.channel_name)
 
-    def receive_json(self, data_received):
+    async def receive_json(self, data_received):
         """
         Event when data is received
         All information will arrive in 2 variables:
@@ -93,12 +102,14 @@ class WebsiteConsumer(JsonWebsocketConsumer):
                 action = action_data[0].lower()
                 function = action_data[1].lower()
                 try:
-                    eval(f"{action}.{function}(self, data)")
+                    await eval(f"{action}.{function}(self, data)")
                 except Exception as e:
                     print(f"Bad action: {data['action']}")
-                    print(e)
+                    # Print the error
+                    exc_type, exc_obj, exc_tb = sys.exc_info()
+                    print(exc_type)
 
-    def send_html(self, data, broadcast=False):
+    async def send_html(self, data, broadcast=False):
         """Event: Send html to client
 
         Example minimum data:
@@ -117,6 +128,7 @@ class WebsiteConsumer(JsonWebsocketConsumer):
             "url": "/search/results", # Optional, default: None. If set, the url will be changed
             "title": "Search results", # Optional, default: None. If set, the title will be changed
             "scroll": true # Optional, default: false. If true, the page will be scrolled to the selector
+            "scrollTop": false # Optional, default: false. If true, the page will be scrolled to the top
         }
         """
         if "selector" in data and "html" in data:
@@ -137,18 +149,20 @@ class WebsiteConsumer(JsonWebsocketConsumer):
                 my_data.update({"title": data["title"]})
             if "scroll" in data:
                 my_data.update({"scroll": data["scroll"]})
+            if "scrollTop" in data:
+                my_data.update({"scrollTop": data["scrollTop"]})
             # Send the data
             if broadcast:
                 if hasattr(self, "channel_layer"):
-                    async_to_sync(self.channel_layer.group_send)(
+                    await self.channel_layer.group_send(
                         self.channel_name_broadcast,
                         {"type": "send_data_to_frontend", "data": my_data},
                     )
             else:
-                self.send_data_to_frontend(my_data)
+                await self.send_data_to_frontend(my_data)
 
-    def send_data_to_frontend(self, data):
+    async def send_data_to_frontend(self, data):
         """Send data to the frontend"""
         # Corrects the data if it comes from an external call or a group_send
         send_data = data["data"] if "type" in data else data
-        self.send_json(send_data)
+        await self.send_json(send_data)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 09:27+0000\n"
+"POT-Creation-Date: 2023-04-28 17:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,144 +26,145 @@ msgstr "Nosotros"
 msgid "About us page of the website"
 msgstr "Página acerca de nosotros"
 
-#: app/website/actions/cat_new.py:31 templates/pages/new_cat.html:2
+#: app/website/actions/cat_new.py:36 templates/pages/new_cat.html:2
 msgid "New cat"
 msgstr "Nuevo gato"
 
-#: app/website/actions/cat_new.py:33
+#: app/website/actions/cat_new.py:38
 msgid "New cat page of the website"
 msgstr "Página de nuevo gato"
 
-#: app/website/actions/cat_new.py:92
+#: app/website/actions/cat_new.py:93
 msgid "A cat is born!"
 msgstr "Ha nacido un minino!"
 
-#: app/website/actions/cat_single.py:30 app/website/actions/cats.py:28
+#: app/website/actions/cat_single.py:53 app/website/actions/cats.py:57
 #, fuzzy
 #| msgid "All cats"
 msgid "All cats page"
 msgstr "Todos los gatos"
 
-#: app/website/actions/cat_update.py:44
+#: app/website/actions/cat_update.py:46
 msgid "Update cat "
 msgstr "Gato actulizado "
 
-#: app/website/actions/cat_update.py:46
+#: app/website/actions/cat_update.py:48
 msgid "Update a cat"
 msgstr "Gato actualizado"
 
-#: app/website/actions/cat_update.py:123
+#: app/website/actions/cat_update.py:117
 msgid "A cat is update!"
 msgstr "Un gato ha sido actualizado!"
 
-#: app/website/actions/cats.py:26 templates/components/_header.html:29
+#: app/website/actions/cats.py:55 templates/components/_header.html:29
 #: templates/pages/profile.html:19
 msgid "Cats"
 msgstr "Gatos"
 
-#: app/website/actions/cats.py:136
+#: app/website/actions/cats.py:153
 msgid "A cat has died! it has 6 lives left."
 msgstr "Un gato a muerto! Le quedan 6 vidas."
 
-#: app/website/actions/contact.py:26 app/website/actions/contact.py:28
-#: app/website/actions/contact.py:76 templates/components/_header.html:37
+#: app/website/actions/contact.py:30 app/website/actions/contact.py:32
+#: app/website/actions/contact.py:82 templates/components/_header.html:37
+#: templates/pages/contact.html:2
 msgid "Contact"
 msgstr "Contacto"
 
-#: app/website/actions/contact.py:73
+#: app/website/actions/contact.py:79
 msgid "Contact email sent"
 msgstr "Correo de contacto enviado"
 
-#: app/website/actions/home.py:24
+#: app/website/actions/home.py:35
 msgid "Home"
 msgstr "Inicio"
 
-#: app/website/actions/home.py:26
+#: app/website/actions/home.py:37
 msgid "Home page of the website"
 msgstr "Página de inicio"
 
-#: app/website/actions/login.py:31 app/website/actions/login.py:33
+#: app/website/actions/login.py:48 app/website/actions/login.py:50
 #: templates/components/_header.html:65
 msgid "Login"
 msgstr "Identificación"
 
-#: app/website/actions/login.py:85
+#: app/website/actions/login.py:99
 msgid "You are now logged in!"
 msgstr "Te has identificado!"
 
-#: app/website/actions/login.py:88
+#: app/website/actions/login.py:101
 msgid "Invalid email or password"
 msgstr "Correo o contraseña inválida"
 
-#: app/website/actions/login.py:114
+#: app/website/actions/login.py:134
 msgid "You are now logged out!"
 msgstr "Has cerrado la sesión!"
 
-#: app/website/actions/profile.py:25 app/website/actions/profile.py:27
+#: app/website/actions/profile.py:37 app/website/actions/profile.py:39
 #: templates/components/_header.html:46 templates/pages/profile.html:3
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/website/actions/profile.py:79
+#: app/website/actions/profile.py:91
 msgid "Bad extension image"
 msgstr "Extensión de imagen no admitida"
 
-#: app/website/forms.py:15
+#: app/website/forms.py:17
 msgid "You must agree to the terms and conditions."
 msgstr "Debes aceptar los terminos y condiciones."
 
-#: app/website/forms.py:24 app/website/forms.py:104
+#: app/website/forms.py:26 app/website/forms.py:120
 #: templates/emails/contact.html:3
 msgid "Name"
 msgstr "Nombre"
 
-#: app/website/forms.py:33
+#: app/website/forms.py:35
 msgid "Age"
 msgstr "Edad"
 
-#: app/website/forms.py:41
+#: app/website/forms.py:43
 msgid "Biography"
 msgstr "Biografía"
 
-#: app/website/forms.py:49 templates/pages/profile.html:20
+#: app/website/forms.py:51 templates/pages/profile.html:20
 msgid "Avatar"
 msgstr "Avatar"
 
-#: app/website/forms.py:77 app/website/forms.py:115
+#: app/website/forms.py:94 app/website/forms.py:131
 #: templates/emails/contact.html:5 templates/pages/profile.html:8
 msgid "Email"
 msgstr "Correo"
 
-#: app/website/forms.py:79 app/website/forms.py:117
+#: app/website/forms.py:96 app/website/forms.py:133
 msgid "Invalid email"
 msgstr "Correo inválido"
 
-#: app/website/forms.py:80 app/website/forms.py:91 app/website/forms.py:106
-#: app/website/forms.py:118 app/website/forms.py:129
+#: app/website/forms.py:97 app/website/forms.py:108 app/website/forms.py:122
+#: app/website/forms.py:134 app/website/forms.py:145
 msgid "This field is required."
 msgstr "El campo es obligatorio."
 
-#: app/website/forms.py:89
+#: app/website/forms.py:106
 msgid "Password"
 msgstr "Contraseña"
 
-#: app/website/forms.py:127 templates/emails/contact.html:7
+#: app/website/forms.py:143 templates/emails/contact.html:7
 msgid "Message"
 msgstr "Mensaje"
 
-#: app/website/forms.py:138
+#: app/website/forms.py:154
 msgid "I accept all cuddles and caresses"
 msgstr "Acepto todos los mimos y caricias"
 
-#: app/website/forms.py:141
+#: app/website/forms.py:157
 msgid "You must accept to continue."
 msgstr "Debes aceptar para continuar."
 
-#: core/settings.py:104
+#: core/settings.py:98
 msgid "English"
 msgstr "Inglés"
 
-#: core/settings.py:105
+#: core/settings.py:99
 msgid "Spanish"
 msgstr "Español"
 
@@ -203,13 +204,17 @@ msgstr "contacto/"
 msgid "feed/"
 msgstr ""
 
+#: templates/components/_comments.html:3
+msgid "Comments"
+msgstr "Comentarios"
+
 #: templates/components/_footer.html:2
 msgid "Monitoring your resources"
 msgstr "Vigilando tus recursos"
 
 #: templates/components/_footer.html:3
-msgid "Your resources in real time, and without using JavaScript"
-msgstr "Son los recursos en tiempo real, sin usar JavaScript"
+msgid "Server resources in real time, and without using JavaScript"
+msgstr "Son los recursos del servidor en tiempo real, sin usar JavaScript"
 
 #: templates/components/_footer.html:5
 msgid "CPU"
@@ -309,11 +314,11 @@ msgstr "Mira los correos enviados en"
 
 #: templates/pages/home.html:5
 msgid ""
-"Welcome to <strong>Djalmeow</strong>, the Django template for creating a "
-"complete HTML over the Wire site or LiveView"
+"Welcome to <strong>Django LiveView</strong>, the Django framework for "
+"creating a complete HTML over the Wire site or LiveView"
 msgstr ""
-"Bienvenidos a <strong>Djalmeow</strong>, una plantilla de Django para crear "
-"una completa página HTML over the Wire site o LiveView"
+"Bienvenidos a <strong>Django LiveView</strong>, el framework de Django para "
+"crear una completa página HTML over the Wire site o LiveView"
 
 #: templates/pages/home.html:6
 msgid ""

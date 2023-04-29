@@ -1,16 +1,17 @@
-from django.template.loader import render_to_string
+from core import settings
+from channels.db import database_sync_to_async
 from django.templatetags.static import static
 from app.website.context_processors import get_global_context
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from app.website.utils import (
+    get_html,
     update_active_nav,
     send_notification,
     enable_lang,
     loading,
     get_image_from_base64,
 )
-from core import settings
 from app.website.forms import CatForm
 from app.website.actions import cats
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -18,10 +19,14 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 template = "pages/new_cat.html"
 
+# Database
 
-def get_context(consumer=None, client_data=None, form=None, lang=None):
+
+# Functions
+
+
+async def get_context(consumer=None, form=None):
     context = get_global_context(consumer=consumer)
-    # Check client_data["data"]["form"] exist
     if not form:
         form = CatForm()
     # Update context
@@ -41,31 +46,27 @@ def get_context(consumer=None, client_data=None, form=None, lang=None):
     return context
 
 
-def get_html(consumer=None, client_data=None, form=None, lang=None):
-    return render_to_string(
-        template,
-        get_context(consumer=consumer, client_data=client_data, form=form, lang=lang),
-    )
-
-
 @enable_lang
 @loading
-def send_page(consumer, client_data, lang=None):
+async def send_page(consumer, client_data, lang=None):
     # Nav
-    update_active_nav(consumer, "")
+    await update_active_nav(consumer, "")
     # Main
+    my_context = await get_context(consumer=consumer)
+    html = await get_html(template, my_context)
     data = {
         "action": client_data["action"],
         "selector": "#main",
-        "html": get_html(consumer=consumer, client_data=client_data, lang=lang),
+        "html": html,
     }
-    data.update(get_context())
-    consumer.send_html(data)
+
+    data.update(my_context)
+    await consumer.send_html(data)
 
 
 @enable_lang
 @loading
-def create(consumer, client_data, lang=None):
+async def create(consumer, client_data, lang=None):
     if client_data and "data" in client_data and "form" in client_data["data"]:
         # Add file to input image
         base64_str = client_data["data"]["form"]["avatar"]["base64"]
@@ -87,19 +88,20 @@ def create(consumer, client_data, lang=None):
         )
         if form.is_valid():
             # Create cat
-            form.save()
+            await form.save()
             # Send notification
-            send_notification(consumer, _("A cat is born!"), "success")
+            await send_notification(consumer, _("A cat is born!"), "success")
             # Redirect to cats list
-            cats.send_page(consumer, client_data, lang=lang)
+            await cats.send_page(consumer, client_data, lang=lang)
         else:
             # Send form errors
+            my_context = await get_context(consumer=consumer)
+            my_context.update({"form": form})
+            html = await get_html(template, my_context)
             data = {
                 "action": client_data["action"],
                 "selector": "#main",
-                "html": get_html(
-                    consumer=consumer, client_data=client_data, form=form, lang=lang
-                ),
+                "html": html,
             }
-            data.update(get_context())
-            consumer.send_html(data)
+            data.update(my_context)
+            await consumer.send_html(data)

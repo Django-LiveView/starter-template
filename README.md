@@ -1,11 +1,22 @@
-# Djalmeow
-## Django template for creating a complete HTML over the Wire site or LiveView
+# Django LiveView
+
+## Framework for creating a complete HTML over the Wire site or LiveView
 
 <p align="center">
-	<img src="assets/img/pet-small.png">
+	<img src="brand_assets/github social preview.jpg">
 </p>
 
-## Live Demo 👉 https://djalmeow.andros.dev/ 👈
+### Among its superpowers you can find
+
+- Create SPAs without using APIs.
+- Uses Django's template system to render the frontend (Without JavaScript).
+- The logic is not split between the backend and the frontend, it all stays in Python.
+- You can still use all of Django's native tools, such as its ORM, forms, plugins, etc.
+- Everything is asynchronous by default.
+- Don't learn anything new. If you know Python, you know how to use Django LiveView.
+- All in real time.
+
+## Live Demo 👉 https://django-liveview-demo.andros.dev/ 👈
 
 <p align="center">
 	<img src="demo.gif">
@@ -37,7 +48,7 @@ Let's illustrate with an example. I want to render article number 2.
 
 ## Common cases
 
-This template has an example of the most common cases.
+This framework contains an example of the most common cases of cat management.
 
 - Navigation Real-time without loads similar to SPA.
 - URL dynamic update in Browser (Front-End).
@@ -88,15 +99,29 @@ This template has an example of the most common cases.
 
 ## Run 🏃
 
+1. Set environment variables
+
+```shell
+cp envExample .env
+```
+
+2. Run Docker.
+
 ```shell
 docker compose up
 ```
 
-And make fake data.
+You may need to stop and restart it because the first time PostgreSQL must be created and Django tries to connect without success.
+
+3. Make fake data.
 
 ```shell
 make run.fake
 ```
+
+4. Open browser.
+
+Open [http://feline-web.localhost/](http://feline-web.localhost/).
 
 ## Concepts
 
@@ -412,8 +437,9 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 ## Roadmap
 
+- [x] Live demo
+- [x] Migrate consumers to asynchronous calls
 - [ ] Website
-- [ ] Migrate consumers to asynchronous calls
 
 ## Technology Stack 😍
 
