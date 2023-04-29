@@ -437,9 +437,24 @@ I have written a **book** where I explain all the concepts I have used in the te
 
 ## Roadmap
 
-- [x] Live demo
+- [x] Create framework
+- [x] Deploy live demo
 - [x] Migrate consumers to asynchronous calls
+- [ ] Publish package
 - [ ] Website
+- [ ] Tutorials
+  - [ ] Installation
+  - [ ] Static page
+  - [ ] Rendered page from the database
+  - [ ] Add a feature
+  - [ ] Form with validations
+  - [ ] Send email
+  - [ ] CRUD from the database
+  - [ ] Multi-language
+  - [ ] Login
+  - [ ] Private page
+  - [ ] Close session
+  - [ ] Upload images
 
 ## Technology Stack 😍
 
