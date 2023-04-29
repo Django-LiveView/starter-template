@@ -15,4 +15,7 @@ def get_global_context(consumer=None):
 
 def customs(request):
     """Return a dictionary of context variables."""
-    return get_global_context()
+    context = get_global_context()
+    # Fix for admin site
+    context.pop("user")
+    return context
