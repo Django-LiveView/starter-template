@@ -9,7 +9,7 @@ from django.core.asgi import get_asgi_application
 from channels.security.websocket import AllowedHostsOriginValidator
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.urls import re_path
-from app.website.consumers import WebsiteConsumer
+from liveview.consumers import LiveViewConsumer
 
 
 application = ProtocolTypeRouter(
@@ -19,7 +19,7 @@ application = ProtocolTypeRouter(
         # WebSocket handler
         "websocket": AuthMiddlewareStack(
             AllowedHostsOriginValidator(
-                URLRouter([re_path(r"^ws/website/$", WebsiteConsumer.as_asgi())])
+                URLRouter([re_path(r"^ws/liveview/$", LiveViewConsumer.as_asgi())])
             )
         ),
     }

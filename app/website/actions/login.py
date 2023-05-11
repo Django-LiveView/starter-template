@@ -11,8 +11,9 @@ from app.website.utils import (
     send_notification,
 )
 from core import settings
+from liveview.models import Client
 from app.website.forms import LoginForm
-from app.website.models import User, Client
+from app.website.models import User
 from django.contrib.auth import authenticate
 from channels.auth import login, logout
 from asgiref.sync import sync_to_async

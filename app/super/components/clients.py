@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.website.models import Client
+from liveview.models import Client
 
 
 @admin.register(Client)

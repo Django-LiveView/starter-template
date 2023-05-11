@@ -34,6 +34,9 @@ SITE_NAME = "Django LiveView"
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    "channels",
+    "liveview",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.sessions",
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.staticfiles",
     "django_extensions",
-    "channels",
     "app.website",
     "app.super",
 ]
@@ -156,3 +158,6 @@ CHANNEL_LAYERS = {
 
 ASGI_APPLICATION = "core.asgi.application"
 STATIC_URL = "/static/"
+
+# LiveView
+LIVEVIEW_APPS = ["app.website"]
