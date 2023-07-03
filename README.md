@@ -16,6 +16,8 @@
 - Don't learn anything new. If you know Python, you know how to use Django LiveView.
 - All in real time.
 
+System components communicate through realtime events, where events represent important actions. Every components can produce and consume actions, allowing asynchronous and decoupled communication.
+
 ## Live Demo 👉 https://django-liveview-demo.andros.dev/ 👈
 
 <p align="center">
