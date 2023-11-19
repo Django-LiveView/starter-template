@@ -38,7 +38,6 @@ def enable_lang(func):
 
 async def toggle_loading(consumer, show=False):
     """Toogle Loading."""
-    # html = await get_html(template, get_global_context(consumer=consumer))
     data = {
         "action": ("Show" if show else "Hide") + " loading",
         "selector": "#loading",
