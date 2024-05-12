@@ -3,6 +3,7 @@ django===4.1.1
 Pillow===9.3.0
 django-extensions===3.2.1
 dj-database-url==0.5.0
+django-liveview
 
 # Django Server
 daphne===3.0.2
